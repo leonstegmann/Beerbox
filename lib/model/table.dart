@@ -1,9 +1,9 @@
-import 'package:beerbox/model/Order.dart';
+import 'package:beerbox/model/order.dart';
 
 class Table {
 
-  int _id;
-  List<Order> _orders;
+  final int _id;
+  final List<Order> _orders;
 
   Table(this._id, this._orders);
 

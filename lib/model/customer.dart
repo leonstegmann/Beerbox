@@ -1,6 +1,6 @@
 class Customer {
 
-  String _name;
+  final String _name;
 
   Customer(this._name);
 

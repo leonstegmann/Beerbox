@@ -1,12 +1,12 @@
-import 'package:beerbox/model/Customer.dart';
-import 'package:beerbox/model/OrderedItem.dart';
+import 'package:beerbox/model/customer.dart';
+import 'package:beerbox/model/ordered_item.dart';
 
 class Order{
 
-  int _id;
-  int _timestamp;
-  Customer _customer;
-  List<OrderedItem> _orderedItems;
+  final int _id;
+  final int _timestamp;
+  final Customer _customer;
+  final List<OrderedItem> _orderedItems;
 
   Order(this._id, this._timestamp, this._customer, this._orderedItems);
 

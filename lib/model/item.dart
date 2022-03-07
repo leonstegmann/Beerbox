@@ -1,7 +1,7 @@
 class Item {
 
-  String _name;
-  double _costs;
+  final String _name;
+  final double _costs;
 
   Item(this._name, this._costs);
 
