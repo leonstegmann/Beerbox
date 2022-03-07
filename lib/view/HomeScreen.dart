@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'OrdersScreen.dart';
+import 'TableOverview.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,14 +18,31 @@ class HomeScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
         color: Colors.grey[850],
         alignment: Alignment.center,
-        child: ElevatedButton(
-          child: Text('Orders'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => OrdersScreen()),
-            );
-          },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              child: Text('Orders'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => OrdersScreen()),
+                );
+              },
+            ),
+
+            SizedBox(height: 10),
+
+            ElevatedButton(
+              child: const Text('Table Overview'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TableOverview()),
+                );
+              },
+            )
+          ],
         ),
       ),
     );
