@@ -6,6 +6,13 @@
 
 ### Style
 - DefaultTextStyle => for setting the default text style beneath an object
+- Expanded => objects takes available space
+- letterSpacing
+- CircleAvatar()
+- Divider()
+
+### Code
+- Class({String text}) => Constructor with named parameters 
 
 ### Navigation
 
