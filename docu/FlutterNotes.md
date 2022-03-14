@@ -24,3 +24,6 @@ Navigator.push(
     ),
 );
 ```
+
+### NamingConventions
+https://dart.dev/guides/language/effective-dart/style
