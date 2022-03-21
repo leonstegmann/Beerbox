@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'orders_screen.dart';
-import 'OrdersScreen.dart';
 import 'TableOverview.dart';
 
 class HomeScreen extends StatelessWidget {
