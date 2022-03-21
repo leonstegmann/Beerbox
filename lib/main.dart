@@ -1,4 +1,4 @@
-import 'package:beerbox/view/HomeScreen.dart';
+import 'package:beerbox/view/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
