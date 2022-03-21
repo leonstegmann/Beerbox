@@ -7,7 +7,6 @@ class CustomerTable {
 
   CustomerTable(this._id, this._orders);
 
-  List<Order> get orders => _orders;
-
   int get id => _id;
+  List<Order> get orders => _orders;
 }

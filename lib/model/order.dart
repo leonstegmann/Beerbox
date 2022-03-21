@@ -1,30 +1,27 @@
 import 'package:beerbox/model/customer.dart';
-import 'package:beerbox/model/ordered_item.dart';
+import 'package:beerbox/model/item.dart';
 
 class Order {
 
   final int _id;
-  final int _timestamp;
+  final DateTime _timestamp;
   final Customer _customer;
-  final List<OrderedItem> _orderedItems;
+  final List<Item> _items;
 
-  Order(this._id, this._timestamp, this._customer, this._orderedItems);
+  Order(this._id, this._timestamp, this._customer, this._items);
 
   double getFullCosts() {
 
     double fullCosts = 0;
-    for(OrderedItem oredredItem in _orderedItems) {
-      fullCosts += oredredItem.item.costs;
+    for(Item item in _items) {
+      fullCosts += item.costs;
     }
 
     return fullCosts;
   }
 
   int get id => _id;
-
-  int get timestamp => _timestamp;
-
+  DateTime get timestamp => _timestamp;
   Customer get customer => _customer;
-
-  List<OrderedItem> get orderedItems => _orderedItems;
+  List<Item> get items => _items;
 }
