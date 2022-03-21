@@ -9,7 +9,21 @@
 - Expanded => objects takes available space
 - letterSpacing
 - CircleAvatar()
+- ThemeData => defines default styles for context
+- DecoratedBox
+
+### Structure
+- ListView.builder
 - Divider()
+- Align()
+
+### Interactions
+- GestureDetector => do stuff when interacted
+- GestureTapCallback => do stuff when tapped 
+- SimpleDialog => opens a DialogWindow
+
+#### Buttons
+- FlatButton + RaisedButton => two buttons for suggesting one answer
 
 ### Code
 - Class({String text}) => Constructor with named parameters 
@@ -23,6 +37,10 @@ Navigator.push(
         builder: (_) => AboutScreen(),
     ),
 );
+```
+
+```
+Navigator.of(context).pop();
 ```
 
 ### NamingConventions
