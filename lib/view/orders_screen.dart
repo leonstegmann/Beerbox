@@ -1,8 +1,8 @@
+import 'package:beerbox/controll/db_provider.dart';
 import 'package:beerbox/model/customer.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/order.dart';
-import 'package:beerbox/model/ordered_item.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/fragments/order_fragment.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +18,7 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  List<CustomerTable> tables = [CustomerTable(4, [Order(1, 12142214, Customer("Olaf"), [OrderedItem(2, Item("Pils", 7.2, ItemType.beer))])])];
+  List<CustomerTable> tables = [CustomerTable(4, [Order(1, DateTime.now(), Customer(0, "Olaf"), [Item(id: 0, name: "Pils", costs: 7.2, itemTypeId: ItemType.beer.index)])])];
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +114,15 @@ class _OrdersScreenState extends State<OrdersScreen> {
           //   ],
           // ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Item item = Item(name: "Beer", costs: 8.0, itemTypeId: ItemType.beer.index);
+          Future<Item> futureItem = DbProvider.instance.create(item);
+
+          Future<List<Item>> items = DbProvider.instance.readAllItems();
+          print("derp");
+        },
       ),
     );
   }

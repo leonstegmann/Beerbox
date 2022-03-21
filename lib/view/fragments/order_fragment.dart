@@ -25,7 +25,7 @@ class OrderFragment extends StatelessWidget {
             flex: 1,
           ),
           Flexible(
-            child: Text(_order.orderedItems.length.toString()),
+            child: Text(_order.items.length.toString()),
             flex: 1,
           ),
           Flexible(
