@@ -12,7 +12,7 @@ class TableOrder extends StatelessWidget {
           title: Text('Table ordered Items'),
         ),
         body: DefaultTextStyle(
-            style: TextStyle(color: Colors.grey[100]),
+            style: TextStyle(color: Colors.grey[500]),
             child: Container(
               padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
               color: Colors.grey[750],

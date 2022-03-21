@@ -13,7 +13,7 @@ class TableOverview extends StatelessWidget {
         ),
       ),
       body: Container(
-        color: Colors.grey[700],
+        color: Colors.grey[850],
         padding: EdgeInsets.all(10),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -60,8 +60,8 @@ class TableOverview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TableButton(4),
-                  TableButton(5),
+                  TableButton(9),
+                  TableButton(10),
                 ],
               ),
             ),
@@ -70,9 +70,9 @@ class TableOverview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TableButton(6),
-                  TableButton(7),
-                  TableButton(8),
+                  TableButton(11),
+                  TableButton(12),
+                  TableButton(13),
                 ],
               ),
             ),
