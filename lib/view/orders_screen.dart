@@ -115,15 +115,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
           // ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Item item = Item(name: "Beer", costs: 8.0, itemTypeId: ItemType.beer.index);
-          Future<Item> futureItem = DbProvider.instance.create(item);
-
-          Future<List<Item>> items = DbProvider.instance.readAllItems();
-          print("derp");
-        },
-      ),
     );
   }
 }
