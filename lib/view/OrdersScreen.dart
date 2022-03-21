@@ -15,9 +15,7 @@ class OrdersScreen extends StatelessWidget {
         ),
       ),
       body: DefaultTextStyle(
-        style: TextStyle(
-            color: Colors.grey[100]
-        ),
+        style: TextStyle(color: Colors.grey[100]),
         child: Container(
           padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
           color: Colors.grey[850],

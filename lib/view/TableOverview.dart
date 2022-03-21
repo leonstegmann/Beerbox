@@ -13,7 +13,7 @@ class TableOverview extends StatelessWidget {
         ),
       ),
       body: Container(
-        //color: Colors.grey[400],
+        color: Colors.grey[700],
         padding: EdgeInsets.all(10),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -32,6 +32,27 @@ class TableOverview extends StatelessWidget {
                     TableButton(3),
                   ],
                 ),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TableButton(4),
+                  TableButton(5),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TableButton(6),
+                  TableButton(7),
+                  TableButton(8),
+                ],
               ),
             ),
             Expanded(
