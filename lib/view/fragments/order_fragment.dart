@@ -1,6 +1,9 @@
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 
+/**
+ * Visualisation of order objects
+ */
 class OrderFragment extends StatelessWidget {
 
   final int _tableNumber;
