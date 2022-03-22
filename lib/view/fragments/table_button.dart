@@ -1,6 +1,6 @@
 import 'package:beerbox/model/table.dart';
 import 'package:flutter/material.dart';
-import 'package:beerbox/view/table_order_screen.dart';
+import 'package:beerbox/view/table_item_screen.dart';
 
 /**
  *  Creates clickable Table Icon with Orders and TableNumber
