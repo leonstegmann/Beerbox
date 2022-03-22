@@ -1,13 +1,18 @@
+import 'package:beerbox/model/table.dart';
 import 'package:flutter/material.dart';
-import 'package:beerbox/view/TableOrderScreen.dart';
+import 'package:beerbox/view/table_order_screen.dart';
 
+/**
+ *  Creates clickable Table Icon with Orders and TableNumber
+ */
 class TableButton extends StatelessWidget {
-  final int
-      tablenumber; // final is necesarry as it is a Stateless Widget whoch cant change
-  const TableButton(
-    this.tablenumber,
-  ); //Constructor
+  // final is necesarry as it is a Stateless Widget whoch cant change
+  final CustomerTable table;
+
+  const TableButton(this.table,); //Constructor
   // Flutter Constructor: (const) ClassName('this.necesarryParameter'{this.optinalparameter ='defaultvalue,zero if empty'})
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class TableButton extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => TableOrder(tablenumber)),
+              MaterialPageRoute(builder: (context) => TableOrder(table.id)),
             );
           },
           //=> print('table pressed'),
@@ -37,7 +42,7 @@ class TableButton extends StatelessWidget {
                   "Orders ",
                 ),
                 Text(
-                  'TableNr: $tablenumber',
+                  'TableNr: ${table.id}',
                   style: TextStyle(fontSize: 10),
                 )
               ],
