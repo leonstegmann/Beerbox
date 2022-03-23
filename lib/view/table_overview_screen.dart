@@ -4,6 +4,7 @@ import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/fragments/table_button.dart';
+import 'package:beerbox/view/orders_screen.dart';
 import 'package:flutter/material.dart';
 
 class TableOverview extends StatefulWidget {
@@ -14,9 +15,12 @@ class TableOverview extends StatefulWidget {
 }
 
 class _TableOverviewState extends State<TableOverview> {
-
   final List<CustomerTable> tables = [
-    CustomerTable(0, [Order(1, DateTime.now(), Customer(0, "Olaf"), [Item(id: 0, name: "Pils", costs: 7.2, itemTypeId: ItemType.beer.index)])]),
+    CustomerTable(0, [
+      Order(1, DateTime.now(), Customer(0, "Olaf"), [
+        Item(id: 0, name: "Pils", costs: 7.2, itemTypeId: ItemType.beer.index)
+      ])
+    ]),
     CustomerTable(1, []),
     CustomerTable(2, []),
     CustomerTable(3, []),
@@ -31,7 +35,6 @@ class _TableOverviewState extends State<TableOverview> {
     CustomerTable(12, []),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +42,28 @@ class _TableOverviewState extends State<TableOverview> {
         title: const Text(
           'TableOverview',
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 30.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => OrdersScreen()),
+                );
+              },
+              child: Icon(
+                Icons.arrow_forward,
+                size: 26.0,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Container(
         color: Colors.grey[850],
         padding: const EdgeInsets.all(10),
-      child: Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
