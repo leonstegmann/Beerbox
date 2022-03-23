@@ -2,15 +2,14 @@ import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/orders_screen.dart';
 import 'package:flutter/material.dart';
 
-/**
- *  Creates clickable Table Icon with Orders and TableNumber
- */
+///
+/// Creates clickable Table Icon with Orders and TableNumber
+///
 class TableButton extends StatelessWidget {
 
   final CustomerTable table;
 
   const TableButton(this.table,); //Constructor
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,6 @@ class TableButton extends StatelessWidget {
               MaterialPageRoute(builder: (context) => OrdersScreen()),
             );
           },
-          //=> print('table pressed'),
           //Ink.image(image: AssetImage('assets/table.png')), // Problem mit dieser MEthode: lässt sich nicht dynamisch scalieren
           child: Stack(alignment: AlignmentDirectional.center, children: [
             Image.asset(

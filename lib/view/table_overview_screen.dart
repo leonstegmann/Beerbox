@@ -45,7 +45,7 @@ class _TableOverviewState extends State<TableOverview> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 30.0),
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {
                 Navigator.push(
                   context,
@@ -53,7 +53,7 @@ class _TableOverviewState extends State<TableOverview> {
                 );
               },
               child: Icon(
-                Icons.arrow_circle_right,
+                Icons.arrow_forward,
                 size: 26.0,
               ),
             ),
