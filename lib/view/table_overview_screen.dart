@@ -43,21 +43,56 @@ class _TableOverviewState extends State<TableOverview> {
           'TableOverview',
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 30.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen()),
-                );
-              },
-              child: Icon(
-                Icons.arrow_forward,
-                size: 26.0,
-              ),
+          // ElevatedButton.icon(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => OrdersScreen()),
+          //     );
+          //   },
+          //   icon: Icon(
+          //     Icons.arrow_forward,
+          //     size: 26.0,
+          //   ),
+          //   label: Text(""),
+          // ),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OrdersScreen()),
+              );
+            },
+            child: Image.asset(
+              'assets/orders.svg',
             ),
           ),
+          // RotatedBox(
+          //   child:  BackButton(
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => OrdersScreen()),
+          //       );
+          //     },
+          //   ),
+          //   quarterTurns: 2,
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(right: 30.0),
+          //   child: InkWell(
+          //     onTap: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => OrdersScreen()),
+          //       );
+          //     },
+          //     child: Icon(
+          //       Icons.arrow_forward,
+          //       size: 26.0,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       body: Container(
