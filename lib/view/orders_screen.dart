@@ -1,10 +1,6 @@
-import 'package:beerbox/model/customer.dart';
-import 'package:beerbox/model/item.dart';
-import 'package:beerbox/model/item_type.dart';
-import 'package:beerbox/model/order.dart';
-import 'package:beerbox/model/table.dart';
-import 'package:beerbox/view/fragments/order_fragment.dart';
 import 'package:flutter/material.dart';
+import '../functions/FormatTime2String.dart';
+import 'package:beerbox/testdata/test_data.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -14,7 +10,6 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  List<CustomerTable> tables = [CustomerTable(4, [Order(1, DateTime.now(), Customer(0, "Olaf"), [Item(id: 0, name: "Pils", costs: 7.2, itemTypeId: ItemType.beer.index)])])];
 
   @override
   Widget build(BuildContext context) {
@@ -32,83 +27,110 @@ class _OrdersScreenState extends State<OrdersScreen> {
           child: Column(
             children: [
               Container(
-                child: DefaultTextStyle(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Flexible(
-                        child: Text('ID'),
-                        flex: 1,
-                      ),
-                      Flexible(
-                        child: Text('TABLE'),
-                        flex: 1,
-                      ),
-                      Flexible(
-                        child: Text('ITEMS'),
-                        flex: 1,
-                      ),
-                      Flexible(
-                        child: Text('COSTS'),
-                        flex: 3,
-                      ),
-                      Flexible(
-                        child: Text('TIMESTAMP'),
-                        flex: 3,
-                      ),
-                      Flexible(
-                        child: Text(''),
-                        flex: 1,
-                      ),
-                    ],
-                  ),
-                  style: TextStyle(
-                    letterSpacing: 1.5,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
-                  ),
-                ),
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                color: Colors.grey[700],
+                child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                child: Container(
+                  //                        color: Colors.teal,
+                    child: Center(child: Text('ID'))),
+                flex: 1,
               ),
-              Column(
-                  children: tables.first.orders.map((order) => OrderFragment(5, order)).toList(),
+              Flexible(
+                child: Center(child: Text('TABLE')),
+                flex: 1,
+              ),
+              Flexible(
+                child: Center(child: Text('ITEMS')),
+                flex: 1,
+              ),
+              Flexible(
+                child: Container(
+                  //                      color: Colors.red,
+                    child: Center(child: Text('COSTS'))),
+                flex: 1,
+              ),
+              Flexible(
+                child: Container(
+                  //                  color: Colors.pink,
+                    child: Center(child: Text('TIMESTAMP'))),
+                flex: 2,
+              ),
+              Flexible(
+                child: Center(child: Text('')),
               ),
             ],
           ),
-          // child: Table(
-          //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          //   children: [
-          //     TableRow(
-          //       children: [
-          //         TableCell(child: Text('ID')),
-          //         TableCell(child: Text('TABLE')),
-          //         TableCell(child: Text('ITEMS')),
-          //         TableCell(child: Text('COSTS')),
-          //         TableCell(child: Text('TIMESTAMP')),
-          //         TableCell(child: Text('')),
-          //       ],
-          //     ),
-          //     TableRow(
-          //       children: [
-          //         TableCell(child: Text('1')),
-          //         TableCell(child: Text('2')),
-          //         TableCell(child: Text('3')),
-          //         TableCell(child: Text('4.0')),
-          //         TableCell(child: Text('12353')),
-          //         TableCell(
-          //           child: IconButton(
-          //             onPressed: () {
-          //               print('printed');
-          //             },
-          //             icon: Icon(
-          //               Icons.print,
-          //               color: Colors.grey[100],
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ],
-          // ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: orders.length ,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    int reverse_index = orders.length - 1 - index;
+                    return Card(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: Container(
+//                color: Colors.teal,
+                                child: Center(child: Text(orders[reverse_index].id.toString()))),
+                          ),
+                          Flexible(
+                            child: Container(child: Center(child: Text(orders[reverse_index].customer.name.toString()))),
+                            flex: 1,
+                          ),
+                          Flexible(
+                            child: Container(
+                              //              color: Colors.green,
+                                child: Center(child: Text(orders[reverse_index].items.length.toString()))),
+                            flex: 1,
+                          ),
+                          Flexible(
+                            child: Container(
+                              //             color: Colors.red,
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(orders[reverse_index].getFullCosts().toString()),
+                                    Text(
+                                      'NOK',
+                                      style: TextStyle(fontSize: 8),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            flex: 1,
+                          ),
+                          Flexible(
+                            child: Container(
+                              //              color: Colors.pink,
+                                child: Center(child: Text(FormatTime2String(orders[reverse_index].timestamp)))),
+                            flex: 2,
+                          ),
+                          Flexible(
+                            child: IconButton(
+                              onPressed: () => print('printed'),
+                              icon: Icon(
+                                Icons.print,
+                                color: Colors.grey[100],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
