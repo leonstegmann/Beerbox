@@ -46,6 +46,8 @@ class _TableButtonState extends State<TableButton> {
               //color: Colors.grey[100], Color is problematic as it overwrites the Lines
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -67,6 +69,10 @@ class _TableButtonState extends State<TableButton> {
                       ),
                     ),
                   ],
+                ),
+                Container(
+                  width: 0,
+                  height: 8,
                 ),
                 Text(
                   'TableNr: ${widget.table.id}',
