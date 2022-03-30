@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import '../functions/FormatTime2String.dart';
-import 'package:beerbox/testdata/test_data.dart';
+import 'package:beerbox/testing/test_data.dart';
+import '../testing/test_function_1.dart';
 
 class OrdersScreen extends StatefulWidget {
-  const OrdersScreen({Key? key}) : super(key: key);
+  final int _tableNumber;
+  const OrdersScreen( this._tableNumber );
 
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  final int i = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +68,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: tables[i].orders.length ,
+                  itemCount: tables[widget._tableNumber].orders.length ,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    int reverse_index = tables[i].orders.length - 1 - index;
+                    int reverse_index = tables[widget._tableNumber].orders.length - 1 - index;
                     return Card(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,16 +80,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             flex: 1,
                             child: Container(
 //                color: Colors.teal,
-                                child: Center(child: Text(tables[i].orders[reverse_index].id.toString().padLeft(3, '0')))),
+                                child: Center(child: Text(tables[widget._tableNumber].orders[reverse_index].id.toString().padLeft(3, '0')))),
                           ),
                           Flexible(
-                            child: Container(child: Center(child: Text(tables[i].id.toString().padLeft(2, '0')))),
+                            child: Container(child: Center(child: Text(tables[widget._tableNumber].id.toString().padLeft(2, '0')))),
                             flex: 1,
                           ),
                           Flexible(
                             child: Container(
                               //              color: Colors.green,
-                                child: Center(child: Text(tables[i].orders[reverse_index].items.length.toString()))),
+                                child: Center(child: Text(tables[widget._tableNumber].orders[reverse_index].items.length.toString()))),
                             flex: 1,
                           ),
                           Flexible(
@@ -98,7 +99,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(tables[i].orders[reverse_index].getFullCosts().toString()),
+                                    Text(tables[widget._tableNumber].orders[reverse_index].getFullCosts().toString()),
                                     Text(
                                       'NOK',
                                       style: TextStyle(fontSize: 8),
@@ -112,7 +113,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           Flexible(
                             child: Container(
                               //              color: Colors.pink,
-                                child: Center(child: Text(FormatTime2String(tables[i].orders[reverse_index].timestamp)))),
+                                child: Center(child: Text(FormatTime2String(tables[widget._tableNumber].orders[reverse_index].timestamp)))),
                             flex: 2,
                           ),
                           Flexible(
