@@ -10,6 +10,7 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+  final int i = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +67,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: orders.length ,
+                  itemCount: tables[i].orders.length ,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    int reverse_index = orders.length - 1 - index;
+                    int reverse_index = tables[i].orders.length - 1 - index;
                     return Card(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,16 +79,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             flex: 1,
                             child: Container(
 //                color: Colors.teal,
-                                child: Center(child: Text(orders[reverse_index].id.toString()))),
+                                child: Center(child: Text(tables[i].orders[reverse_index].id.toString().padLeft(3, '0')))),
                           ),
                           Flexible(
-                            child: Container(child: Center(child: Text(orders[reverse_index].customer.name.toString()))),
+                            child: Container(child: Center(child: Text(tables[i].id.toString().padLeft(2, '0')))),
                             flex: 1,
                           ),
                           Flexible(
                             child: Container(
                               //              color: Colors.green,
-                                child: Center(child: Text(orders[reverse_index].items.length.toString()))),
+                                child: Center(child: Text(tables[i].orders[reverse_index].items.length.toString()))),
                             flex: 1,
                           ),
                           Flexible(
@@ -97,7 +98,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(orders[reverse_index].getFullCosts().toString()),
+                                    Text(tables[i].orders[reverse_index].getFullCosts().toString()),
                                     Text(
                                       'NOK',
                                       style: TextStyle(fontSize: 8),
@@ -111,7 +112,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           Flexible(
                             child: Container(
                               //              color: Colors.pink,
-                                child: Center(child: Text(FormatTime2String(orders[reverse_index].timestamp)))),
+                                child: Center(child: Text(FormatTime2String(tables[i].orders[reverse_index].timestamp)))),
                             flex: 2,
                           ),
                           Flexible(

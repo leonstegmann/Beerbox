@@ -11,7 +11,8 @@ final List<CustomerTable> tables = [
   CustomerTable(0, [Order(0, DateTime.now(), Customer(0, "Olaf"), [Item(id: 0, name: "Pils", costs: 7.2, itemTypeId: ItemType.beer.index)])]),
   CustomerTable(1, [
     Order(1, DateTime.now(), Customer(0, "Thomas"), [
-      Item(id: 0, name: 'Pils', costs: 8.2, itemTypeId: ItemType.beer.index)
+      Item(id: 0, name: 'Pils', costs: 8.2, itemTypeId: ItemType.beer.index),
+      Item(id: 0, name: 'Pils', costs: 8.2, itemTypeId: ItemType.beer.index),
     ]),
     Order(2, DateTime.now(), Customer(0, "Thomas"), [
       Item(id: 0, name: 'Radler', costs: 8.2, itemTypeId: ItemType.beer.index)
@@ -47,7 +48,8 @@ List<Order> orders = [
   Order(2, DateTime.now(), Customer(0, "Thomas"), [
     Item(id: 0, name: 'Radler', costs: 8.2, itemTypeId: ItemType.beer.index)
   ]),Order(3, DateTime.now(), Customer(0, "Thomas"), [
-    Item(id: 0, name: 'Cider', costs: 8.2, itemTypeId: ItemType.beer.index)
+    Item(id: 0, name: 'Cider', costs: 8.2, itemTypeId: ItemType.beer.index),
+    Item(id: 0, name: 'Pils', costs: 8.2, itemTypeId: ItemType.beer.index),
   ]),
 
 ];
