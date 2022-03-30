@@ -2,6 +2,7 @@ import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/view/table_item_screen.dart';
+import 'package:beerbox/testing/test_data.dart';
 
 /**
  *  Creates clickable Table Icon with Orders and TableNumber
@@ -10,13 +11,16 @@ class TableButton extends StatefulWidget {
   // final is necesarry as it is a Stateless Widget whoch cant change
   final CustomerTable table;
 
-  const TableButton(this.table,);
+  const TableButton(
+    this.table,
+  );
+
   @override
   State<TableButton> createState() => _TableButtonState();
 }
 
 class _TableButtonState extends State<TableButton> {
- //Constructor
+  //Constructor
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -29,7 +33,9 @@ class _TableButtonState extends State<TableButton> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => OrdersScreen(widget.table.id)),//TableOrder(widget.table.id)),
+              MaterialPageRoute(
+                  builder: (context) => OrdersScreen(
+                      widget.table.id)), //TableOrder(widget.table.id)),
             );
           },
           //=> print('table pressed'),
@@ -41,8 +47,26 @@ class _TableButtonState extends State<TableButton> {
             ),
             Column(
               children: [
-                Text(
-                  "Orders ",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Orders:   ',
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    Material(
+                      borderRadius: BorderRadius.circular(400),
+                      color: Colors.orange,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        child: Text(
+                          ' ${tables[widget.table.id].orders.length}',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
                   'TableNr: ${widget.table.id}',
