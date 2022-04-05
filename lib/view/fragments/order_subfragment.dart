@@ -14,7 +14,7 @@ class OrderSubFragment extends StatelessWidget {
     return Column(
       children: [
         Container(
-          color: Colors.teal,
+//          color: Colors.teal,
           height: tables[_tableNumber].orders[_orderNumber].items.length * 17,
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -25,12 +25,14 @@ class OrderSubFragment extends StatelessWidget {
                   Card(
                     shape: RoundedRectangleBorder(),
                     margin: EdgeInsets.only(left: 40, right: 5),
-                    color: Colors.blueGrey[320],
+                    color: Colors.blueGrey,
                     child: Row(children: [
                       Flexible(
+                        flex: 2,
                           child: Center(
                               child: Text(''))),
                       Flexible(
+                        flex: 3,
                         child: Container(
                           child: Center(
                             child: Row(
@@ -48,7 +50,6 @@ class OrderSubFragment extends StatelessWidget {
                             ),
                           ),
                         ),
-                        flex: 1,
                       ),
                       Flexible(
                         child: Container(
@@ -72,6 +73,7 @@ class OrderSubFragment extends StatelessWidget {
                         flex: 1,
                       ),
                       Flexible(
+                        flex: 4,
                           child: Center(
                               child: Text(''))),
                     ]),

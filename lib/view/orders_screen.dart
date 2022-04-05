@@ -40,27 +40,27 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 child: Container(
                   //                        color: Colors.teal,
                     child: Center(child: Text('ID'))),
-                flex: 1,
+                flex: 2,
               ),
               Flexible(
                 child: Center(child: Text('TABLE')),
-                flex: 1,
+                flex: 2,
               ),
               Flexible(
                 child: Center(child: Text('ITEMS')),
-                flex: 1,
+                flex: 2,
               ),
               Flexible(
                 child: Container(
                   //                      color: Colors.red,
                     child: Center(child: Text('COSTS'))),
-                flex: 1,
+                flex: 2,
               ),
               Flexible(
                 child: Container(
                   //                  color: Colors.pink,
                     child: Center(child: Text('TIMESTAMP'))),
-                flex: 2,
+                flex: 3,
               ),
               Flexible(
                 child: Center(child: Text('')),
