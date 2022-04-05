@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import '../functions/FormatTime2String.dart';
 import 'package:beerbox/testing/test_data.dart';
-import '../testing/test_function_1.dart';
 
 class OrdersScreen extends StatefulWidget {
   final int _tableNumber;
-  const OrdersScreen( this._tableNumber );
+  const OrdersScreen( this._tableNumber , {Key? key}) : super(key: key);
 
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
@@ -68,6 +67,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
               Expanded(
                 child: ListView.builder(
+                  physics: ScrollPhysics(parent: null),
                   itemCount: tables[widget._tableNumber].orders.length ,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
