@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../functions/FormatTime2String.dart';
 import 'package:beerbox/testing/test_data.dart';
-import '../testing/test_function_1.dart';
 import 'package:beerbox/view/fragments/order_fragment.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -70,11 +68,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: tables[widget._tableNumber].orders.length ,
+                  itemCount: tables[widget._tableNumber].orders.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     int reverse_index = tables[widget._tableNumber].orders.length - 1 - index;
-                    return OrderFragment(widget._tableNumber,reverse_index);
+                    return OrderFragment(widget._tableNumber, reverse_index);
                   },
                 ),
               ),
