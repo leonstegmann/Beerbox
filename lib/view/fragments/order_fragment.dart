@@ -1,8 +1,6 @@
-import 'package:beerbox/functions/FormatTime2String.dart';
+import 'package:beerbox/utils/FormatTime2String.dart';
 import 'package:beerbox/model/order.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:intl/intl.dart';
 
 /**
  * Visualisation of order objects
@@ -59,7 +57,7 @@ class OrderFragment extends StatelessWidget {
           Flexible(
             child: Container(
   //              color: Colors.pink,
-                child: Center(child: Text(FormatTime2String(_order.timestamp)))),
+                child: Center(child: Text(formatDateTime2TimeString(_order.timestamp)))),
             flex: 2,
           ),
           Flexible(

@@ -1,5 +1,5 @@
+import 'package:beerbox/utils/FormatTime2String.dart';
 import 'package:flutter/material.dart';
-import '../functions/FormatTime2String.dart';
 import 'package:beerbox/testing/test_data.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -113,7 +113,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           Flexible(
                             child: Container(
                               //              color: Colors.pink,
-                                child: Center(child: Text(FormatTime2String(tables[widget._tableNumber].orders[reverse_index].timestamp)))),
+                                child: Center(child: Text(formatDateTime2TimeString(tables[widget._tableNumber].orders[reverse_index].timestamp)))),
                             flex: 2,
                           ),
                           Flexible(
