@@ -1,5 +1,4 @@
 import 'package:beerbox/view/home_screen.dart';
-import 'package:beerbox/view/table_overview_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: TableOverview(),
+      home: HomeScreen(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:beerbox/utils/FormatTime2String.dart';
 import 'package:flutter/material.dart';
-import 'package:beerbox/testing/test_data.dart';
+import 'package:beerbox/control/test_data.dart';
 
 class OrdersScreen extends StatefulWidget {
   final int _tableNumber;

@@ -23,7 +23,6 @@ class OrderFragment extends StatelessWidget {
           Flexible(
             flex: 1,
             child: Container(
-//                color: Colors.teal,
                 child: Center(child: Text(_order.id.toString()))),
           ),
           Flexible(
@@ -32,13 +31,11 @@ class OrderFragment extends StatelessWidget {
           ),
           Flexible(
             child: Container(
-  //              color: Colors.green,
                 child: Center(child: Text(_order.items.length.toString()))),
             flex: 1,
           ),
           Flexible(
             child: Container(
- //             color: Colors.red,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +53,6 @@ class OrderFragment extends StatelessWidget {
           ),
           Flexible(
             child: Container(
-  //              color: Colors.pink,
                 child: Center(child: Text(formatDateTime2TimeString(_order.timestamp)))),
             flex: 2,
           ),

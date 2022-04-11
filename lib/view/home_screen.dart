@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'orders_screen.dart';
 import 'table_overview_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,33 +18,28 @@ class HomeScreen extends StatelessWidget {
         color: Colors.grey[850],
         alignment: Alignment.center,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              child: Text('Orders'),
-              onPressed: () {
-                print('no implemented yet');
-
-                /*
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen()),
-                );
-*/
-              },
+            Text(
+              'Welcome to Bluebox',
+              style: TextStyle(fontSize: 50),
             ),
-
-            SizedBox(height: 10),
-
-            ElevatedButton(
-              child: const Text('Table Overview'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TableOverview()),
-                );
-              },
-            )
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  child: const Text('Table Overview'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TableOverview()),
+                    );
+                  },
+                )
+              ],
+            ),
+            SizedBox(),
           ],
         ),
       ),

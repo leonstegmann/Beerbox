@@ -1,7 +1,6 @@
-
 import 'package:beerbox/view/fragments/table_button.dart';
 import 'package:flutter/material.dart';
-import 'package:beerbox/testing/test_data.dart';
+import 'package:beerbox/control/test_data.dart';
 
 class TableOverview extends StatefulWidget {
   const TableOverview({Key? key}) : super(key: key);
