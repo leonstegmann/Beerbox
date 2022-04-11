@@ -1,4 +1,5 @@
 import 'package:beerbox/view/fragments/table_button.dart';
+import 'package:beerbox/view/orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/control/test_data.dart';
 
@@ -12,7 +13,6 @@ class TableOverview extends StatefulWidget {
 class _TableOverviewState extends State<TableOverview> {
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +20,28 @@ class _TableOverviewState extends State<TableOverview> {
         title: const Text(
           'TableOverview',
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 30.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => OrdersScreen()),
+                );
+              },
+              child: Icon(
+                Icons.arrow_forward,
+                size: 26.0,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Container(
         color: Colors.grey[850],
         padding: const EdgeInsets.all(10),
-      child: Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
