@@ -1,6 +1,8 @@
-import 'package:beerbox/model/table.dart';
-import 'package:beerbox/view/orders_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:beerbox/view/orders_screen.dart';
+import 'package:beerbox/model/table.dart';
+import 'package:beerbox/utils/convert_table_to_list.dart';
+import 'package:beerbox/utils/get_orders_from_tables.dart';
 import 'package:beerbox/control/test_data.dart';
 
 ///
@@ -10,9 +12,7 @@ class TableButton extends StatefulWidget {
   // final is necesarry as it is a Stateless Widget which cant change
   final CustomerTable table;
 
-  const TableButton(
-    this.table,
-  );
+  const TableButton(this.table,{Key? key}): super(key: key);
 
   @override
   State<TableButton> createState() => _TableButtonState();
@@ -33,7 +33,7 @@ class _TableButtonState extends State<TableButton> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => OrdersScreen(widget.table.id)
+                  builder: (context) => OrdersScreen(getOrdersFromTables( table2List(widget.table)))
               ),
             );
           },
@@ -49,31 +49,31 @@ class _TableButtonState extends State<TableButton> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Orders:   ',
                       style: TextStyle(fontSize: 10),
                     ),
                     Material(
                       borderRadius: BorderRadius.circular(400),
                       color: Colors.orange,
-                      child: Container(
+                      child: SizedBox(
                         width: 20,
                         height: 20,
                         child: Text(
                           ' ${tables[widget.table.id].orders.length}',
-                          style: TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 18),
                         ),
                       ),
                     ),
                   ],
                 ),
-                Container(
+                const SizedBox(
                   width: 0,
                   height: 8,
                 ),
                 Text(
                   'TableNr: ${widget.table.id}',
-                  style: TextStyle(fontSize: 10),
+                  style: const TextStyle(fontSize: 10),
                 )
               ],
             )

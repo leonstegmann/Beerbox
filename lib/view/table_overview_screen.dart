@@ -1,3 +1,4 @@
+import 'package:beerbox/utils/get_orders_from_tables.dart';
 import 'package:beerbox/view/fragments/table_button.dart';
 import 'package:beerbox/view/orders_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,15 +23,15 @@ class _TableOverviewState extends State<TableOverview> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 30.0),
+            padding: const EdgeInsets.only(right: 30.0),
             child: InkWell(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen()),
+                  MaterialPageRoute(builder: (context) => OrdersScreen(getOrdersFromTables(tables))),
                 );
               },
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_forward,
                 size: 26.0,
               ),

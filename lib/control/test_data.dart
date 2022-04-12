@@ -40,7 +40,7 @@ final List<CustomerTable> tables = [
 ///
 ///  Test Functions
 ///
-void add_test_orders(int i) {
+void addTestOrders(int i) {
   tables[i].orders.add(
     Order(4, DateTime.now(), Customer(0, "Sindre"), [
       Item(
