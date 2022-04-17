@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:beerbox/model/item_type.dart';
 
 class ItemDisplay extends StatelessWidget {
-  final String? _itemType;
+  final ItemType? _itemType;
 
   const ItemDisplay([this._itemType]);
 
