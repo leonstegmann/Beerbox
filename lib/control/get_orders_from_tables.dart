@@ -8,9 +8,9 @@ import 'package:beerbox/model/table.dart';
 ///
 List<Tuple2<Order, int>> getOrdersFromTables(List<CustomerTable> tableList) {
   List<Tuple2<Order, int>> orderList =  [];
-  for(int table_i = 0; table_i < tableList.length; table_i++) {
-    for (int order_i = 0; order_i < tableList[table_i].orders.length; order_i++) {
-      orderList.add(Tuple2<Order, int>( tableList[table_i].orders[order_i], tableList[table_i].id ));
+  for(CustomerTable table in tableList) {
+    for (Order order in table.orders) {
+      orderList.add(Tuple2<Order, int>( order, table.id ));
     }
   }
   return orderList;

@@ -9,8 +9,7 @@ class OrderFragment extends StatelessWidget {
   final int _tableNumber;
   final Order _order;
 
-  const OrderFragment(this._tableNumber, this._order, {Key? key})
-      : super(key: key);
+  const OrderFragment(this._tableNumber, this._order, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

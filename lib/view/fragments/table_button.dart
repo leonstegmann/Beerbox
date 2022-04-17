@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:beerbox/view/orders_screen.dart';
 import 'package:beerbox/model/table.dart';
-import 'package:beerbox/utils/convert_table_to_list.dart';
-import 'package:beerbox/utils/get_orders_from_tables.dart';
+import 'package:beerbox/control/get_orders_from_tables.dart';
 import 'package:beerbox/control/test_data.dart';
 
 ///
@@ -33,7 +32,7 @@ class _TableButtonState extends State<TableButton> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => OrdersScreen(getOrdersFromTables( table2List(widget.table)))
+                  builder: (context) => OrdersScreen(getOrdersFromTables( [widget.table]))
               ),
             );
           },
