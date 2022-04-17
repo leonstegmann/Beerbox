@@ -8,16 +8,20 @@ class ItemTypeButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue, //Test Color
-      child: Table(
+//      color: Colors.blue, //Test Color
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TableRow(children: [
+          Column(children: [
             TypeButton(ItemType.values[0]),
-            TypeButton(ItemType.values[1])
+            Container(height: 10,),
+            TypeButton(ItemType.values[1]),
           ]),
-          TableRow(children: [
+          Container(width: 10,),
+          Column(children: [
             TypeButton(ItemType.values[2]),
-            TypeButton(ItemType.values[3])
+            Container(height: 10,),
+            TypeButton(ItemType.values[3]),
           ]),
         ],
       ),

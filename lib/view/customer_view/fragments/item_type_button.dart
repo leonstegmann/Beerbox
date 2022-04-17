@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 
+//import 'dart:ui';
+//var screensize = window.physicalSize;
 
 class TypeButton extends StatelessWidget {
   final ItemType _type;
@@ -9,18 +11,25 @@ class TypeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(100),
-      child: Material(
-        color: Colors.grey[850], //Color for Debug
-        child: InkWell(
-          splashColor: Colors.pink,
-          hoverColor: Colors.teal,
-          onTap: () {
-            print('pressed');
-          },
-          child: Row(
-              children: [Icon(Icons.cake), Text(_type.toString())]),
+    return Container(
+      width: 130,
+      height: 50,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: Material(
+          color: Colors.grey[400], //Color for Debug
+          child: InkWell(
+            splashColor: Colors.cyan,
+            hoverColor: Colors.teal,
+            onTap: () {
+              print('pressed');
+            },
+            child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Container(width: 10,),
+              Icon(Icons.cake, size: 40),
+              Text(_type.toString().split('.').last,style: TextStyle(fontSize: 20),)
+            ]),
+          ),
         ),
       ),
     );
