@@ -3,7 +3,7 @@ import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
-import 'package:beerbox/view/fragments/order_fragment.dart';
+import 'package:beerbox/view/staff_view/fragments/order_fragment.dart';
 import 'package:flutter/material.dart';
 
 class OrdersScreen extends StatefulWidget {
