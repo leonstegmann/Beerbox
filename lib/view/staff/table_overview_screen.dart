@@ -3,8 +3,8 @@ import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
-import 'package:beerbox/view/staff_view/fragments/table_button.dart';
-import 'package:beerbox/view/staff_view/orders_screen.dart';
+import 'package:beerbox/view/staff/fragments/table_button.dart';
+import 'package:beerbox/view/staff/orders_screen.dart';
 import 'package:flutter/material.dart';
 
 class TableOverview extends StatefulWidget {
