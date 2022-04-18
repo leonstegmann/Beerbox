@@ -1,6 +1,9 @@
-import 'package:beerbox/view/table_overview_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:beerbox/view/customer/item_menu.dart';
 
+///
+/// Main for Customer side
+///
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: TableOverview(),
+      home: ItemMenu(),
     );
   }
 }
