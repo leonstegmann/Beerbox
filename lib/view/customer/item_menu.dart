@@ -1,5 +1,5 @@
-import 'package:beerbox/view/customer_view/display_of_items.dart';
-import 'package:beerbox/view/customer_view/item_type_buttons.dart';
+import 'package:beerbox/view/customer/display_of_items.dart';
+import 'package:beerbox/view/customer/item_type_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 

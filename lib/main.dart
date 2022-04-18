@@ -1,4 +1,4 @@
-import 'package:beerbox/view/customer_view/item_menu.dart';
+import 'package:beerbox/view/customer/item_menu.dart';
 import 'package:beerbox/view/table_overview_screen.dart';
 import 'package:flutter/material.dart';
 
