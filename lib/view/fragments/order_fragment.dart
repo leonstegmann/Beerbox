@@ -1,4 +1,4 @@
-import 'package:beerbox/utils/FormatTime2String.dart';
+import 'package:beerbox/utils/format_time_to_string.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 
