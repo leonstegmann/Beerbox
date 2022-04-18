@@ -1,12 +1,19 @@
 import 'package:beerbox/view/customer_view/display_of_items.dart';
 import 'package:beerbox/view/customer_view/item_type_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:beerbox/model/item_type.dart';
 
-class ItemMenu extends StatelessWidget {
+class ItemMenu extends StatefulWidget {
   const ItemMenu({Key? key}) : super(key: key);
 
   @override
+  State<ItemMenu> createState() => _ItemMenuState();
+}
+
+class _ItemMenuState extends State<ItemMenu> {
+  @override
   Widget build(BuildContext context) {
+    ItemType? _itemType;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -31,8 +38,9 @@ class ItemMenu extends StatelessWidget {
                 )),
             Container(height: 10,),
             Expanded( child: Column(
-              children: [Text('Items',style: TextStyle(fontSize: 25),),
-                ItemDisplay(),
+              children: [
+                Text('Items ${_itemType.toString()}',style: TextStyle(fontSize: 25),),
+                ItemDisplay(_itemType),
               ],
             )),
           ],
