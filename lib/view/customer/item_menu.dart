@@ -17,7 +17,7 @@ class _ItemMenuState extends State<ItemMenu> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Welcome to Buebox',
+          'Menu',
         ),
       ),
       body: Container(
@@ -31,7 +31,7 @@ class _ItemMenuState extends State<ItemMenu> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Cathegories', style: TextStyle(fontSize: 25),),
+                    Text('Categories', style: TextStyle(fontSize: 25),),
                     Container(height: 5,),
                     ItemTypeButtons(),
                   ],

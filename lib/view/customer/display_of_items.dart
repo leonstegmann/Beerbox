@@ -11,7 +11,7 @@ class ItemDisplay extends StatelessWidget {
     if (_itemType == null) {
       return SizedBox();
     } else {
-      return Container(child: ListView());
+      return Container(child: ListView(),);
     }
   }
 }

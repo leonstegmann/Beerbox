@@ -1,3 +1,4 @@
+import 'package:beerbox/view/customer/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/view/customer/item_menu.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: ItemMenu(),
+      home: HomeScreen(),
     );
   }
 }
