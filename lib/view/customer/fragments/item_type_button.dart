@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 
-//import 'dart:ui';
-//var screensize = window.physicalSize;
-
 class TypeButton extends StatelessWidget {
+
   final ItemType _type;
   final ValueSetter<ItemType> activateItemTypefield; ///Function to set Type of displayed Items
 
-  const TypeButton(this._type, this.activateItemTypefield); //Constructor
+  const TypeButton(this._type, this.activateItemTypefield,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +21,12 @@ class TypeButton extends StatelessWidget {
             splashColor: Colors.cyan,
             hoverColor: Colors.teal,
             onTap: () {
-              print('pressed');
               activateItemTypefield(_type);
-
               },
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Container(width: 10,),
-              Icon(Icons.cake, size: 40),
-              Text(_type.toString().split('.').last,style: TextStyle(fontSize: 20),)
+              const SizedBox(width: 10,),
+              const Icon(Icons.cake, size: 40),
+              Text(_type.toString().split('.').last,style: const TextStyle(fontSize: 20),)
             ]),
           ),
         ),

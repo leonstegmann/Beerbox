@@ -5,6 +5,10 @@ import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/control/test_data.dart';
 import 'package:beerbox/model/item.dart';
 
+///
+/// Loads MenuList for all following widgets.
+/// Organises as subWidgets the ItemTypeButtons and the ItemList
+///
 class ItemMenu extends StatefulWidget {
   const ItemMenu({Key? key}) : super(key: key);
 
@@ -27,7 +31,6 @@ class _ItemMenuState extends State<ItemMenu> {
     setState(() {
       loadedItemType = newType;
     });
-
   }
 
   @override
@@ -45,12 +48,11 @@ class _ItemMenuState extends State<ItemMenu> {
           children: [
             Container(
                 padding: const EdgeInsets.all(10),
-                //color: Colors.green,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text('Categories', style: TextStyle(fontSize: 25),),
-                    Container(height: 5,),
+                    const SizedBox(height: 5,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -59,17 +61,17 @@ class _ItemMenuState extends State<ItemMenu> {
                           Container(height: 10,),
                           TypeButton(ItemType.values[1],activateItemTypeField),
                         ]),
-                        Container(width: 10,),
+                        const SizedBox(width: 10,),
                         Column(children: [
                           TypeButton(ItemType.values[2],activateItemTypeField),
-                          Container(height: 10,),
+                          const SizedBox(height: 10,),
                           TypeButton(ItemType.values[3],activateItemTypeField),
                         ]),
                       ],
                     ),
                   ],
                 )),
-            Container(height: 10,),
+            const SizedBox(height: 10,),
             Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
