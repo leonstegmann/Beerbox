@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/testing/test_data.dart';
 
@@ -6,89 +5,71 @@ class OrderSubFragment extends StatelessWidget {
   final int _orderNumber;
   final int _tableNumber;
 
-  const OrderSubFragment(this._tableNumber, this._orderNumber, {Key? key})
-      : super(key: key);
+  const OrderSubFragment(this._tableNumber, this._orderNumber, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-//          color: Colors.teal,
           height: tables[_tableNumber].orders[_orderNumber].items.length * 17,
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: tables[_tableNumber].orders[_orderNumber].items.length,
-            itemBuilder: (context, Itemindex) {
+            itemBuilder: (context, itemIndex) {
               return Column(
                 children: [
                   Card(
-                    shape: RoundedRectangleBorder(),
-                    margin: EdgeInsets.only(left: 40, right: 5),
-                    color: Colors.blueGrey,
+                    margin: const EdgeInsets.only(left: 40, right: 5),
+                    color: Colors.grey[200],
                     child: Row(children: [
-                      Flexible(
+                      const Flexible(
                         flex: 2,
                           child: Center(
                               child: Text(''))),
                       Flexible(
                         flex: 3,
-                        child: Container(
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(tables[_tableNumber]
-                                    .orders[_orderNumber]
-                                    .items[Itemindex]
-                                    .name),
-                                Text(
-                                  '   (typ??${tables[_tableNumber].orders[_orderNumber].items[Itemindex].itemTypeId.toString()})',
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(tables[_tableNumber].orders[_orderNumber].items[itemIndex].name),
+                              Text(
+                                '   (typ??${tables[_tableNumber].orders[_orderNumber].items[itemIndex].itemTypeId.toString()})',
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       Flexible(
-                        child: Container(
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(tables[_tableNumber]
-                                    .orders[_orderNumber]
-                                    .items[Itemindex]
-                                    .costs
-                                    .toString()),
-                                Text(
-                                  'NOK',
-                                  style: TextStyle(fontSize: 8),
-                                ),
-                              ],
-                            ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(tables[_tableNumber].orders[_orderNumber].items[itemIndex].costs.toString()),
+                              const Text(
+                                'NOK',
+                                style: TextStyle(fontSize: 8),
+                              ),
+                            ],
                           ),
                         ),
                         flex: 1,
                       ),
-                      Flexible(
+                      const Flexible(
                         flex: 4,
                           child: Center(
                               child: Text(''))),
                     ]),
                   ),
-                  Container(
-                    height: 2,
-                  )
+                  const SizedBox(height: 2,)
                 ],
               );
             },
           ),
         ),
-        Container(
-          height: 5,
-        )
+        const SizedBox(height: 5,)
       ],
     );
   }

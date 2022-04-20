@@ -29,41 +29,37 @@ class _OrdersScreenState extends State<OrdersScreen> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 5),
+                margin: const EdgeInsets.symmetric(horizontal: 5),
                 color: Colors.grey[700],
                 child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Flexible(
-                child: Container(
-                  //                        color: Colors.teal,
-                    child: Center(child: Text('ID'))),
-                flex: 2,
-              ),
-              Flexible(
-                child: Center(child: Text('TABLE')),
-                flex: 2,
-              ),
-              Flexible(
-                child: Center(child: Text('ITEMS')),
-                flex: 2,
-              ),
-              Flexible(
-                child: Container(
-                  //                      color: Colors.red,
-                    child: Center(child: Text('COSTS'))),
-                flex: 2,
-              ),
-              Flexible(
-                child: Container(
-                  //                  color: Colors.pink,
-                    child: Center(child: Text('TIMESTAMP'))),
-                flex: 3,
-              ),
-              Flexible(
-                child: Center(child: Text('')),
-              ),
-            ],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    Flexible(
+                      flex: 2,
+                      child: Center(child: Text('ID')),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Center(child: Text('TABLE')),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Center(child: Text('ITEMS')),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Center(
+                          child: Text('COSTS')),
+                    ),
+                    Flexible(
+                      flex: 3,
+                      child: Center(
+                          child: Text('TIMESTAMP')),
+                    ),
+                    Flexible(
+                      child: Center(child: Text('')),
+                    ),
+                  ],
           ),
               ),
               Expanded(
@@ -71,8 +67,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   itemCount: tables[widget._tableNumber].orders.length,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    int reverse_index = tables[widget._tableNumber].orders.length - 1 - index;
-                    return OrderFragment(widget._tableNumber, reverse_index);
+                    int reverseIndex = tables[widget._tableNumber].orders.length - 1 - index;
+                    return OrderFragment(widget._tableNumber, reverseIndex);
                   },
                 ),
               ),
