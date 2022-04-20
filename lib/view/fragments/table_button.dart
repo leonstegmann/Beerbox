@@ -1,16 +1,24 @@
-import 'package:beerbox/model/table.dart';
-import 'package:beerbox/view/orders_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:beerbox/view/orders_screen.dart';
+import 'package:beerbox/model/table.dart';
+import 'package:beerbox/control/get_orders_from_tables.dart';
+import 'package:beerbox/control/test_data.dart';
 
 ///
 /// Creates clickable Table Icon with Orders and TableNumber
 ///
-class TableButton extends StatelessWidget {
-
+class TableButton extends StatefulWidget {
+  // final is necesarry as it is a Stateless Widget which cant change
   final CustomerTable table;
 
-  const TableButton(this.table,); //Constructor
+  const TableButton(this.table,{Key? key}): super(key: key);
 
+  @override
+  State<TableButton> createState() => _TableButtonState();
+}
+
+class _TableButtonState extends State<TableButton> {
+  //Constructor
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -23,23 +31,48 @@ class TableButton extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => OrdersScreen()),
+              MaterialPageRoute(
+                  builder: (context) => OrdersScreen(getOrdersFromTables( [widget.table]))
+              ),
             );
           },
-          //Ink.image(image: AssetImage('assets/table.png')), // Problem mit dieser MEthode: lässt sich nicht dynamisch scalieren
-          child: Stack(alignment: AlignmentDirectional.center, children: [
+          child: Stack(alignment: AlignmentDirectional.center, children: [ //Methode Ink.image()) lässt sich nicht skalieren
             Image.asset(
               'assets/table.png',
               //color: Colors.grey[100], Color is problematic as it overwrites the Lines
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Orders ",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Orders:   ',
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    Material(
+                      borderRadius: BorderRadius.circular(400),
+                      color: Colors.orange,
+                      child: SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: Text(
+                          ' ${tables[widget.table.id].orders.length}',
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 0,
+                  height: 8,
                 ),
                 Text(
-                  'TableNr: ${table.id}',
-                  style: TextStyle(fontSize: 10),
+                  'TableNr: ${widget.table.id}',
+                  style: const TextStyle(fontSize: 10),
                 )
               ],
             )
