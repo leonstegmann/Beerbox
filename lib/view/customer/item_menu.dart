@@ -1,19 +1,31 @@
 import 'package:beerbox/view/customer/display_of_items.dart';
+import 'package:beerbox/view/customer/fragments/item_type_button.dart';
 import 'package:beerbox/view/customer/item_type_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
+import 'package:beerbox/control/test_data.dart';
+import 'package:beerbox/model/item.dart';
 
 class ItemMenu extends StatefulWidget {
-  const ItemMenu({Key? key}) : super(key: key);
+  ItemMenu({Key? key}) : super(key: key);
 
   @override
   State<ItemMenu> createState() => _ItemMenuState();
 }
 
 class _ItemMenuState extends State<ItemMenu> {
+
+  ItemType? loadedItemType;
+
+  final List<List<Item>> _loadedItemList = [
+    items.where((i) => i.itemTypeId == 0).toList(),
+    items.where((i) => i.itemTypeId == 1).toList(),
+    items.where((i) => i.itemTypeId == 2).toList(),
+    items.where((i) => i.itemTypeId == 3).toList(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    ItemType? _itemType;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -26,21 +38,42 @@ class _ItemMenuState extends State<ItemMenu> {
         child: Column(
           children: [
             Container(
-                padding: EdgeInsets.all( 10),
- //               color: Colors.green,
+                padding: EdgeInsets.all(10),
+                //color: Colors.green,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Categories', style: TextStyle(fontSize: 25),),
                     Container(height: 5,),
-                    ItemTypeButtons(),
+                    Container(
+              //      color: Colors.blue, //Test Color
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(children: [
+                            TypeButton(ItemType.values[0]),
+                            Container(height: 10,),
+                            TypeButton(ItemType.values[1]),
+                          ]),
+                          Container(width: 10,),
+                          Column(children: [
+                            TypeButton(ItemType.values[2]),
+                            Container(height: 10,),
+                            TypeButton(ItemType.values[3]),
+                          ]),
+                        ],
+                      ),
+                    ),
                   ],
                 )),
             Container(height: 10,),
-            Expanded( child: Column(
+            Expanded(
+                child: Column(
               children: [
-                Text('Items ${_itemType.toString()}',style: TextStyle(fontSize: 25),),
-                ItemDisplay(_itemType),
+                if (loadedItemType==ItemType.values[0]) ItemDisplay(_loadedItemList[0],loadedItemType),
+                if (loadedItemType==ItemType.values[1]) ItemDisplay(_loadedItemList[1],loadedItemType),
+                if (loadedItemType==ItemType.values[2]) ItemDisplay(_loadedItemList[2],loadedItemType),
+                if (loadedItemType==ItemType.values[3]) ItemDisplay(_loadedItemList[3],loadedItemType),
               ],
             )),
           ],

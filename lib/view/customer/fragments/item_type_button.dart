@@ -22,9 +22,9 @@ class TypeButton extends StatelessWidget {
             splashColor: Colors.cyan,
             hoverColor: Colors.teal,
             onTap: () {
-
               print('pressed');
-            },
+
+              },
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Container(width: 10,),
               Icon(Icons.cake, size: 40),
