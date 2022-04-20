@@ -1,21 +1,20 @@
+import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
-import 'package:beerbox/testing/test_data.dart';
 
 class OrderSubFragment extends StatelessWidget {
-  final int _orderNumber;
-  final int _tableNumber;
+  final Order _order;
 
-  const OrderSubFragment(this._tableNumber, this._orderNumber, {Key? key}) : super(key: key);
+  const OrderSubFragment(this._order, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          height: tables[_tableNumber].orders[_orderNumber].items.length * 17,
+          height: _order.items.length * 17,
           child: ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: tables[_tableNumber].orders[_orderNumber].items.length,
+            itemCount: _order.items.length,
             itemBuilder: (context, itemIndex) {
               return Column(
                 children: [
@@ -33,9 +32,9 @@ class OrderSubFragment extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(tables[_tableNumber].orders[_orderNumber].items[itemIndex].name),
+                              Text(_order.items[itemIndex].name),
                               Text(
-                                '   (typ??${tables[_tableNumber].orders[_orderNumber].items[itemIndex].itemTypeId.toString()})',
+                                '   (typ??${_order.items[itemIndex].itemTypeId.toString()})',
                                 style: const TextStyle(fontSize: 12),
                               ),
                             ],
@@ -47,7 +46,7 @@ class OrderSubFragment extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(tables[_tableNumber].orders[_orderNumber].items[itemIndex].costs.toString()),
+                              Text(_order.items[itemIndex].costs.toString()),
                               const Text(
                                 'NOK',
                                 style: TextStyle(fontSize: 8),
@@ -74,30 +73,3 @@ class OrderSubFragment extends StatelessWidget {
     );
   }
 }
-
-/*
-Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Row(
-          children: [
-            Text('Hello'),
-          ],
-        ),
-        Row(
-          children: [
-            Text('Oredr $_orderNumber'),
-          ],
-        ),
-        Row(
-          children: [
-            Text('Bye'),
-          ],
-        )
-      ].map((listedItems) {
-        return Card(shape: RoundedRectangleBorder(),
-            margin: EdgeInsets.only(left: 20,right: 5),
-            color: Colors.blueGrey[320],
-            child: listedItems);
-      }).toList(),
-    );*/

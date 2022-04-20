@@ -1,7 +1,7 @@
+import 'package:beerbox/view/fragments/order_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:beerbox/model/order.dart';
-import 'package:beerbox/utils/format_time_to_string.dart';
 
 ///
 ///  Displays incoming list of orders.
@@ -74,7 +74,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     int reverseIndex = listLength - 1 - index;
-                    return OrderFragment(widget._tableNumber, reverseIndex);
+                    return OrderFragment(widget.orderList[reverseIndex].item2, widget.orderList[reverseIndex].item1);
                   },
                 ),
               ),
