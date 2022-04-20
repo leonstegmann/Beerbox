@@ -1,13 +1,12 @@
 import 'package:beerbox/view/customer/display_of_items.dart';
 import 'package:beerbox/view/customer/fragments/item_type_button.dart';
-import 'package:beerbox/view/customer/item_type_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/control/test_data.dart';
 import 'package:beerbox/model/item.dart';
 
 class ItemMenu extends StatefulWidget {
-  ItemMenu({Key? key}) : super(key: key);
+  const ItemMenu({Key? key}) : super(key: key);
 
   @override
   State<ItemMenu> createState() => _ItemMenuState();
@@ -24,6 +23,13 @@ class _ItemMenuState extends State<ItemMenu> {
     items.where((i) => i.itemTypeId == 3).toList(),
   ];
 
+  void activateItemTypeField(ItemType newType){
+    setState(() {
+      loadedItemType = newType;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,42 +39,40 @@ class _ItemMenuState extends State<ItemMenu> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(30, 5, 30, 0),
+        padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
         color: Colors.grey,
         child: Column(
           children: [
             Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 //color: Colors.green,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Categories', style: TextStyle(fontSize: 25),),
+                    const Text('Categories', style: TextStyle(fontSize: 25),),
                     Container(height: 5,),
-                    Container(
-              //      color: Colors.blue, //Test Color
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(children: [
-                            TypeButton(ItemType.values[0]),
-                            Container(height: 10,),
-                            TypeButton(ItemType.values[1]),
-                          ]),
-                          Container(width: 10,),
-                          Column(children: [
-                            TypeButton(ItemType.values[2]),
-                            Container(height: 10,),
-                            TypeButton(ItemType.values[3]),
-                          ]),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(children: [
+                          TypeButton(ItemType.values[0],activateItemTypeField),
+                          Container(height: 10,),
+                          TypeButton(ItemType.values[1],activateItemTypeField),
+                        ]),
+                        Container(width: 10,),
+                        Column(children: [
+                          TypeButton(ItemType.values[2],activateItemTypeField),
+                          Container(height: 10,),
+                          TypeButton(ItemType.values[3],activateItemTypeField),
+                        ]),
+                      ],
                     ),
                   ],
                 )),
             Container(height: 10,),
             Expanded(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (loadedItemType==ItemType.values[0]) ItemDisplay(_loadedItemList[0],loadedItemType),
                 if (loadedItemType==ItemType.values[1]) ItemDisplay(_loadedItemList[1],loadedItemType),

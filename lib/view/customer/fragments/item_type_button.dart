@@ -6,8 +6,9 @@ import 'package:beerbox/model/item_type.dart';
 
 class TypeButton extends StatelessWidget {
   final ItemType _type;
+  final ValueSetter<ItemType> activateItemTypefield; ///Function to set Type of displayed Items
 
-  const TypeButton(this._type); //Constructor
+  const TypeButton(this._type, this.activateItemTypefield); //Constructor
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class TypeButton extends StatelessWidget {
             hoverColor: Colors.teal,
             onTap: () {
               print('pressed');
+              activateItemTypefield(_type);
 
               },
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [

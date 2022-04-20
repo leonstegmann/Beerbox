@@ -15,8 +15,8 @@ class ItemDisplay extends StatelessWidget {
     } else {
       return Container(child: Column(
         children: [
-          Text('Items ${_itemType.toString()}',style: TextStyle(fontSize: 25),),
-          ListView(),
+          Text('Items ${_itemType.toString().split('.').last}s',style: TextStyle(fontSize: 25),),
+
         ],
       ));
     }
