@@ -1,5 +1,6 @@
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
+import 'package:beerbox/model/item_type.dart';
 
 class OrderSubFragment extends StatelessWidget {
   final Order _order;
@@ -23,18 +24,18 @@ class OrderSubFragment extends StatelessWidget {
                     color: Colors.grey[200],
                     child: Row(children: [
                       const Flexible(
-                        flex: 2,
+                        flex: 1,
                           child: Center(
                               child: Text(''))),
                       Flexible(
-                        flex: 3,
+                        flex: 4,
                         child: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(_order.items[itemIndex].name),
                               Text(
-                                '   (typ??${_order.items[itemIndex].itemTypeId.toString()})',
+                                '   (${ItemType.values[_order.items[itemIndex].itemTypeId].toString().split('.').last})',
                                 style: const TextStyle(fontSize: 12),
                               ),
                             ],
