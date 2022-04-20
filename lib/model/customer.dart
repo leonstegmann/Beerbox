@@ -1,10 +1,19 @@
-class Customer {
+import 'package:beerbox/model/db_object.dart';
 
-  final int _id;
-  final String _name;
+class Customer extends DbObject {
 
-  Customer(this._id, this._name);
+  final String name;
 
-  String get name => _name;
-  int get id => _id;
+  Customer(int? id, this.name) : super(id);
+
+  @override
+  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
+      json["_id"] as int,
+      json["name"] as String);
+
+  @override
+  Map<String, dynamic> toJsonMap() => {
+    '_id': id,
+    'name': "'$name'",
+  };
 }
