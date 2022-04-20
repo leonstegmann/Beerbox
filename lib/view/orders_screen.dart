@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:beerbox/testing/test_data.dart';
-import 'package:beerbox/view/fragments/order_fragment.dart';
+import 'package:tuple/tuple.dart';
+import 'package:beerbox/model/order.dart';
+import 'package:beerbox/utils/format_time_to_string.dart';
 
+///
+///  Displays incoming list of orders.
+///
 class OrdersScreen extends StatefulWidget {
-  final int _tableNumber;
-  const OrdersScreen( this._tableNumber );
+  final List<Tuple2<Order, int>> orderList;
+
+  const OrdersScreen(this.orderList , {Key?key}) : super(key: key);
 
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-//  bool showData = false;
 
   @override
   Widget build(BuildContext context) {
+    int listLength = widget.orderList.length;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Orders',
         ),
       ),
       body: DefaultTextStyle(
         style: TextStyle(color: Colors.grey[100]),
         child: Container(
-          padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+          padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
           color: Colors.grey[850],
           child: Column(
             children: [
@@ -64,10 +69,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: tables[widget._tableNumber].orders.length,
+                  physics: const ScrollPhysics(parent: null),
+                  itemCount: listLength,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    int reverseIndex = tables[widget._tableNumber].orders.length - 1 - index;
+                    int reverseIndex = listLength - 1 - index;
                     return OrderFragment(widget._tableNumber, reverseIndex);
                   },
                 ),
@@ -79,4 +85,3 @@ class _OrdersScreenState extends State<OrdersScreen> {
     );
   }
 }
-

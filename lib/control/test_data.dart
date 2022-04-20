@@ -36,3 +36,18 @@ final List<CustomerTable> tables = [
   CustomerTable(11, []),
   CustomerTable(12, []),
 ];
+
+///
+///  Test Functions
+///
+void addTestOrders(int i) {
+  tables[i].orders.add(
+    Order(4, DateTime.now(), Customer(0, "Sindre"), [
+      Item(
+          id: 0,
+          name: 'Grimstad Whisky',
+          costs: 9.2,
+          itemTypeId: ItemType.cocktail.index)
+    ]),
+  );
+}
