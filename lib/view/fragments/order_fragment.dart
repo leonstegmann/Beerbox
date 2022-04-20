@@ -10,8 +10,7 @@ class OrderFragment extends StatefulWidget {
   final int _tableNumber;
   final Order _order;
 
-  const OrderFragment(this._tableNumber, this._order, {Key? key})
-      : super(key: key);
+  const OrderFragment(this._tableNumber, this._order, {Key? key}) : super(key: key);
 
   @override
   State<OrderFragment> createState() => _OrderFragmentState();
@@ -35,53 +34,44 @@ class _OrderFragmentState extends State<OrderFragment> {
               children: [
                 Flexible(
                   flex: 1,
-                  child: Container(
-                      child: Center(
-                          child: Text(widget._order.id.toString().padLeft(3, '0')))),
+                  child: Center(
+                      child: Text(widget._order.id.toString().padLeft(3, '0'))),
                 ),
                 Flexible(
-                  child: Container(
-                      child: Center(
-                          child:
-                              Text(widget._tableNumber.toString().padLeft(2, '0')))),
                   flex: 1,
-                ),
-                Flexible(
-                  child: Container(
+                  child: Center(
                       child:
-                          Center(child: Text(widget._order.items.length.toString()))),
+                          Text(widget._tableNumber.toString().padLeft(2, '0'))),
+                ),
+                Flexible(
+                  child: Center(child: Text(widget._order.items.length.toString())),
                   flex: 1,
                 ),
                 Flexible(
-                  child: Container(
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(widget._order.getFullCosts().toString()),
-                          Text(
-                            'NOK',
-                            style: TextStyle(fontSize: 8),
-                          ),
-                        ],
-                      ),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(widget._order.getFullCosts().toString()),
+                        const Text(
+                          'NOK',
+                          style: TextStyle(fontSize: 8),
+                        ),
+                      ],
                     ),
                   ),
                   flex: 1,
                 ),
                 Flexible(
-                  child: Container(
-                      child: Center(
-                          child: Text(
-                              formatDateTime2TimeString(widget._order.timestamp)))),
                   flex: 2,
-                ),
+                  child: Center(
+                      child: Text(formatDateTime2TimeString(widget._order.timestamp))),),
                 Flexible(
                   child: IconButton(
                     onPressed: () => print('printed'),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.print,
-                      color: Colors.grey[100],
+                      color: Colors.blueGrey,
                     ),
                   ),
                 ),

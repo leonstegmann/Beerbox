@@ -62,6 +62,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           child: Text('TIMESTAMP')),
                     ),
                     Flexible(
+                      flex: 1,
                       child: Center(child: Text('')),
                     ),
                   ],
