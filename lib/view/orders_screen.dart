@@ -7,7 +7,7 @@ import 'package:beerbox/model/order.dart';
 ///  Displays incoming list of orders.
 ///
 class OrdersScreen extends StatefulWidget {
-  final List<Tuple2<Order, int>> orderList;
+  final List<Tuple2<Order, int>> orderList; //List of Tuples of <Order, TableNumber>
 
   const OrdersScreen(this.orderList , {Key?key}) : super(key: key);
 
@@ -75,7 +75,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     int reverseIndex = listLength - 1 - index;
-                    return OrderFragment(widget.orderList[reverseIndex].item2, widget.orderList[reverseIndex].item1);
+                    return OrderFragment(widget.orderList[reverseIndex]);
                   },
                 ),
               ),
