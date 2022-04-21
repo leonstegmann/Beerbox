@@ -130,6 +130,41 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
             ],
           ),
+          // child: Table(
+          //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          //   children: [
+          //     TableRow(
+          //       children: [
+          //         TableCell(child: Text('ID')),
+          //         TableCell(child: Text('TABLE')),
+          //         TableCell(child: Text('ITEMS')),
+          //         TableCell(child: Text('COSTS')),
+          //         TableCell(child: Text('TIMESTAMP')),
+          //         TableCell(child: Text('')),
+          //       ],
+          //     ),
+          //     TableRow(
+          //       children: [
+          //         TableCell(child: Text('1')),
+          //         TableCell(child: Text('2')),
+          //         TableCell(child: Text('3')),
+          //         TableCell(child: Text('4.0')),
+          //         TableCell(child: Text('12353')),
+          //         TableCell(
+          //           child: IconButton(
+          //             onPressed: () {
+          //               print('printed');
+          //             },
+          //             icon: Icon(
+          //               Icons.print,
+          //               color: Colors.grey[100],
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ],
+          // ),
         ),
       ),
     );

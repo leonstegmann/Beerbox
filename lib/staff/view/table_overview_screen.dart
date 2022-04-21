@@ -1,3 +1,4 @@
+import 'package:beerbox/control/get_orders_from_tables.dart';
 import 'package:beerbox/model/customer.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
