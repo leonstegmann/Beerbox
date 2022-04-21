@@ -1,5 +1,5 @@
 import 'package:beerbox/model/table.dart';
-import 'package:beerbox/view/staff/orders_screen.dart';
+import 'package:beerbox/staff/view/orders_screen.dart';
 import 'package:flutter/material.dart';
 
 ///
