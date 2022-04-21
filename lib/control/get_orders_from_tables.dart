@@ -10,7 +10,7 @@ List<Tuple2<Order, int>> getOrdersFromTables(List<CustomerTable> tableList) {
   List<Tuple2<Order, int>> orderList =  [];
   for(CustomerTable table in tableList) {
     for (Order order in table.orders) {
-      orderList.add(Tuple2<Order, int>( order, table.id ));
+      orderList.add(Tuple2<Order, int>(order, table.id!));
     }
   }
   return orderList;

@@ -8,23 +8,23 @@ import 'package:beerbox/model/table.dart';
 ///  Test Set of Tables with Orders for Display
 ///
 final List<CustomerTable> tables = [
-  CustomerTable(0, [Order(0, DateTime.now(), Customer(0, "Olaf"), [Item(id: 0, name: "Pils", costs: 7.2, itemTypeId: ItemType.beer.index)])]),
+  CustomerTable(0, [Order(0, DateTime.now(), Customer(0, "Olaf"), [Item(0, "Pils", 7.2, ItemType.beer)])]),
   CustomerTable(1, [
     Order(1, DateTime.now(), Customer(0, "Thomas"), [
-      Item(id: 0, name: 'Pils', costs: 8.2, itemTypeId: ItemType.beer.index),
-      Item(id: 0, name: 'Pils', costs: 8.2, itemTypeId: ItemType.beer.index),
+      Item(0, 'Pils', 8.2, ItemType.beer),
+      Item(0, 'Pils', 8.2, ItemType.beer),
     ]),
     Order(2, DateTime.now(), Customer(0, "Thomas"), [
-      Item(id: 0, name: 'Radler', costs: 8.2, itemTypeId: ItemType.beer.index)
+      Item(0, 'Radler', 8.2, ItemType.beer)
     ]),Order(3, DateTime.now(), Customer(0, "Thomas"), [
-      Item(id: 0, name: 'Cider', costs: 8.2, itemTypeId: ItemType.beer.index)
+      Item(0, 'Cider', 8.2, ItemType.beer)
     ]),
   ]),
   CustomerTable(2, [Order(4, DateTime.now(), Customer(0, "Sindre"), [
-    Item(id: 0, name: 'Grimstad Whisky', costs: 9.2, itemTypeId: ItemType.cocktail.index)
+    Item(0, 'Grimstad Whisky', 9.2, ItemType.cocktail)
   ]),]),
   CustomerTable(3, [ Order(5, DateTime.now(), Customer(0, "Hannes"), [
-    Item(id: 0, name: 'Cider', costs: 5.2, itemTypeId: ItemType.beer.index)
+    Item(0, 'Cider', 5.2, ItemType.beer)
   ]),]),
   CustomerTable(4, []),
   CustomerTable(5, []),
@@ -43,11 +43,7 @@ final List<CustomerTable> tables = [
 void addTestOrders(int i) {
   tables[i].orders.add(
     Order(4, DateTime.now(), Customer(0, "Sindre"), [
-      Item(
-          id: 0,
-          name: 'Grimstad Whisky',
-          costs: 9.2,
-          itemTypeId: ItemType.cocktail.index)
+      Item(0, 'Grimstad Whisky', 9.2, ItemType.cocktail)
     ]),
   );
 }

@@ -32,7 +32,7 @@ class _TableButtonState extends State<TableButton> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => OrdersScreen(getOrdersFromTables( [widget.table]))
+                  builder: (context) => OrdersScreen(getOrdersFromTables([widget.table]))
               ),
             );
           },
@@ -59,7 +59,7 @@ class _TableButtonState extends State<TableButton> {
                         width: 20,
                         height: 20,
                         child: Text(
-                          ' ${tables[widget.table.id].orders.length}',
+                          ' ${tables[widget.table.id!].orders.length}',
                           style: const TextStyle(fontSize: 18),
                         ),
                       ),
