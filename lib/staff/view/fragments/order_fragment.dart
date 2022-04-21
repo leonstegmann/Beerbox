@@ -1,11 +1,11 @@
+import 'package:beerbox/utils/format_time_to_string.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 
-/**
- * Visualisation of order objects
- */
+///
+/// Visualisation of order objects.
+///
 class OrderFragment extends StatelessWidget {
-
   final int _tableNumber;
   final Order _order;
 
@@ -20,32 +20,40 @@ class OrderFragment extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Flexible(
-            child: Text(_order.id.toString()),
+            flex: 1,
+            child: Container(
+                child: Center(child: Text(_order.id.toString()))),
+          ),
+          Flexible(
+            child: Container(child: Center(child: Text(_tableNumber.toString()))),
             flex: 1,
           ),
           Flexible(
-            child: Text(_tableNumber.toString()),
+            child: Container(
+                child: Center(child: Text(_order.items.length.toString()))),
             flex: 1,
           ),
           Flexible(
-            child: Text(_order.items.length.toString()),
-            flex: 1,
-          ),
-          Flexible(
-            child: Row(
-              children: [
-                Text(_order.getFullCosts().toString()),
-                Text(
-                  'NOK',
-                  style: TextStyle(fontSize: 8),
+            child: Container(
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(_order.getFullCosts().toString()),
+                    Text(
+                      'NOK',
+                      style: TextStyle(fontSize: 8),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-            flex: 3,
+            flex: 1,
           ),
           Flexible(
-            child: Text(_order.timestamp.toString()),
-            flex: 3,
+            child: Container(
+                child: Center(child: Text(formatDateTime2TimeString(_order.timestamp)))),
+            flex: 2,
           ),
           Flexible(
             child: IconButton(
@@ -55,7 +63,6 @@ class OrderFragment extends StatelessWidget {
                 color: Colors.grey[100],
               ),
             ),
-            flex: 1,
           ),
         ],
       ),
