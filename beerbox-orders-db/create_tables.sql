@@ -1,0 +1,34 @@
+DROP TABLE IF EXISTS "ordered_item";
+DROP TABLE IF EXISTS "order";
+DROP TABLE IF EXISTS "table";
+DROP TABLE IF EXISTS "item";
+DROP TABLE IF EXISTS "customer";
+
+
+CREATE TABLE "customer"(
+    _id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    firstname CHARACTER VARYING(16) NOT NULL,
+    familyname CHARACTER VARYING(16) NOT NULL);
+
+CREATE TABLE "table"(
+    _id SERIAL UNIQUE PRIMARY KEY NOT NULL);
+
+CREATE TABLE "order"(
+    _id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    customer_id INT NOT NULL,
+    table_id INT NOT NULL,
+    timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY(customer_id) REFERENCES "customer"(_id) ON DELETE SET NULL,
+    FOREIGN KEY(table_id) REFERENCES "table"(_id) ON DELETE SET NULL);
+
+CREATE TABLE "item"(
+    _id SERIAL UNIQUE PRIMARY KEY NOT NULL,
+    itemtype_id INT NOT NULL,
+    name CHARACTER VARYING(16) NOT NULL,
+    costs NUMERIC(6, 2) NOT NULL);
+
+CREATE TABLE "ordered_item"(
+    order_id INT NOT NULL,
+    item_id INT NOT NULL,
+    FOREIGN KEY(order_id) REFERENCES "order"(_id) ON DELETE CASCADE,
+    FOREIGN KEY(item_id) REFERENCES "item"(_id));
