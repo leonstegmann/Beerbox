@@ -17,7 +17,7 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  List<CustomerTable> tables = [CustomerTable(4, [Order(1, DateTime.now(), Customer(0, "Olaf"), [Item(0, "Pils", 7.2, ItemType.beer)])])];
+  List<CustomerTable> tables = [CustomerTable(4, [Order(1, DateTime.now(), Customer(0, "Olaf", ""), [Item(0, "Pils", 7.2, ItemType.beer)])])];
 
   @override
   Widget build(BuildContext context) {

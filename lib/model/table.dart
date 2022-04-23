@@ -17,5 +17,4 @@ class CustomerTable extends DbObject {
   Map<String, dynamic> toJsonMap() => {
     '_id': id,
   };
-
 }

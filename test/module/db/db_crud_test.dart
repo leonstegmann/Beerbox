@@ -7,7 +7,7 @@ void main() {
   group('customer crud', () {
 
     final DbCrud db = DbCrud.instance;
-    final Customer customer = Customer(null, "Dummy");
+    final Customer customer = Customer(null, "Dummy", "");
     const String table = "customer_test_crud";
 
     setUpAll(() async {
@@ -45,7 +45,7 @@ void main() {
       int id = resultCreate.first[table]!["_id"];
       List<Map<String, Map<String, dynamic>>> resultRead = await db.read(table, id);
       Customer createdCustomer = Customer.fromJson(resultRead.first[table]!);
-      expect(createdCustomer.name, customer.name);
+      expect(createdCustomer.firstName, customer.firstName);
     });
   });
 }

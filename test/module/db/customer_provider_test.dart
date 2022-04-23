@@ -7,7 +7,7 @@ void main() {
   group('customer provider', () {
 
     final CustomerProvider dp = CustomerProvider();
-    final Customer customer = Customer(null, "Dummy");
+    final Customer customer = Customer(null, "Dummy", "");
 
     setUpAll(() async {
 
@@ -34,7 +34,7 @@ void main() {
 
     test('Create Customer', () async {
       Customer customerResponse = await dp.create(customer);
-      expect(customerResponse.name, customer.name);
+      expect(customerResponse.firstName, customer.firstName);
     });
 
     test('Read All - Expect Filled', () async {
@@ -45,7 +45,7 @@ void main() {
     test('Read Specific', () async {
       Customer customerCreated = await dp.create(customer);
       Customer resultRead = await dp.read(customerCreated.id!);
-      expect(resultRead.name, customer.name);
+      expect(resultRead.firstName, customer.firstName);
     });
 
     test('Delete', () async {

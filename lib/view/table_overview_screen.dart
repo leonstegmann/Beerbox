@@ -19,7 +19,7 @@ class TableOverview extends StatefulWidget {
 class _TableOverviewState extends State<TableOverview> {
   final List<CustomerTable> tables = [
     CustomerTable(0, [
-      Order(1, DateTime.now(), Customer(0, "Olaf"), [
+      Order(1, DateTime.now(), Customer(0, "Olaf", ""), [
         Item(0, "Pils", 7.2, ItemType.beer)
       ])
     ]),

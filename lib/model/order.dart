@@ -14,7 +14,7 @@ class Order extends DbObject {
   factory Order.fromJson(Map<String, dynamic> json) => Order(
       json["_id"] as int,
       DateTime.fromMillisecondsSinceEpoch(json["timestamp"] as int),
-      Customer(null, "placeholder"), // TODO
+      Customer(null, "placeholder", ""), // TODO
       []); // TODO
 
   @override
