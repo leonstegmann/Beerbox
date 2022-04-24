@@ -10,14 +10,14 @@ class Item extends DbObject {
   Item(int? id, this.name, this.costs, this.itemType) : super(id);
 
   factory Item.fromJson(Map<String, Object?> json) => Item(
-      json["_id"] as int,
+      json["item_id"] as int,
       json["name"] as String,
       json["costs"] as double,
       ItemType.values[json["itemType_id"] as int]);
 
   @override
   Map<String, dynamic> toJsonMap() => {
-    '_id': id,
+    'item_id': id,
     'name': "'$name'",
     'costs': "'$name'",
     'itemType_id': "'${itemType.index}'",

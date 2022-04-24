@@ -1,5 +1,5 @@
 SELECT * FROM "customer";
-SELECT * FROM "customer" WHERE _id = -1;
+SELECT * FROM "customer" WHERE customer_id = -1;
 
 INSERT INTO "customer"(firstname, familyname) VALUES ('Elias', 'Dancemaster');
 INSERT INTO "customer"(firstname, familyname) VALUES ('Ole', 'der Hüne');
@@ -21,4 +21,4 @@ SET firstname = 'Sindre', familyname = 'Discusdude'
 WHERE firstname = 'Sindre';
 
 DELETE from "customer"
-WHERE _id = -1;
+WHERE customer_id = -1;

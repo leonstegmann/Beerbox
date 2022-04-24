@@ -18,7 +18,6 @@ class DbCrud {
         useSSL: true);
   }
 
-
   Future<PostgreSQLConnection> get connection async {
     if (_connection.isClosed) {
       await _connection.open();
@@ -51,7 +50,7 @@ class DbCrud {
     return (await connection).mappedResultsQuery(
         "UPDATE $table"
             "SET ${dbObject.toJsonMap().toString().replaceAll(':', ' =')}"
-            "WHERE _id = ${dbObject.id}"
+            "WHERE ${table}_id = ${dbObject.id}"
             "RETURNING *");
   }
 

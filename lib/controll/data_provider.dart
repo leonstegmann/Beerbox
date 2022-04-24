@@ -2,8 +2,8 @@ import 'package:beerbox/controll/db_crud.dart';
 
 abstract class DataProvider<T> {
 
-  DbCrud dbCrud = DbCrud.instance;
-  late String tableName;
+  final DbCrud dbCrud = DbCrud.instance;
+  String tableName;
 
   DataProvider(this.tableName);
 

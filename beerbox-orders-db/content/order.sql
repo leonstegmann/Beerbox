@@ -1,26 +1,32 @@
 SELECT * FROM "order";
-SELECT * FROM "order" WHERE _id = -1;
+SELECT * FROM "order" WHERE order_id = -1;
 
-SELECT oi.order_id as "order",
-       table_id as "table",
-       c.firstname || ' ' || c.familyname as customer,
-       timestamp,
-       i.name as item,
-       i.itemtype_id as item_type,
-       costs
+SELECT * FROM ordered_item
+JOIN "order" USING(order_id);
+
+-- order x items
+CREATE VIEW "JoinedOrder" AS
+SELECT *
 FROM "ordered_item" as oi
-    JOIN "item" as i on oi.item_id = i._id
-    JOIN "order" o on oi.order_id = o._id
-    JOIN "customer" c on o.customer_id = c._id;
+    JOIN "item" USING(item_id)
+    JOIN "order" o USING(order_id)
+    JOIN "customer" c USING(customer_id);
+
+SELECT * FROM "JoinedOrder";
+
+-- ordered items
+SELECT * FROM "item" i
+    JOIN "ordered_item" oi USING(item_id)
+WHERE order_id = 14;
 
 UPDATE "order"
 SET customer_id = 'Sindre', table_id = 'Discusdude'
-WHERE _id = -1;
+WHERE order_id = -1;
 
 DELETE from "order"
-WHERE _id = 17;
+WHERE order_id = 17;
 
-ALTER SEQUENCE "order__id_seq" RESTART WITH 14;
+ALTER SEQUENCE "order_order_id_seq" RESTART WITH 14;
 
 -- Table 4
 INSERT INTO "order"(customer_id, table_id) VALUES (1, 4);

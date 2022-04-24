@@ -1,12 +1,12 @@
 SELECT * FROM "item";
-SELECT * FROM "item" WHERE _id = -1;
+SELECT * FROM "item" WHERE item_id = -1;
 
 UPDATE "item"
 SET itemtype_id = -1, name = '', costs = 0.0
-WHERE _id = -1;
+WHERE item_id = -1;
 
 DELETE from "item"
-WHERE _id = -1;
+WHERE item_id = -1;
 
 INSERT INTO "item"(itemtype_id, name, costs) VALUES (0, 'Duckstein', 120.0);
 INSERT INTO "item"(itemtype_id, name, costs) VALUES (0, 'Lübzer', 90.0);

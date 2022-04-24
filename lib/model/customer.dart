@@ -9,13 +9,13 @@ class Customer extends DbObject {
 
   @override
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-      json["_id"] as int,
+      json["customer_id"] as int,
       json["firstname"] as String,
       json["familyname"] as String);
 
   @override
   Map<String, dynamic> toJsonMap() => {
-    '_id': id,
+    'customer_id': id,
     'firstname': "'$firstName'",
     'familyname': "'$familyName'",
   };
