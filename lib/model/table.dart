@@ -1,6 +1,6 @@
 import 'db_object.dart';
 
-class CustomerTable extends DbObject {
+class CustomerTable extends DbObject<CustomerTable> {
 
   CustomerTable(int? id) : super(id);
 

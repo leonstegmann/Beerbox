@@ -1,4 +1,4 @@
-abstract class DbObject {
+abstract class DbObject<T extends DbObject<T>> {
 
   final int? id;
 
@@ -9,4 +9,14 @@ abstract class DbObject {
   }
 
   Map<String, dynamic> toJsonMap();
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is T &&
+              runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

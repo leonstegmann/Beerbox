@@ -3,7 +3,7 @@ import 'package:beerbox/model/db_object.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/table.dart';
 
-class Order extends DbObject {
+class Order extends DbObject<Order> {
 
   final DateTime timestamp;
   final Customer customer;

@@ -1,6 +1,6 @@
 import 'package:beerbox/model/db_object.dart';
 
-class Customer extends DbObject {
+class Customer extends DbObject<Customer> {
 
   final String firstName;
   final String familyName;

@@ -1,7 +1,7 @@
 import 'package:beerbox/model/db_object.dart';
 import 'package:beerbox/model/item_type.dart';
 
-class Item extends DbObject {
+class Item extends DbObject<Item> {
 
   final String name;
   final double costs;
@@ -13,7 +13,7 @@ class Item extends DbObject {
       json["item_id"] as int,
       json["name"] as String,
       json["costs"] as double,
-      ItemType.values[json["itemType_id"] as int]);
+      ItemType.values[json["itemtype_id"] as int]);
 
   @override
   Map<String, dynamic> toJsonMap() => {
