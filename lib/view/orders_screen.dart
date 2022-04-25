@@ -1,12 +1,11 @@
-import 'package:beerbox/model/customer.dart';
-import 'package:beerbox/model/item.dart';
-import 'package:beerbox/model/item_type.dart';
-import 'package:beerbox/model/order.dart';
-import 'package:beerbox/model/table.dart';
-import 'package:beerbox/view/fragments/order_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import 'package:beerbox/model/order.dart';
+import 'package:beerbox/utils/format_time_to_string.dart';
 
+///
+///  Displays incoming list of orders.
+///
 class OrdersScreen extends StatefulWidget {
   final List<Tuple2<Order, int>> orderList;
 
@@ -17,101 +16,114 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  List<CustomerTable> tables = [CustomerTable(4, [Order(1, DateTime.now(), Customer(0, "Olaf", ""), [Item(0, "Pils", 7.2, ItemType.beer)])])];
 
   @override
   Widget build(BuildContext context) {
+    int listLength = widget.orderList.length;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Orders',
         ),
       ),
       body: DefaultTextStyle(
         style: TextStyle(color: Colors.grey[100]),
         child: Container(
-          padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+          padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
           color: Colors.grey[850],
           child: Column(
             children: [
               Container(
-                child: DefaultTextStyle(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Flexible(
-                        child: Text('ID'),
-                        flex: 1,
-                      ),
-                      Flexible(
-                        child: Text('TABLE'),
-                        flex: 1,
-                      ),
-                      Flexible(
-                        child: Text('ITEMS'),
-                        flex: 1,
-                      ),
-                      Flexible(
-                        child: Text('COSTS'),
-                        flex: 3,
-                      ),
-                      Flexible(
-                        child: Text('TIMESTAMP'),
-                        flex: 3,
-                      ),
-                      Flexible(
-                        child: Text(''),
-                        flex: 1,
-                      ),
-                    ],
-                  ),
-                  style: TextStyle(
-                    letterSpacing: 1.5,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
-                  ),
-                ),
+                margin: const EdgeInsets.symmetric(horizontal: 5),
+                color: Colors.grey[700],
+                child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+              Flexible(
+                child: Center(child: Text('ID')),
+                flex: 1,
               ),
-              Column(
-                  children: tables.first.orders.map((order) => OrderFragment(5, order)).toList(),
+              Flexible(
+                child: Center(child: Text('TABLE')),
+                flex: 1,
+              ),
+              Flexible(
+                child: Center(child: Text('ITEMS')),
+                flex: 1,
+              ),
+              Flexible(
+                child: Center(child: Text('COSTS')),
+                flex: 1,
+              ),
+              Flexible(
+                child: Center(child: Text('TIMESTAMP')),
+                flex: 2,
+              ),
+              Flexible(
+                child: Center(child: Text('')),
               ),
             ],
           ),
-          // child: Table(
-          //   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          //   children: [
-          //     TableRow(
-          //       children: [
-          //         TableCell(child: Text('ID')),
-          //         TableCell(child: Text('TABLE')),
-          //         TableCell(child: Text('ITEMS')),
-          //         TableCell(child: Text('COSTS')),
-          //         TableCell(child: Text('TIMESTAMP')),
-          //         TableCell(child: Text('')),
-          //       ],
-          //     ),
-          //     TableRow(
-          //       children: [
-          //         TableCell(child: Text('1')),
-          //         TableCell(child: Text('2')),
-          //         TableCell(child: Text('3')),
-          //         TableCell(child: Text('4.0')),
-          //         TableCell(child: Text('12353')),
-          //         TableCell(
-          //           child: IconButton(
-          //             onPressed: () {
-          //               print('printed');
-          //             },
-          //             icon: Icon(
-          //               Icons.print,
-          //               color: Colors.grey[100],
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ],
-          // ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  physics: const ScrollPhysics(parent: null),
+                  itemCount: listLength,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    int reverseIndex = listLength - 1 - index;
+                    return Card(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: Center(child: Text(widget.orderList[reverseIndex].item1.id.toString().padLeft(3, '0'))),
+                          ),
+                          Flexible(
+                            child: Center(child: Text(widget.orderList[reverseIndex].item2.toString().padLeft(2, '0'))),
+                            flex: 1,
+                          ),
+                          Flexible(
+                            child: Center(child: Text(widget.orderList[reverseIndex].item1.items.length.toString())),
+                            flex: 1,
+                          ),
+                          Flexible(
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(widget.orderList[reverseIndex].item1.getFullCosts().toString()),
+                                  const Text(
+                                    'NOK',
+                                    style: TextStyle(fontSize: 8),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            flex: 1,
+                          ),
+                          Flexible(
+                            child: Center(child: Text(formatDateTime2TimeString(widget.orderList[reverseIndex].item1.timestamp))),
+                            flex: 2,
+                          ),
+                          Flexible(
+                            child: IconButton(
+                              onPressed: () => print('printed'),
+                              icon: Icon(
+                                Icons.print,
+                                color: Colors.grey[100],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
