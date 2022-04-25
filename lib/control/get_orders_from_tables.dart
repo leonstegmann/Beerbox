@@ -1,6 +1,6 @@
 import 'package:tuple/tuple.dart';
 import 'package:beerbox/model/order.dart';
-import 'package:beerbox/model/asd_table.dart';
+import 'package:beerbox/model/table.dart';
 
 ///
 /// Function needed to gather all Orders from a List of Tables with the associated Tablenumber to pass
