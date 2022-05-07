@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/utils/format_time_to_string.dart';
 
@@ -7,7 +6,7 @@ import 'package:beerbox/utils/format_time_to_string.dart';
 ///  Displays incoming list of orders.
 ///
 class OrdersScreen extends StatefulWidget {
-  final List<Tuple2<Order, int>> orderList;
+  final List<Order> orderList;
 
   const OrdersScreen(this.orderList , {Key?key}) : super(key: key);
 
@@ -78,14 +77,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                         children: [
                           Flexible(
                             flex: 1,
-                            child: Center(child: Text(widget.orderList[reverseIndex].item1.id.toString().padLeft(3, '0'))),
+                            child: Center(child: Text(widget.orderList[reverseIndex].id.toString().padLeft(3, '0'))),
                           ),
                           Flexible(
-                            child: Center(child: Text(widget.orderList[reverseIndex].item2.toString().padLeft(2, '0'))),
+                            child: Center(child: Text(widget.orderList[reverseIndex].table.id.toString().padLeft(2, '0'))),
                             flex: 1,
                           ),
                           Flexible(
-                            child: Center(child: Text(widget.orderList[reverseIndex].item1.items.length.toString())),
+                            child: Center(child: Text(widget.orderList[reverseIndex].items.length.toString())),
                             flex: 1,
                           ),
                           Flexible(
@@ -93,7 +92,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(widget.orderList[reverseIndex].item1.getFullCosts().toString()),
+                                  Text(widget.orderList[reverseIndex].getFullCosts().toString()),
                                   const Text(
                                     'NOK',
                                     style: TextStyle(fontSize: 8),
@@ -104,7 +103,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             flex: 1,
                           ),
                           Flexible(
-                            child: Center(child: Text(formatDateTime2TimeString(widget.orderList[reverseIndex].item1.timestamp))),
+                            child: Center(child: Text(formatDateTime2TimeString(widget.orderList[reverseIndex].timestamp))),
                             flex: 2,
                           ),
                           Flexible(
