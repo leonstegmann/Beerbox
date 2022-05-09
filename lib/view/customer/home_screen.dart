@@ -1,4 +1,4 @@
-import 'package:beerbox/view/customer/item_menu.dart';
+import 'package:beerbox/view/customer/menu.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,11 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[850],
-      appBar: AppBar(
-        title: Text(
-          'Home',
-        ),
-      ),
+      appBar: buildAppBar(),
       body: Container(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
         color: Colors.grey[850],
@@ -31,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ItemMenu()),
+                        MaterialPageRoute(builder: (context) => Menu()),
                       );
                     },
                   ),
@@ -41,6 +37,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      title: Text(
+        'Home',
       ),
     );
   }
