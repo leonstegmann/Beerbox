@@ -1,12 +1,11 @@
 import 'package:beerbox/model/item.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
-import 'package:beerbox/control/test_data.dart';
 
 class ItemDisplay extends StatelessWidget {
   final ItemType? _itemType;
   final List<Item> _itemList;
-  const ItemDisplay(this._itemList,[this._itemType]);
+  const ItemDisplay(this._itemList, [this._itemType]);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +14,10 @@ class ItemDisplay extends StatelessWidget {
     } else {
       return Container(child: Column(
         children: [
-          Text('Items ${_itemType.toString().split('.').last}s',style: TextStyle(fontSize: 25),),
-
+          Text(
+            'Items ${_itemType.toString().split('.').last}s',
+            style: TextStyle(fontSize: 25),
+          ),
         ],
       ));
     }
