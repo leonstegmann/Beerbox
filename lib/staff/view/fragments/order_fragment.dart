@@ -1,4 +1,4 @@
-import 'package:beerbox/view/fragments/order_subfragment.dart';
+import 'package:beerbox/staff/view/fragments/order_subfragment.dart';
 import 'package:beerbox/utils/format_time_to_string.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
