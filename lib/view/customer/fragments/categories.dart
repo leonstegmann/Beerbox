@@ -33,8 +33,6 @@ class _CategoriesState extends State<Categories> {
   Widget buildCategoryButton(int index,activateItemTypeField) {
     ItemType _type = ItemType.values[index];
     return Container(
-      width: 130,
-      height: 50,
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(16),
@@ -45,11 +43,13 @@ class _CategoriesState extends State<Categories> {
           activateItemTypeField(_type);
           selectedIndex = index;
         },
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          const SizedBox(width: 10,),
-          Icon(Icons.cake, size: 40, color: selectedIndex == index ? Colors.black : Colors.grey ),
-          Text(_type.toString().split('.').last,style: TextStyle(fontSize: 20,color: selectedIndex == index ? Colors.black : Colors.grey),)
-        ]),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Icon(Icons.cake, size: 40, color: selectedIndex == index ? Colors.black : Colors.grey ),
+            Text(_type.toString().split('.').last,style: TextStyle(fontSize: 20,color: selectedIndex == index ? Colors.black : Colors.grey),)
+          ]),
+        ),
       ),
     );
   }
