@@ -3,43 +3,49 @@ import 'table_overview_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[850],
       appBar: AppBar(
-        title: Text(
-          'Bluebox',
+        title: const Text(
+          'Beerbox',
         ),
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+        padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
         color: Colors.grey[850],
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Text(
+            const SizedBox(
+              height: 50,
+            ),
+            const Text(
               'Welcome to Bluebox',
-              style: TextStyle(fontSize: 50),
+              style: TextStyle(fontSize: 60),
+            ),
+            const SizedBox(
+              height: 50,
             ),
             Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                   child: const Text('Table Overview'),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => TableOverview()),
+                      MaterialPageRoute(builder: (context) => TableOverview()),
                     );
                   },
-                )
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
               ],
             ),
-            SizedBox(),
           ],
         ),
       ),
