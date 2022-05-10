@@ -1,13 +1,13 @@
+import 'package:beerbox/staff/view/fragments/order_fragment.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-import 'package:beerbox/utils/format_time_to_string.dart';
 
 ///
 ///  Displays incoming list of orders.
 ///
 class OrdersScreen extends StatefulWidget {
-  final List<Tuple2<Order, int>> orderList;
+  final List<Tuple2<Order, int>> orderList; //List of Tuples of <Order, TableNumber>
 
   const OrdersScreen(this.orderList , {Key?key}) : super(key: key);
 
@@ -37,32 +37,35 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 margin: const EdgeInsets.symmetric(horizontal: 5),
                 color: Colors.grey[700],
                 child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Flexible(
-                child: Center(child: Text('ID')),
-                flex: 1,
-              ),
-              Flexible(
-                child: Center(child: Text('TABLE')),
-                flex: 1,
-              ),
-              Flexible(
-                child: Center(child: Text('ITEMS')),
-                flex: 1,
-              ),
-              Flexible(
-                child: Center(child: Text('COSTS')),
-                flex: 1,
-              ),
-              Flexible(
-                child: Center(child: Text('TIMESTAMP')),
-                flex: 2,
-              ),
-              Flexible(
-                child: Center(child: Text('')),
-              ),
-            ],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    Flexible(
+                      flex: 2,
+                      child: Center(child: Text('ID')),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Center(child: Text('TABLE')),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Center(child: Text('ITEMS')),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Center(
+                          child: Text('COSTS')),
+                    ),
+                    Flexible(
+                      flex: 3,
+                      child: Center(
+                          child: Text('TIMESTAMP')),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Center(child: Text('')),
+                    ),
+                  ],
           ),
               ),
               Expanded(
@@ -72,53 +75,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     int reverseIndex = listLength - 1 - index;
-                    return Card(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            child: Center(child: Text(widget.orderList[reverseIndex].item1.id.toString().padLeft(3, '0'))),
-                          ),
-                          Flexible(
-                            child: Center(child: Text(widget.orderList[reverseIndex].item2.toString().padLeft(2, '0'))),
-                            flex: 1,
-                          ),
-                          Flexible(
-                            child: Center(child: Text(widget.orderList[reverseIndex].item1.items.length.toString())),
-                            flex: 1,
-                          ),
-                          Flexible(
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(widget.orderList[reverseIndex].item1.getFullCosts().toString()),
-                                  const Text(
-                                    'NOK',
-                                    style: TextStyle(fontSize: 8),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            flex: 1,
-                          ),
-                          Flexible(
-                            child: Center(child: Text(formatDateTime2TimeString(widget.orderList[reverseIndex].item1.timestamp))),
-                            flex: 2,
-                          ),
-                          Flexible(
-                            child: IconButton(
-                              onPressed: () => print('printed'),
-                              icon: Icon(
-                                Icons.print,
-                                color: Colors.grey[100],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                    return OrderFragment(widget.orderList[reverseIndex]);
                   },
                 ),
               ),
