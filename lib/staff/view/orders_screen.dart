@@ -1,7 +1,9 @@
 import 'package:beerbox/view/fragments/order_fragment.dart';
+import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:beerbox/model/order.dart';
+import 'package:beerbox/utils/format_time_to_string.dart';
 
 ///
 ///  Displays incoming list of orders.
