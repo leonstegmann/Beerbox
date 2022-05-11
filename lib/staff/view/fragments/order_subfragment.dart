@@ -1,6 +1,5 @@
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
-import 'package:beerbox/model/item_type.dart';
 
 class OrderSubFragment extends StatelessWidget {
   final Order _order;
@@ -35,7 +34,7 @@ class OrderSubFragment extends StatelessWidget {
                             children: [
                               Text(_order.items[itemIndex].name),
                               Text(
-                                '   (${ItemType.values[_order.items[itemIndex].itemTypeId].toString().split('.').last})',
+                                '   (${_order.items[itemIndex].itemType.toString().split('.').last})',
                                 style: const TextStyle(fontSize: 12),
                               ),
                             ],

@@ -20,10 +20,10 @@ class _MenuState extends State<Menu> {
   ItemType? loadedItemType;
 
   final List<List<Item>> _loadedItemList = [
-    items.where((i) => i.itemTypeId == 0).toList(),
-    items.where((i) => i.itemTypeId == 1).toList(),
-    items.where((i) => i.itemTypeId == 2).toList(),
-    items.where((i) => i.itemTypeId == 3).toList(),
+    items.where((i) => i.itemType == ItemType.beer).toList(),
+    items.where((i) => i.itemType == ItemType.cocktail).toList(),
+    items.where((i) => i.itemType == ItemType.shot).toList(),
+    items.where((i) => i.itemType == ItemType.snack).toList(),
   ];
 
   void activateItemTypeField(ItemType newType) {

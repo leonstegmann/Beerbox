@@ -1,13 +1,12 @@
 import 'package:beerbox/staff/view/fragments/order_fragment.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 ///
 ///  Displays incoming list of orders.
 ///
 class OrdersScreen extends StatefulWidget {
-  final List<Tuple2<Order, int>> orderList; //List of Tuples of <Order, TableNumber>
+  final List<Order> orderList; //List of Tuples of <Order, TableNumber>
 
   const OrdersScreen(this.orderList , {Key?key}) : super(key: key);
 

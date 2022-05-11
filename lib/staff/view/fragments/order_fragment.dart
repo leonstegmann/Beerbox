@@ -2,13 +2,12 @@ import 'package:beerbox/staff/view/fragments/order_subfragment.dart';
 import 'package:beerbox/utils/format_time_to_string.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 ///
 /// Visualisation of order objects.
 ///
 class OrderFragment extends StatefulWidget {
-  final Tuple2<Order, int> _order;  //Tuple of <Order, TableNumber>
+  final Order _order;  //Tuple of <Order, TableNumber>
 
   const OrderFragment(this._order, {Key? key}) : super(key: key);
 
@@ -21,8 +20,6 @@ class _OrderFragmentState extends State<OrderFragment> {
 
   @override
   Widget build(BuildContext context) {
-    Order _order = widget._order.item1;
-    int _tableNumber = widget._order.item2;
     return Column(
       children: [
         GestureDetector(
@@ -37,16 +34,16 @@ class _OrderFragmentState extends State<OrderFragment> {
                 Flexible(
                   flex: 1,
                   child: Center(
-                      child: Text(_order.id.toString().padLeft(3, '0'))),
+                      child: Text(widget._order.id.toString().padLeft(3, '0'))),
                 ),
                 Flexible(
                   flex: 1,
                   child: Center(
                       child:
-                          Text(_tableNumber.toString().padLeft(2, '0'))),
+                          Text(widget._order.table.toString().padLeft(2, '0'))),
                 ),
                 Flexible(
-                  child: Center(child: Text(_order.items.length.toString())),
+                  child: Center(child: Text(widget._order.items.length.toString())),
                   flex: 1,
                 ),
                 Flexible(
@@ -54,7 +51,7 @@ class _OrderFragmentState extends State<OrderFragment> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(_order.getFullCosts().toString()),
+                        Text(widget._order.getFullCosts().toString()),
                         const Text(
                           'NOK',
                           style: TextStyle(fontSize: 8),
@@ -67,7 +64,7 @@ class _OrderFragmentState extends State<OrderFragment> {
                 Flexible(
                   flex: 2,
                   child: Center(
-                      child: Text(formatDateTime2TimeString(_order.timestamp))),),
+                      child: Text(formatDateTime2TimeString(widget._order.timestamp))),),
                 Flexible(
                   child: IconButton(
                     onPressed: () => print('printed'),
@@ -81,7 +78,7 @@ class _OrderFragmentState extends State<OrderFragment> {
             ),
           ),
         ),
-        showData ? OrderSubFragment(_order) : const SizedBox()
+        showData ? OrderSubFragment(widget._order) : const SizedBox()
       ],
     );
   }
