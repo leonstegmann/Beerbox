@@ -37,6 +37,14 @@ final List<CustomerTable> tables = [
   CustomerTable(12, []),
 ];
 
+final List<Item> items = [
+  Item(id: 0, name: 'Grimstad Whisky', costs: 9.2, itemTypeId: ItemType.cocktail.index),
+  Item(id: 1, name: 'Pils', costs: 8.2, itemTypeId: ItemType.beer.index),
+  Item(id: 2, name: 'Radler', costs: 7.2, itemTypeId: ItemType.beer.index),
+  Item(id: 3, name: 'Cider', costs: 5.2, itemTypeId: ItemType.beer.index),
+  Item(id: 3, name: 'Fireball', costs: 4.0, itemTypeId: ItemType.shot.index),
+];
+
 ///
 ///  Test Functions
 ///
