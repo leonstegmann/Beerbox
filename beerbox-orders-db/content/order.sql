@@ -6,7 +6,7 @@ SELECT * FROM "ordered_item";
 SELECT * FROM ordered_item
 JOIN "order" USING(order_id);
 
-SELECT * FROM "JoinedOrder";
+SELECT * FROM "joined_order";
 
 -- ordered items
 SELECT * FROM "item" i
