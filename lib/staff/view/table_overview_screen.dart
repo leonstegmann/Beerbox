@@ -1,11 +1,16 @@
 import 'package:beerbox/control/get_orders_from_tables.dart';
+import 'package:beerbox/controll/order_provider.dart';
+import 'package:beerbox/model/order.dart';
+import 'package:beerbox/model/table.dart';
 import 'package:beerbox/staff/view/fragments/table_button.dart';
 import 'package:beerbox/staff/view/orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/control/test_data.dart';
 
 class TableOverview extends StatefulWidget {
-  const TableOverview({Key? key}) : super(key: key);
+  final OrderProvider _orderProvider = OrderProvider();
+
+  TableOverview({Key? key}) : super(key: key);
 
   @override
   State<TableOverview> createState() => _TableOverviewState();
@@ -13,9 +18,15 @@ class TableOverview extends StatefulWidget {
 
 class _TableOverviewState extends State<TableOverview> {
 
+  Future<Map<CustomerTable, List<Order>>> getNewData() async {
+    final response = await widget._orderProvider.getOrdersPerTableMap();
+    return response;
+  }
 
   @override
   Widget build(BuildContext context) {
+    Future<Map<CustomerTable, List<Order>>> _actualOrdersPerTable = widget._orderProvider.getOrdersPerTableMap();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -28,7 +39,7 @@ class _TableOverviewState extends State<TableOverview> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen(getOrdersFromTables(tables))),
+                  MaterialPageRoute(builder: (context) => OrdersScreen()),
                 );
               },
               child: const Icon(
@@ -39,7 +50,15 @@ class _TableOverviewState extends State<TableOverview> {
           ),
         ],
       ),
-      body: Container(
+      body: FutureBuilder(
+      future: widget._orderProvider.getOrdersPerTableMap(),
+      builder: (context, AsyncSnapshot<Map<CustomerTable, List<Order>>> snapshot){
+    if (snapshot.hasError){
+    final error = snapshot.error;
+    return Text('$error');
+    } else if (snapshot.connectionState == ConnectionState.done &&
+    snapshot.data != null) {
+      return Container(
         color: Colors.grey[850],
         padding: const EdgeInsets.all(10),
         child: Row(
@@ -51,7 +70,7 @@ class _TableOverviewState extends State<TableOverview> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TableButton(tables[0]),
+                  TableButton(tables[0],snapshot.data!),
                   TableButton(tables[1]),
                   TableButton(tables[2]),
                 ],
@@ -101,6 +120,11 @@ class _TableOverviewState extends State<TableOverview> {
             ),
           ],
         ),
+      );
+    } else {
+      return const CircularProgressIndicator();
+    }
+      },
       ),
     );
   }
