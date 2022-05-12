@@ -39,7 +39,8 @@ class _CategoriesState extends State<Categories> {
           color: Theme.of(context).colorScheme.secondary,
       ),
       child: InkWell(
-        splashColor: Colors.cyan,
+        hoverColor: Theme.of(context).canvasColor,
+        highlightColor: Theme.of(context).canvasColor,
         onTap: () {
           activateItemTypeField(_type);
           selectedIndex = index;

@@ -7,7 +7,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: AppBar(
+          title: Text('Home'),
+      ),
       body: Container(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
         alignment: Alignment.center,
@@ -35,14 +37,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      title: Text(
-        'Home',
       ),
     );
   }

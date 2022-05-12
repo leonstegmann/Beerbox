@@ -6,7 +6,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[850],
       appBar: AppBar(
         title: const Text(
           'Beerbox',
@@ -14,7 +13,6 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-        color: Colors.grey[850],
         alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -22,9 +20,9 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            const Text(
+            Text(
               'Welcome to Bluebox',
-              style: TextStyle(fontSize: 60),
+              style: Theme.of(context).textTheme.headline5,
             ),
             const SizedBox(
               height: 50,

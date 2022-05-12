@@ -26,61 +26,56 @@ class _OrdersScreenState extends State<OrdersScreen> {
           'Orders',
         ),
       ),
-      body: DefaultTextStyle(
-        style: TextStyle(color: Colors.grey[100]),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-          color: Colors.grey[850],
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                color: Colors.grey[700],
-                child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    Flexible(
-                      flex: 2,
-                      child: Center(child: Text('ID')),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Center(child: Text('TABLE')),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Center(child: Text('ITEMS')),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Center(
-                          child: Text('COSTS')),
-                    ),
-                    Flexible(
-                      flex: 3,
-                      child: Center(
-                          child: Text('TIMESTAMP')),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: Center(child: Text('')),
-                    ),
-                  ],
-          ),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Flexible(
+                    flex: 2,
+                    child: Center(child: Text('ID')),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Center(child: Text('TABLE')),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Center(child: Text('ITEMS')),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Center(
+                        child: Text('COSTS')),
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: Center(
+                        child: Text('TIMESTAMP')),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Center(child: Text('')),
+                  ),
+                ],
               ),
-              Expanded(
-                child: ListView.builder(
-                  physics: const ScrollPhysics(parent: null),
-                  itemCount: listLength,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    int reverseIndex = listLength - 1 - index;
-                    return OrderFragment(widget.orderList[reverseIndex]);
-                  },
-                ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                physics: const ScrollPhysics(parent: null),
+                itemCount: listLength,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  int reverseIndex = listLength - 1 - index;
+                  return OrderFragment(widget.orderList[reverseIndex]);
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
