@@ -16,7 +16,7 @@ class ItemDisplay extends StatelessWidget {
         children: [
           Text(
             'Items ${_itemType.toString().split('.').last}s',
-            style: TextStyle(fontSize: 25),
+            style: Theme.of(context).textTheme.headline5,
           ),
         ],
       ));

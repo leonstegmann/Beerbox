@@ -15,8 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bluebox',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
+      theme: ThemeData.dark().copyWith(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.indigo,
+          accentColor: Colors.grey[800],
+        ),
+        highlightColor: Colors.grey[200],
+        disabledColor: Colors.grey[500],
       ),
       home: HomeScreen(),
     );
