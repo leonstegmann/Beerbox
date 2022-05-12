@@ -16,6 +16,7 @@ class _TableOverviewState extends State<TableOverview> {
 
   @override
   Widget build(BuildContext context) {
+    bool fill = false;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -41,67 +42,25 @@ class _TableOverviewState extends State<TableOverview> {
       ),
       body: Container(
         color: Colors.grey[850],
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TableButton(tables[0]),
-                  TableButton(tables[1]),
-                  TableButton(tables[2]),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TableButton(tables[3]),
-                  TableButton(tables[4]),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TableButton(tables[5]),
-                  TableButton(tables[6]),
-                  TableButton(tables[7]),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TableButton(tables[8]),
-                  TableButton(tables[9]),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TableButton(tables[10]),
-                  TableButton(tables[11]),
-                  TableButton(tables[12]),
-                ],
-              ),
-            ),
-          ],
+        padding: const EdgeInsets.all(20),
+        child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+            itemCount: tables.length*2, // double the length of the list in order to fit a spacing between each
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5,mainAxisExtent: 150),
+            itemBuilder: (context, index){
+              int tableIndex = index~/2; // integer division
+              if (fill == false){
+                fill = !fill;
+                return TableButton(tables[tableIndex]);
+              } else {
+                fill = !fill;
+                --index ;
+                return const SizedBox(width: 50,);
+              }
+            }
         ),
       ),
     );
   }
 }
+
