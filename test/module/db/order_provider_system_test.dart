@@ -12,7 +12,7 @@ void main() {
     final OrderProvider op = OrderProvider();
 
     test('getOrdersPerTable()', () async {
-      Map<CustomerTable, List<Order>> ordersPerTable = await op.getOrdersPerTable();
+      Map<CustomerTable, List<Order>> ordersPerTable = await op.getOrdersPerTableMap();
       ordersPerTable.forEach((key, value) => print("$key => $value"));
     });
   });

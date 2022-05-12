@@ -58,7 +58,7 @@ class OrderProvider extends DataProvider<Order> {
     return Order.fromJson(response.first[tableName]!);
   }
 
-  Future<Map<CustomerTable, List<Order>>> getOrdersPerTable() async {
+  Future<Map<CustomerTable, List<Order>>> getOrdersPerTableMap() async {
     List<Order> orders = await readAll();
 
     Map<CustomerTable, List<Order>> ordersPerTable = {};
@@ -68,5 +68,10 @@ class OrderProvider extends DataProvider<Order> {
     }
 
     return ordersPerTable;
+  }
+
+  Future<List<Order>> getOrdersPerTable(CustomerTable table) async {
+    Map<CustomerTable, List<Order>> ordersPerTable = await getOrdersPerTableMap();
+    return ordersPerTable.containsKey(table) ? ordersPerTable[table]! : [];
   }
 }
