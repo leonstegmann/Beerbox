@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 ///
 class OrdersScreen extends StatefulWidget {
   final CustomerTable? table;
-//  final Future<List<Order>> orderList;
   final OrderProvider _orderProvider = OrderProvider();
 
   OrdersScreen( {this.table, Key?key}) : super(key: key);
@@ -23,7 +22,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int listLength = 0;//widget.orderList.length;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -31,14 +29,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
       ),
       body: FutureBuilder(
-        future: widget._orderProvider.readAll(), // returns Future<List<Order>>
+        future: widget.table == null ? widget._orderProvider.readAll() : widget._orderProvider.getOrdersPerTable(widget.table!), // returns Future<List<Order>>
         builder: (context, AsyncSnapshot<List<Order>> snapshot) {
           if (snapshot.hasError){
             final error = snapshot.error;
             return Text('$error');
           } else if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data != null) {
-//            List<Order>? orders = snapshot.data;
+            int _listLength = snapshot.data!.length;
             return DefaultTextStyle(
               style: TextStyle(color: Colors.grey[100]),
               child: Container(
@@ -84,10 +82,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     Expanded(
                       child: ListView.builder(
                         physics: const ScrollPhysics(parent: null),
-                        itemCount: snapshot.data?.length, //listLength,
+                        itemCount: _listLength, //listLength,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
-                          int reverseIndex = listLength - 1 - index;
+                          int reverseIndex = _listLength - 1 - index;
                           return OrderFragment(snapshot.data![reverseIndex]);
                         },
                       ),
