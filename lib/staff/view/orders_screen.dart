@@ -95,7 +95,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
             );
           } else {
-            return const CircularProgressIndicator();
+            return const Center(child:  CircularProgressIndicator());
           }
         },
       ),

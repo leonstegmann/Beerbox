@@ -83,7 +83,7 @@ class _TableOverviewState extends State<TableOverview> {
                     }),
               );
             } else {
-              return const CircularProgressIndicator();
+              return const Center(child:  CircularProgressIndicator());
             }
           }),
     );

@@ -110,7 +110,7 @@ class _MenuState extends State<Menu> {
                     ],
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return const Center(child:  CircularProgressIndicator());
                 }
               },
             )),
