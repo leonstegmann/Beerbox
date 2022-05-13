@@ -1,4 +1,4 @@
-import 'package:beerbox/controll/db_crud.dart';
+import 'package:beerbox/control/db_crud.dart';
 
 /// An instance to hold a [DbCrud] and provide easy to use methods to interact with it.
 ///

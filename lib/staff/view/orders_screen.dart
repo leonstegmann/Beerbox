@@ -1,4 +1,4 @@
-import 'package:beerbox/controll/order_provider.dart';
+import 'package:beerbox/control/order_provider.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/staff/view/fragments/order_fragment.dart';
 import 'package:beerbox/model/order.dart';

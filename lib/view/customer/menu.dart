@@ -3,7 +3,7 @@ import 'package:beerbox/view/customer/fragments/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/item.dart';
-import 'package:beerbox/controll/item_provider.dart';
+import 'package:beerbox/control/item_provider.dart';
 
 ///
 /// Loads MenuList for all following widgets.

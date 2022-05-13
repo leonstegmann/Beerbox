@@ -1,13 +1,10 @@
-import 'package:beerbox/controll/customer_provider.dart';
-import 'package:beerbox/controll/item_provider.dart';
-import 'package:beerbox/controll/order_provider.dart';
-import 'package:beerbox/controll/table_provider.dart';
-import 'package:beerbox/model/customer.dart';
+import 'package:beerbox/control/item_provider.dart';
+import 'package:beerbox/control/order_provider.dart';
+import 'package:beerbox/control/table_provider.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:postgres/postgres.dart';
 
 void main() {
 

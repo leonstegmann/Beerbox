@@ -1,4 +1,4 @@
-import 'package:beerbox/controll/data_provider.dart';
+import 'package:beerbox/control/data_provider.dart';
 import 'package:beerbox/model/item.dart';
 
 class ItemProvider extends DataProvider<Item> {

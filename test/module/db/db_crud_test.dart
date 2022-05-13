@@ -1,4 +1,4 @@
-import 'package:beerbox/controll/db_crud.dart';
+import 'package:beerbox/control/db_crud.dart';
 import 'package:beerbox/model/customer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:postgres/src/connection.dart';
