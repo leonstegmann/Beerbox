@@ -3,11 +3,11 @@ import 'package:dotenv/dotenv.dart';
 import 'package:postgres/postgres.dart';
 
 class DbCrud {
-  static final DbCrud instance = DbCrud();
+  static final DbCrud instance = DbCrud._init();
 
   late final PostgreSQLConnection _connection;
 
-  DbCrud() {
+  DbCrud._init() {
     DotEnv env = DotEnv(includePlatformEnvironment: false)..load([".env_postgresql"]);
     _connection = PostgreSQLConnection(
         env['DB_HOST']!,
