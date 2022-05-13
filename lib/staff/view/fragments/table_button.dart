@@ -36,7 +36,7 @@ class _TableButtonState extends State<TableButton> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => OrdersScreen(getOrdersFromTables( [widget.table]))
+                    builder: (context) => OrdersScreen()
                 ),
               );
             },
