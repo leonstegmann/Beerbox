@@ -3,6 +3,7 @@ import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
 
+/// Most important [DataProvider] as it manages the database access of the [Order]'s.
 class OrderProvider extends DataProvider<Order> {
 
   final String view = "joined_order";
