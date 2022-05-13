@@ -11,6 +11,7 @@ import 'package:beerbox/control/item_provider.dart';
 ///
 class Menu extends StatefulWidget {
   final ItemProvider itemProvider = ItemProvider();
+
   Menu({Key? key}) : super(key: key);
 
   @override
@@ -20,11 +21,10 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   ItemType? loadedItemType;
 
-
   late Future<List<Item>> itemsFuture;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     itemsFuture = getOrders();
   }
@@ -40,7 +40,6 @@ class _MenuState extends State<Menu> {
       loadedItemType = newType;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,39 +74,47 @@ class _MenuState extends State<Menu> {
             ),
             Expanded(
                 child: FutureBuilder(
-                  future: itemsFuture,
-                  builder: (context, AsyncSnapshot<List<Item>> snapshotItems){
-                      if (snapshotItems.hasError) {
-                        final error = snapshotItems.error;
-                      return Text('$error');
-                      } else if (snapshotItems.connectionState == ConnectionState.done &&
-                        snapshotItems.data != null) {
-                        List<List<Item>> loadedItemList = [
-                          snapshotItems.data!.where((i) => i.itemType == ItemType.beer).toList(),
-                          snapshotItems.data!.where((i) => i.itemType == ItemType.cocktail).toList(),
-                          snapshotItems.data!.where((i) => i.itemType == ItemType.shot).toList(),
-                          snapshotItems.data!.where((i) => i.itemType == ItemType.snack).toList(),
-                        ];
+              future: itemsFuture,
+              builder: (context, AsyncSnapshot<List<Item>> snapshotItems) {
+                if (snapshotItems.hasError) {
+                  final error = snapshotItems.error;
+                  return Text('$error');
+                } else if (snapshotItems.connectionState ==
+                        ConnectionState.done &&
+                    snapshotItems.data != null) {
+                  List<List<Item>> loadedItemList = [
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.beer)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.cocktail)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.shot)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.snack)
+                        .toList(),
+                  ];
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            if (loadedItemType == ItemType.values[0])
-                              ItemDisplay(loadedItemList[0], loadedItemType),
-                            if (loadedItemType == ItemType.values[1])
-                              ItemDisplay(loadedItemList[1], loadedItemType),
-                            if (loadedItemType == ItemType.values[2])
-                              ItemDisplay(loadedItemList[2], loadedItemType),
-                            if (loadedItemType == ItemType.values[3])
-                              ItemDisplay(loadedItemList[3], loadedItemType),
-                          ],
-                        );
- return Text('mmh noice');
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                                    },
-                )),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (loadedItemType == ItemType.values[0])
+                        ItemDisplay(loadedItemList[0], loadedItemType),
+                      if (loadedItemType == ItemType.values[1])
+                        ItemDisplay(loadedItemList[1], loadedItemType),
+                      if (loadedItemType == ItemType.values[2])
+                        ItemDisplay(loadedItemList[2], loadedItemType),
+                      if (loadedItemType == ItemType.values[3])
+                        ItemDisplay(loadedItemList[3], loadedItemType),
+                    ],
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
+            )),
           ],
         ),
       ),
