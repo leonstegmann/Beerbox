@@ -31,7 +31,6 @@ class _MenuState extends State<Menu> {
 
   Future<List<Item>> getOrders() async {
     List<Item> result = await widget.itemProvider.readAll();
-    print(result);
     return result;
   }
 
