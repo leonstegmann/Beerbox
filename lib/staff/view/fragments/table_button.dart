@@ -64,7 +64,7 @@ class _TableButtonState extends State<TableButton> {
                           width: 20,
                           height: 20,
                           child: Text(
-                            ' ${tables[widget.table.id].orders.length}',
+                            ' ${widget._actualOrdersPerTable.length}',
                             style: const TextStyle(fontSize: 18),
                           ),
                         ),

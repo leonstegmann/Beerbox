@@ -23,9 +23,6 @@ class _TableOverviewState extends State<TableOverview> {
   @override
   Widget build(BuildContext context) {
     bool fill = false;
-    Future<Map<CustomerTable, List<Order>>> _actualOrdersPerTable =
-        widget._orderProvider.getOrdersPerTableMap();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -58,13 +55,13 @@ class _TableOverviewState extends State<TableOverview> {
               return Text('$error');
             } else if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.data != null) {
-
+              int _tablesListLength = snapshot.data!.keys.length;
               return Container(
                 color: Colors.grey[850],
                 padding: const EdgeInsets.all(20),
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: tables.length * 2,
+                    itemCount: _tablesListLength * 2,
                     // double the length of the list in order to fit a spacing between each
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -75,7 +72,9 @@ class _TableOverviewState extends State<TableOverview> {
                       int tableIndex = index ~/ 2; // integer division
                       if (fill == false) {
                         fill = !fill;
-                        return TableButton(tables[tableIndex]);
+                        return TableButton(
+                            snapshot.data!.keys.elementAt(tableIndex),
+                            snapshot.data!.values.elementAt(tableIndex));
                       } else {
                         fill = !fill;
                         --index;
