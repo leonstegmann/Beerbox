@@ -2,6 +2,15 @@ import 'package:beerbox/model/db_object.dart';
 import 'package:dotenv/dotenv.dart';
 import 'package:postgres/postgres.dart';
 
+/// The singleton crud holding the database connection.
+///
+/// A CRUD is defined to manage a database by defining the methods **Create, Read, Update, Delete**.
+/// This crud connects to a [PostgreSQLConnection] using the [DotEnv] lib to handle the parameters saved to [.env_postgresql].
+/// All defined operations return a mapped database response used to reconstruct the found [DbObject]'s.
+/// Look into the database tests like [postgres_test.dart] or defined [DataProvider] for better understanding.
+///
+/// ## Usage
+/// It is recommended to never directly use this [DbCrud] outside of a [DataProvider].
 class DbCrud {
   static final DbCrud instance = DbCrud._init();
 
@@ -18,6 +27,9 @@ class DbCrud {
         useSSL: true);
   }
 
+  /// Provides the database connection or opens it if needed.
+  ///
+  /// Dont miss-use it and go for already defined operations if possible.
   Future<PostgreSQLConnection> get connection async {
     if (_connection.isClosed) {
       await _connection.open();
