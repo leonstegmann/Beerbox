@@ -1,3 +1,5 @@
+import 'package:beerbox/view/customer/display_of_items.dart';
+import 'package:beerbox/view/customer/fragments/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/item.dart';
@@ -21,23 +23,23 @@ class _MenuState extends State<Menu> {
 
   late Future<List<Item>> itemsFuture;
 
-  // @override
-  // void initState(){
-  //   super.initState();
-  //   itemsFuture = getOrders();
-  // }
+  @override
+  void initState(){
+    super.initState();
+    itemsFuture = getOrders();
+  }
 
-  // Future<List<Item>> getOrders() async {
-  //   List<Item> result = await widget.itemProvider.readAll();
-  //   print(result);
-  //   return result;
-  // }
+  Future<List<Item>> getOrders() async {
+    List<Item> result = await widget.itemProvider.readAll();
+    print(result);
+    return result;
+  }
 
-  // void activateItemTypeField(ItemType newType) {
-  //   setState(() {
-  //     loadedItemType = newType;
-  //   });
-  // }
+  void activateItemTypeField(ItemType newType) {
+    setState(() {
+      loadedItemType = newType;
+    });
+  }
 
 
   @override
@@ -48,7 +50,7 @@ class _MenuState extends State<Menu> {
           'Menu',
         ),
       ),
-      body: SizedBox(),/*Container(
+      body: Container(
         padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
         color: Colors.grey,
         child: Column(
@@ -80,7 +82,7 @@ class _MenuState extends State<Menu> {
                       return Text('$error');
                       } else if (snapshotItems.connectionState == ConnectionState.done &&
                         snapshotItems.data != null) {
-                       *//* List<List<Item>> loadedItemList = [
+                        List<List<Item>> loadedItemList = [
                           snapshotItems.data!.where((i) => i.itemType == ItemType.beer).toList(),
                           snapshotItems.data!.where((i) => i.itemType == ItemType.cocktail).toList(),
                           snapshotItems.data!.where((i) => i.itemType == ItemType.shot).toList(),
@@ -100,7 +102,7 @@ class _MenuState extends State<Menu> {
                               ItemDisplay(loadedItemList[3], loadedItemType),
                           ],
                         );
-*//* return Text('mmh noice');
+ return Text('mmh noice');
                       } else {
                         return const CircularProgressIndicator();
                       }
@@ -108,7 +110,7 @@ class _MenuState extends State<Menu> {
                 )),
           ],
         ),
-      ),*/
+      ),
     );
   }
 }
