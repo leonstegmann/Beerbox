@@ -12,8 +12,6 @@ class TableOverview extends StatefulWidget {
 }
 
 class _TableOverviewState extends State<TableOverview> {
-
-
   @override
   Widget build(BuildContext context) {
     bool fill = false;
@@ -29,7 +27,10 @@ class _TableOverviewState extends State<TableOverview> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen(getOrdersFromTables(tables))),
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        OrdersScreen(getOrdersFromTables(tables)),
+                  ),
                 );
               },
               child: const Icon(
@@ -44,23 +45,25 @@ class _TableOverviewState extends State<TableOverview> {
         color: Colors.grey[850],
         padding: const EdgeInsets.all(20),
         child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-            itemCount: tables.length*2, // double the length of the list in order to fit a spacing between each
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5,mainAxisExtent: 150),
-            itemBuilder: (context, index){
-              int tableIndex = index~/2; // integer division
-              if (fill == false){
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: tables.length * 2,
+            // double the length of the list in order to fit a spacing between each
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              mainAxisExtent: 150,
+            ),
+            itemBuilder: (context, index) {
+              int tableIndex = index ~/ 2; // integer division
+              if (fill == false) {
                 fill = !fill;
                 return TableButton(tables[tableIndex]);
               } else {
                 fill = !fill;
-                --index ;
-                return const SizedBox(width: 50,);
+                --index;
+                return const SizedBox(width: 50);
               }
-            }
-        ),
+            }),
       ),
     );
   }
 }
-
