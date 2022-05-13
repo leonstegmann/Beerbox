@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 class TableButton extends StatefulWidget {
   // final is necesarry as it is a Stateless Widget which cant change
   final CustomerTable table;
-  List<Order> _actualOrdersPerTable;
+  final List<Order> _actualOrdersPerTable;
 
-  TableButton(this.table, this._actualOrdersPerTable,{Key? key}): super(key: key);
+  const TableButton(this.table, this._actualOrdersPerTable,{Key? key}): super(key: key);
 
   @override
   State<TableButton> createState() => _TableButtonState();
