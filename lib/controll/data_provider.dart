@@ -5,6 +5,8 @@ import 'package:beerbox/controll/db_crud.dart';
 /// This [T] is a Generic to represent the [DbObject] specializing the extending variations of this DataProvider.
 /// The [tableName] has to match with a table in the connected database.
 ///
+/// The specialized DataProvider should use [T.fromJson] to extract the objects from the mapped sql-responses.
+///
 /// ## Usage
 /// Use the extending specializations of this class by instantiating them where needed.
 /// The instances will not claim too many resources as the [DbCrud] is implemented as singleton.
