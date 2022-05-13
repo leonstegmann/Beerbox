@@ -30,7 +30,6 @@ class _OrderFragmentState extends State<OrderFragment> {
             setState(() => showData = !showData);
           },
           child: Card(
-            color: Colors.grey[50],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -71,9 +70,9 @@ class _OrderFragmentState extends State<OrderFragment> {
                 Flexible(
                   child: IconButton(
                     onPressed: () => print('printed'),
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.print,
-                      color: Colors.blueGrey,
+                      color: Theme.of(context).iconTheme.color,
                     ),
                   ),
                 ),

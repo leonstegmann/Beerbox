@@ -21,7 +21,7 @@ class OrderSubFragment extends StatelessWidget {
                 children: [
                   Card(
                     margin: const EdgeInsets.only(left: 40, right: 5),
-                    color: Colors.grey[200],
+                    color: Theme.of(context).primaryColor,
                     child: Row(children: [
                       const Flexible(
                         flex: 1,

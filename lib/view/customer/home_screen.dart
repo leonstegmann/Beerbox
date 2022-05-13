@@ -7,16 +7,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[850],
-      appBar: buildAppBar(),
+      appBar: AppBar(
+          title: Text('Home'),
+      ),
       body: Container(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
-        color: Colors.grey[850],
         alignment: Alignment.center,
         child: Column(
           children: [
             Flexible(flex: 1,
-                child: Text('Welcome to Bluebox!', style: TextStyle(fontSize: 30),)),
+                child: Text('Welcome to Bluebox!', style: Theme.of(context).textTheme.headline5)),
             Flexible(flex: 1,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -37,14 +37,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      title: Text(
-        'Home',
       ),
     );
   }

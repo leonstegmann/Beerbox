@@ -12,6 +12,7 @@ class TableOverview extends StatefulWidget {
 }
 
 class _TableOverviewState extends State<TableOverview> {
+
   @override
   Widget build(BuildContext context) {
     bool fill = false;
@@ -42,7 +43,6 @@ class _TableOverviewState extends State<TableOverview> {
         ],
       ),
       body: Container(
-        color: Colors.grey[850],
         padding: const EdgeInsets.all(20),
         child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
