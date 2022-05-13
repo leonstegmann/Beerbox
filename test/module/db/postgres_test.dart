@@ -20,7 +20,7 @@ void main() {
     });
 
     test('Test Env Connection', () async {
-      DotEnv env = DotEnv(includePlatformEnvironment: false)..load();
+      DotEnv env = DotEnv(includePlatformEnvironment: false)..load([".env_postgresql"]);
       PostgreSQLConnection connection = PostgreSQLConnection(
           env['DB_HOST']!,
           int.parse(env['DB_PORT']!),

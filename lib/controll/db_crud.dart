@@ -8,7 +8,7 @@ class DbCrud {
   late final PostgreSQLConnection _connection;
 
   DbCrud() {
-    DotEnv env = DotEnv(includePlatformEnvironment: false)..load();
+    DotEnv env = DotEnv(includePlatformEnvironment: false)..load([".env_postgresql"]);
     _connection = PostgreSQLConnection(
         env['DB_HOST']!,
         int.parse(env['DB_PORT']!),
