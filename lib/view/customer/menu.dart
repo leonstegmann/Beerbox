@@ -51,7 +51,6 @@ class _MenuState extends State<Menu> {
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
-        color: Colors.grey,
         child: Column(
           children: [
             Container(
@@ -59,9 +58,9 @@ class _MenuState extends State<Menu> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Categories',
-                      style: TextStyle(fontSize: 25),
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     const SizedBox(
                       height: 5,

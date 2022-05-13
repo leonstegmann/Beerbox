@@ -1,4 +1,5 @@
 import 'package:beerbox/staff/view/home_screen.dart';
+import 'package:beerbox/view/custom_theme.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,9 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bluebox',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
+      theme: CustomTheme.dark(),
       home: const HomeScreen(),
     );
   }

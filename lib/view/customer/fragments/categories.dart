@@ -36,18 +36,24 @@ class _CategoriesState extends State<Categories> {
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(16),
-          color: Colors.grey[400]),
+          color: Theme.of(context).colorScheme.secondary,
+      ),
       child: InkWell(
-        splashColor: Colors.cyan,
+        hoverColor: Theme.of(context).canvasColor,
+        highlightColor: Theme.of(context).canvasColor,
         onTap: () {
           activateItemTypeField(_type);
           selectedIndex = index;
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 15.0),
-          child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Icon(Icons.cake, size: 40, color: selectedIndex == index ? Colors.black : Colors.grey ),
-            Text(_type.toString().split('.').last,style: TextStyle(fontSize: 20,color: selectedIndex == index ? Colors.black : Colors.grey),)
+          child: Row(mainAxisAlignment: MainAxisAlignment.start, children: selectedIndex == index ? [
+            Icon(Icons.cake, size: 40, color: Theme.of(context).highlightColor),
+            Text(_type.toString().split('.').last, style: TextStyle(fontSize: 20, color: Theme.of(context).highlightColor),),
+          ] : [
+            Icon(Icons.cake, size: 40, color: Theme.of(context).disabledColor),
+            Text(_type.toString().split('.').last, style: TextStyle(fontSize: 20, color: Theme.of(context).disabledColor),
+            ),
           ]),
         ),
       ),

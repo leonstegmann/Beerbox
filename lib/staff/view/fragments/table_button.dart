@@ -28,10 +28,9 @@ class _TableButtonState extends State<TableButton> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
         child: Material(
-          color: Colors.grey[850], //Color for Debug
           child: InkWell(
-            splashColor: Colors.pink,
-            hoverColor: Colors.teal,
+          splashColor: Theme.of(context).splashColor,
+            hoverColor: Theme.of(context).hoverColor,
             onTap: () {
               Navigator.push(
                 context,
@@ -43,7 +42,7 @@ class _TableButtonState extends State<TableButton> {
             child: Stack(alignment: AlignmentDirectional.center, children: [ //Methode Ink.image()) lässt sich nicht skalieren
               Image.asset(
                 'assets/table.png',
-                //color: Colors.grey[100], Color is problematic as it overwrites the Lines
+                color: Theme.of(context).cardColor,
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -53,13 +52,13 @@ class _TableButtonState extends State<TableButton> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'Orders:   ',
-                        style: TextStyle(fontSize: 10),
+                      Text(
+                      'Orders:   ',
+                      style: Theme.of(context).textTheme.bodyText1,
                       ),
                       Material(
                         borderRadius: BorderRadius.circular(400),
-                        color: Colors.orange,
+                        color: Theme.of(context).hintColor,
                         child: SizedBox(
                           width: 20,
                           height: 20,
