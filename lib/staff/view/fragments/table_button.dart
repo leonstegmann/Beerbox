@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class TableButton extends StatefulWidget {
   // final is necesarry as it is a Stateless Widget which cant change
   final CustomerTable table;
-  Map<CustomerTable, List<Order>> _actualOrdersPerTable;
+  List<Order> _actualOrdersPerTable;
 
   TableButton(this.table, this._actualOrdersPerTable,{Key? key}): super(key: key);
 
@@ -60,7 +60,7 @@ class _TableButtonState extends State<TableButton> {
                         width: 20,
                         height: 20,
                         child: Text(
-                          ' ${widget._actualOrdersPerTable[widget.table] != null ? widget._actualOrdersPerTable.length : 0}',
+                          ' ${widget._actualOrdersPerTable != null ? widget._actualOrdersPerTable.length : 0}',
                           style: const TextStyle(fontSize: 18),
                         ),
                       ),
