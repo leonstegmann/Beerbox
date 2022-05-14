@@ -3,23 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 
 class ItemDisplay extends StatelessWidget {
-  final ItemType? _itemType;
   final List<Item> _itemList;
-  const ItemDisplay(this._itemList, [this._itemType]);
+  final ItemType? itemType;
+
+  const ItemDisplay(this._itemList, [this.itemType, Key? key])
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (_itemType == null) {
+    if (itemType == null) {
       return SizedBox();
     } else {
-      return Container(child: Column(
+      return Column(
         children: [
           Text(
-            'Items ${_itemType.toString().split('.').last}s',
+            'Items ${itemType.toString().split('.').last}s',
             style: Theme.of(context).textTheme.headline5,
           ),
         ],
-      ));
+      );
     }
   }
 }
