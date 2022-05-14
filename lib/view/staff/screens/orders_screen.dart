@@ -70,7 +70,7 @@ class OrderDisplay extends StatelessWidget {
           ),
         ],
       ),
-    );;
+    );
   }
 }
 
