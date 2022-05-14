@@ -1,41 +1,38 @@
 import 'package:beerbox/control/order_provider.dart';
 import 'package:beerbox/model/table.dart';
-import 'package:beerbox/staff/view/fragments/order_fragment.dart';
+import 'package:beerbox/view/staff/screens/fragments/order_fragment.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 
-
-///
 ///  Displays incoming list of orders.
-///
 class OrdersScreen extends StatefulWidget {
   final CustomerTable? table;
   final OrderProvider _orderProvider = OrderProvider();
 
-  OrdersScreen( {this.table, Key?key}) : super(key: key);
+  OrdersScreen({this.table, Key? key}) : super(key: key);
 
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Orders',
-        ),
-      ),
+      appBar: AppBar(title: const Text('Orders')),
       body: FutureBuilder(
-        future: widget.table == null ? widget._orderProvider.readAll() : widget._orderProvider.getOrdersPerTable(widget.table!), // returns Future<List<Order>>
+        future: widget.table == null
+            ? widget._orderProvider.readAll()
+            : widget._orderProvider.getOrdersPerTable(widget.table!),
+        // returns Future<List<Order>>
         builder: (context, AsyncSnapshot<List<Order>> snapshot) {
-          if (snapshot.hasError){
+          if (snapshot.hasError) {
+
             final error = snapshot.error;
             return Text('$error');
           } else if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data != null) {
+
             int _listLength = snapshot.data!.length;
             return DefaultTextStyle(
               style: TextStyle(color: Colors.grey[100]),
@@ -64,13 +61,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           ),
                           Flexible(
                             flex: 2,
-                            child: Center(
-                                child: Text('COSTS')),
+                            child: Center(child: Text('COSTS')),
                           ),
                           Flexible(
                             flex: 3,
-                            child: Center(
-                                child: Text('TIMESTAMP')),
+                            child: Center(child: Text('TIMESTAMP')),
                           ),
                           Flexible(
                             flex: 1,
@@ -95,7 +90,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
             );
           } else {
-            return const Center(child:  CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

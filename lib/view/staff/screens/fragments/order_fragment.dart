@@ -1,13 +1,11 @@
-import 'package:beerbox/staff/view/fragments/order_subfragment.dart';
+import 'package:beerbox/view/staff/screens/fragments/extended_order_fragment.dart';
 import 'package:beerbox/utils/format_time_to_string.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 
-///
 /// Visualisation of order objects.
-///
 class OrderFragment extends StatefulWidget {
-  final Order _order;  //Tuple of <Order, TableNumber>
+  final Order _order; //Tuple of <Order, TableNumber>
 
   const OrderFragment(this._order, {Key? key}) : super(key: key);
 
@@ -23,9 +21,7 @@ class _OrderFragmentState extends State<OrderFragment> {
     return Column(
       children: [
         GestureDetector(
-          onTap: () {
-            setState(() => showData = !showData);
-          },
+          onTap: () => setState(() => showData = !showData),
           child: Card(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -33,19 +29,23 @@ class _OrderFragmentState extends State<OrderFragment> {
                 Flexible(
                   flex: 1,
                   child: Center(
-                      child: Text(widget._order.id.toString().padLeft(3, '0'))),
+                    child: Text(widget._order.id.toString().padLeft(3, '0')),
+                  ),
                 ),
                 Flexible(
                   flex: 1,
                   child: Center(
-                      child:
-                          Text(widget._order.table.toString().padLeft(2, '0'))),
+                    child: Text(widget._order.table.toString().padLeft(2, '0')),
+                  ),
                 ),
                 Flexible(
-                  child: Center(child: Text(widget._order.items.length.toString())),
                   flex: 1,
+                  child: Center(
+                    child: Text(widget._order.items.length.toString()),
+                  ),
                 ),
                 Flexible(
+                  flex: 1,
                   child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -58,15 +58,16 @@ class _OrderFragmentState extends State<OrderFragment> {
                       ],
                     ),
                   ),
-                  flex: 1,
                 ),
                 Flexible(
                   flex: 2,
                   child: Center(
-                      child: Text(formatDateTime2TimeString(widget._order.timestamp))),),
+                    child: Text(dateTime2TimeString(widget._order.timestamp)),
+                  ),
+                ),
                 Flexible(
                   child: IconButton(
-                    onPressed: () => print('printed'),
+                    onPressed: () => debugPrint('printed'),
                     icon: Icon(
                       Icons.print,
                       color: Theme.of(context).iconTheme.color,
@@ -77,7 +78,7 @@ class _OrderFragmentState extends State<OrderFragment> {
             ),
           ),
         ),
-        showData ? OrderSubFragment(widget._order) : const SizedBox()
+        showData ? OrderSubFragment(widget._order) : const SizedBox(),
       ],
     );
   }
