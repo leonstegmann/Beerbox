@@ -1,8 +1,8 @@
+import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/staff/view/orders_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:beerbox/control/get_orders_from_tables.dart';
-import 'package:beerbox/control/test_data.dart';
+
 
 ///
 /// Creates clickable Table Icon with Orders and TableNumber
@@ -10,8 +10,9 @@ import 'package:beerbox/control/test_data.dart';
 class TableButton extends StatefulWidget {
   // final is necesarry as it is a Stateless Widget which cant change
   final CustomerTable table;
+  final List<Order> _actualOrdersPerTable;
 
-  const TableButton(this.table,{Key? key}): super(key: key);
+  const TableButton(this.table, this._actualOrdersPerTable,{Key? key}): super(key: key);
 
   @override
   State<TableButton> createState() => _TableButtonState();
@@ -34,7 +35,7 @@ class _TableButtonState extends State<TableButton> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => OrdersScreen(getOrdersFromTables( [widget.table]))
+                    builder: (context) => OrdersScreen(table: widget.table)
                 ),
               );
             },
@@ -62,7 +63,7 @@ class _TableButtonState extends State<TableButton> {
                           width: 20,
                           height: 20,
                           child: Text(
-                            ' ${tables[widget.table.id].orders.length}',
+                            ' ${widget._actualOrdersPerTable.length}',
                             style: const TextStyle(fontSize: 18),
                           ),
                         ),

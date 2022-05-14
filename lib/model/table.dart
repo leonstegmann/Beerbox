@@ -1,12 +1,15 @@
-import 'package:beerbox/model/order.dart';
+import 'db_object.dart';
 
-class CustomerTable {
+class CustomerTable extends DbObject<CustomerTable> {
 
-  final int _id;
-  final List<Order> _orders;
+  CustomerTable(int? id) : super(id);
 
-  CustomerTable(this._id, this._orders);
+  @override
+  factory CustomerTable.fromJson(Map<String, dynamic> json) => CustomerTable(
+      json["table_id"] as int);
 
-  int get id => _id;
-  List<Order> get orders => _orders;
+  @override
+  Map<String, dynamic> toJsonMap() => {
+    'table_id': id,
+  };
 }

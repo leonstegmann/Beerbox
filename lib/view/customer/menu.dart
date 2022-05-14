@@ -2,15 +2,17 @@ import 'package:beerbox/view/customer/display_of_items.dart';
 import 'package:beerbox/view/customer/fragments/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
-import 'package:beerbox/control/test_data.dart';
 import 'package:beerbox/model/item.dart';
+import 'package:beerbox/control/item_provider.dart';
 
 ///
 /// Loads MenuList for all following widgets.
 /// Organises as subWidgets the ItemTypeButtons and the ItemList
 ///
 class Menu extends StatefulWidget {
-  const Menu({Key? key}) : super(key: key);
+  final ItemProvider itemProvider = ItemProvider();
+
+  Menu({Key? key}) : super(key: key);
 
   @override
   State<Menu> createState() => _MenuState();
@@ -19,12 +21,18 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   ItemType? loadedItemType;
 
-  final List<List<Item>> _loadedItemList = [
-    items.where((i) => i.itemTypeId == 0).toList(),
-    items.where((i) => i.itemTypeId == 1).toList(),
-    items.where((i) => i.itemTypeId == 2).toList(),
-    items.where((i) => i.itemTypeId == 3).toList(),
-  ];
+  late Future<List<Item>> itemsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    itemsFuture = getOrders();
+  }
+
+  Future<List<Item>> getOrders() async {
+    List<Item> result = await widget.itemProvider.readAll();
+    return result;
+  }
 
   void activateItemTypeField(ItemType newType) {
     setState(() {
@@ -63,18 +71,47 @@ class _MenuState extends State<Menu> {
               height: 10,
             ),
             Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if (loadedItemType == ItemType.values[0])
-                  ItemDisplay(_loadedItemList[0], loadedItemType),
-                if (loadedItemType == ItemType.values[1])
-                  ItemDisplay(_loadedItemList[1], loadedItemType),
-                if (loadedItemType == ItemType.values[2])
-                  ItemDisplay(_loadedItemList[2], loadedItemType),
-                if (loadedItemType == ItemType.values[3])
-                  ItemDisplay(_loadedItemList[3], loadedItemType),
-              ],
+                child: FutureBuilder(
+              future: itemsFuture,
+              builder: (context, AsyncSnapshot<List<Item>> snapshotItems) {
+                if (snapshotItems.hasError) {
+                  final error = snapshotItems.error;
+                  return Text('$error');
+                } else if (snapshotItems.connectionState ==
+                        ConnectionState.done &&
+                    snapshotItems.data != null) {
+                  List<List<Item>> loadedItemList = [
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.beer)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.cocktail)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.shot)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.snack)
+                        .toList(),
+                  ];
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (loadedItemType == ItemType.values[0])
+                        ItemDisplay(loadedItemList[0], loadedItemType),
+                      if (loadedItemType == ItemType.values[1])
+                        ItemDisplay(loadedItemList[1], loadedItemType),
+                      if (loadedItemType == ItemType.values[2])
+                        ItemDisplay(loadedItemList[2], loadedItemType),
+                      if (loadedItemType == ItemType.values[3])
+                        ItemDisplay(loadedItemList[3], loadedItemType),
+                    ],
+                  );
+                } else {
+                  return const Center(child:  CircularProgressIndicator());
+                }
+              },
             )),
           ],
         ),
