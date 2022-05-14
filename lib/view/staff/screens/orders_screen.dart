@@ -24,10 +24,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
         future: getFuture(),
         builder: (context, AsyncSnapshot<List<Order>> snapshot) {
           if (snapshot.hasError) {
-            final error = snapshot.error;
-            return Text('$error');
+            return Text('${snapshot.error}');
           } else if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data != null) {
+
             int _listLength = snapshot.data!.length;
             return DefaultTextStyle(
               style: TextStyle(color: Colors.grey[100]),
