@@ -54,40 +54,37 @@ class _CategoriesState extends State<Categories> {
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 15.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: selectedIndex == index
-                ? [
-                    Icon(
-                      Icons.cake,
-                      size: 40,
-                      color: Theme.of(context).highlightColor,
-                    ),
-                    Text(
-                      _type.toString().split('.').last,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).highlightColor,
-                      ),
-                    ),
-                  ]
-                : [
-                    Icon(
-                      Icons.cake,
-                      size: 40,
-                      color: Theme.of(context).disabledColor,
-                    ),
-                    Text(
-                      _type.toString().split('.').last,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).disabledColor,
-                      ),
-                    ),
-                  ],
-          ),
+          child: CategoryButtonContent(
+              selectedIndex == index,
+              Icons.cake,
+              _type.toString().split('.').last),
         ),
       ),
     );
   }
+}
+
+class CategoryButtonContent extends StatelessWidget {
+  final bool _highlighted;
+  final IconData _iconData;
+  final String _text;
+
+  const CategoryButtonContent(this._highlighted, this._iconData, this._text,
+      {Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Color _color = getColorToUse(Theme.of(context));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Icon(_iconData, size: 40, color: _color),
+        Text(_text, style: TextStyle(fontSize: 20, color: _color)),
+      ],
+    );
+  }
+
+  Color getColorToUse(ThemeData themeData) =>
+      _highlighted ? themeData.disabledColor : themeData.disabledColor;
 }
