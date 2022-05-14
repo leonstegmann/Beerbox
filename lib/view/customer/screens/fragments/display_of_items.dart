@@ -29,7 +29,7 @@ class ItemDisplay extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 itemCount: _itemList.length,
                 itemBuilder: (context, index){
-                  return ItemCard(_itemList[index],);
+                  return itemCard(_itemList[index],);
                 }),
           )
 
@@ -39,20 +39,20 @@ class ItemDisplay extends StatelessWidget {
   }
 }
 
-Widget ItemCard(Item _item) {
+Widget itemCard(Item _item) {
   return Card(
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.cake),
+          const Icon(Icons.cake),
           Text(_item.name.toString()),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(_item.costs.toString()),
-              Text(' NOK'),
+              const Text(' NOK'),
             ],
           ),
         ],
