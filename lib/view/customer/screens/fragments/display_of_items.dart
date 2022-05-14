@@ -24,15 +24,17 @@ class ItemDisplay extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: ListView.builder(
-                shrinkWrap: true, //important for the flexible height
+                shrinkWrap: true,
+                //important for the flexible height
                 physics: const ScrollPhysics(parent: null),
                 scrollDirection: Axis.vertical,
                 itemCount: _itemList.length,
-                itemBuilder: (context, index){
-                  return itemCard(_itemList[index],);
+                itemBuilder: (context, index) {
+                  return itemCard(
+                    _itemList[index],
+                  );
                 }),
-          )
-
+          ),
         ],
       );
     }
