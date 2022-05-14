@@ -1,29 +1,39 @@
 import 'package:beerbox/model/customer.dart';
+import 'package:beerbox/model/db_object.dart';
 import 'package:beerbox/model/item.dart';
-import 'package:beerbox/model/item_type.dart';
-import 'package:beerbox/utils/string_utils.dart';
+import 'package:beerbox/model/table.dart';
 
-class Order {
+class Order extends DbObject<Order> {
 
   final int outputLength = 30;
   final int outputIndentation = 7;
 
-  final int _id;
-  final DateTime _timestamp;
-  final Customer _customer;
-  final List<Item> _items;
+  final DateTime timestamp;
+  final Customer customer;
+  final CustomerTable table;
+  final List<Item> items;
 
-  Order(this._id, this._timestamp, this._customer, this._items);
+  Order(int id, this.timestamp, this.customer, this.table, this.items) : super(id);
 
-  int get id => _id;
-  DateTime get timestamp => _timestamp;
-  Customer get customer => _customer;
-  List<Item> get items => _items;
+  @override
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
+      json["order_id"] as int,
+      json["timestamp"] as DateTime,
+      Customer.fromJson(json),
+      CustomerTable.fromJson(json),
+      []);
+
+  @override
+  Map<String, dynamic> toJsonMap() => {
+    'order_id': id,
+    'timestamp': "'${timestamp.microsecondsSinceEpoch}'",
+    'customer_id': "'${customer.id}'",
+  };
 
   double getFullCosts() {
 
     double fullCosts = 0;
-    for(Item item in _items) {
+    for(Item item in items) {
       fullCosts += item.costs;
     }
 
