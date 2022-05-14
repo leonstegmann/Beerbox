@@ -11,8 +11,8 @@ class ItemDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (itemType == null || _itemList == null) {
-      return SizedBox();
+    if (itemType == null) {
+      return const SizedBox();
     } else {
       return Column(
         mainAxisSize: MainAxisSize.min,
