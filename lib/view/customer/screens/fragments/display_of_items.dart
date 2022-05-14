@@ -1,6 +1,6 @@
 import 'package:beerbox/model/item.dart';
-import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
+import 'package:flutter/material.dart';
 
 class ItemDisplay extends StatelessWidget {
   final List<Item> _itemList;
@@ -29,11 +29,7 @@ class ItemDisplay extends StatelessWidget {
               physics: const ScrollPhysics(parent: null),
               scrollDirection: Axis.vertical,
               itemCount: _itemList.length,
-              itemBuilder: (context, index) {
-                return itemCard(
-                  _itemList[index],
-                );
-              },
+              itemBuilder: (context, index) => itemCard(_itemList[index]),
             ),
           ),
         ],
