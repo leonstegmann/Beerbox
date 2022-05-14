@@ -21,10 +21,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Orders')),
       body: FutureBuilder(
-        future: widget.table == null
-            ? widget._orderProvider.readAll()
-            : widget._orderProvider.getOrdersPerTable(widget.table!),
-        // returns Future<List<Order>>
+        future: getFuture(),
         builder: (context, AsyncSnapshot<List<Order>> snapshot) {
           if (snapshot.hasError) {
             final error = snapshot.error;
@@ -60,6 +57,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
         },
       ),
     );
+  }
+
+  Future<List<Order>> getFuture() {
+    if (widget.table == null) {
+      return widget._orderProvider.readAll();
+    } else {
+      return widget._orderProvider.getOrdersPerTable(widget.table!);
+    }
   }
 }
 
