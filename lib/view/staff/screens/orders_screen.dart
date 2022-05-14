@@ -27,27 +27,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             return Text('${snapshot.error}');
           } else if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data != null) {
-
-            int _listLength = snapshot.data!.length;
-            return Container(
-              padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-              child: Column(
-                children: [
-                  const OrderProperties(),
-                  Expanded(
-                    child: ListView.builder(
-                      physics: const ScrollPhysics(parent: null),
-                      itemCount: _listLength, //listLength,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        int reverseIndex = _listLength - 1 - index;
-                        return OrderFragment(snapshot.data![reverseIndex]);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return OrderDisplay(snapshot.data!);
           } else {
             return const Center(child: CircularProgressIndicator());
           }
@@ -62,6 +42,35 @@ class _OrdersScreenState extends State<OrdersScreen> {
     } else {
       return widget._orderProvider.getOrdersPerTable(widget.table!);
     }
+  }
+}
+
+class OrderDisplay extends StatelessWidget {
+  final List<Order> orders;
+
+  const OrderDisplay(this.orders, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
+      child: Column(
+        children: [
+          const OrderProperties(),
+          Expanded(
+            child: ListView.builder(
+              physics: const ScrollPhysics(parent: null),
+              itemCount: orders.length, //listLength,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                int reversedIndex = orders.length - 1 - index;
+                return OrderFragment(orders[reversedIndex]);
+              },
+            ),
+          ),
+        ],
+      ),
+    );;
   }
 }
 
