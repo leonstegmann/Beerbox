@@ -29,26 +29,23 @@ class _OrdersScreenState extends State<OrdersScreen> {
               snapshot.data != null) {
 
             int _listLength = snapshot.data!.length;
-            return DefaultTextStyle(
-              style: TextStyle(color: Colors.grey[100]),
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-                child: Column(
-                  children: [
-                    const OrderProperties(),
-                    Expanded(
-                      child: ListView.builder(
-                        physics: const ScrollPhysics(parent: null),
-                        itemCount: _listLength, //listLength,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          int reverseIndex = _listLength - 1 - index;
-                          return OrderFragment(snapshot.data![reverseIndex]);
-                        },
-                      ),
+            return Container(
+              padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
+              child: Column(
+                children: [
+                  const OrderProperties(),
+                  Expanded(
+                    child: ListView.builder(
+                      physics: const ScrollPhysics(parent: null),
+                      itemCount: _listLength, //listLength,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        int reverseIndex = _listLength - 1 - index;
+                        return OrderFragment(snapshot.data![reverseIndex]);
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           } else {
