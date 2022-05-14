@@ -15,6 +15,11 @@ class Order {
 
   Order(this._id, this._timestamp, this._customer, this._items);
 
+  int get id => _id;
+  DateTime get timestamp => _timestamp;
+  Customer get customer => _customer;
+  List<Item> get items => _items;
+
   double getFullCosts() {
 
     double fullCosts = 0;
@@ -85,9 +90,4 @@ class Order {
 
     return itemMap;
   }
-
-  int get id => _id;
-  DateTime get timestamp => _timestamp;
-  Customer get customer => _customer;
-  List<Item> get items => _items;
 }
