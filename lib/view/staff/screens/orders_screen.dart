@@ -27,53 +27,18 @@ class _OrdersScreenState extends State<OrdersScreen> {
         // returns Future<List<Order>>
         builder: (context, AsyncSnapshot<List<Order>> snapshot) {
           if (snapshot.hasError) {
-
             final error = snapshot.error;
             return Text('$error');
           } else if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data != null) {
-
             int _listLength = snapshot.data!.length;
             return DefaultTextStyle(
               style: TextStyle(color: Colors.grey[100]),
               child: Container(
                 padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-                color: Colors.grey[850],
                 child: Column(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.grey[700],
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Flexible(
-                            flex: 2,
-                            child: Center(child: Text('ID')),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Center(child: Text('TABLE')),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Center(child: Text('ITEMS')),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Center(child: Text('COSTS')),
-                          ),
-                          Flexible(
-                            flex: 3,
-                            child: Center(child: Text('TIMESTAMP')),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Center(child: Text('')),
-                          ),
-                        ],
-                      ),
-                    ),
+                    const OrderProperties(),
                     Expanded(
                       child: ListView.builder(
                         physics: const ScrollPhysics(parent: null),
@@ -95,5 +60,39 @@ class _OrdersScreenState extends State<OrdersScreen> {
         },
       ),
     );
+  }
+}
+
+class OrderProperties extends StatelessWidget {
+  const OrderProperties({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          OrderProperty(2, 'ID'),
+          OrderProperty(2, 'TABLE'),
+          OrderProperty(2, 'ITEMS'),
+          OrderProperty(2, 'COSTS'),
+          OrderProperty(3, 'TIMESTAMP'),
+          OrderProperty(1, ''),
+        ],
+      ),
+    );
+  }
+}
+
+class OrderProperty extends StatelessWidget {
+  final int flex;
+  final String text;
+
+  const OrderProperty(this.flex, this.text, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(flex: flex, child: Center(child: Text(text)));
   }
 }
