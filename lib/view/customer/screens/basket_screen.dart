@@ -31,6 +31,7 @@ class CartWidget extends StatelessWidget {
           padding: EdgeInsets.all(20),
           child: Text('1. Chosen Items:', style: TextStyle(fontSize: 25)),
         ),
+          if (Basket.instance.itemsInCart.isEmpty) Center(child: Text('No Items!')) else
         Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 10),
           child: Row(
@@ -43,9 +44,7 @@ class CartWidget extends StatelessWidget {
             ],
           ),
         ),
-        Basket.instance.itemsInCart.isEmpty
-            ? const Center(child: Text('No Items!'))
-            : const BasketItemList(),
+        const BasketItemList(),
       ]),
     );
   }
