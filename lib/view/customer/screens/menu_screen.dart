@@ -1,3 +1,4 @@
+import 'package:beerbox/view/customer/screens/cart_screen.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_items.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_navigation.dart';
 import 'package:flutter/cupertino.dart';
@@ -126,7 +127,7 @@ class _MenuState extends State<Menu> {
           children: [
             IconButton(onPressed: (){
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SizedBox()),
+                MaterialPageRoute(builder: (context) => Cart()),
               );
             },
                 icon: const Icon( Icons.shopping_cart,size: 30,)),

@@ -1,4 +1,4 @@
-import 'package:beerbox/view/customer/screens/menu.dart';
+import 'package:beerbox/view/customer/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
