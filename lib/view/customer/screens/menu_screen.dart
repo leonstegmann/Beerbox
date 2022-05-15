@@ -43,7 +43,7 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
         child: Column(
@@ -68,13 +68,11 @@ class _MenuState extends State<Menu> {
                 future: itemsFuture,
                 builder: (context, AsyncSnapshot<List<Item>> snapshotItems) {
                   if (snapshotItems.hasError) {
-
                     final error = snapshotItems.error;
                     return Text('$error');
                   } else if (snapshotItems.connectionState ==
                           ConnectionState.done &&
                       snapshotItems.data != null) {
-
                     List<List<Item>> loadedItemList = [
                       snapshotItems.data!
                           .where((i) => i.itemType == ItemType.beer)
@@ -114,30 +112,38 @@ class _MenuState extends State<Menu> {
       ),
     );
   }
+}
 
-  AppBar buildAppBar() {
-    return AppBar(
-      title: const Text(
-        'Menu',
+AppBar buildAppBar(context) {
+  return AppBar(
+    title: const Text(
+      'Menu',
+    ),
+    actions: [
+      Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Cart()),
+                );
+              },
+              icon: const Icon(
+                Icons.shopping_cart,
+                size: 30,
+              )),
+          const Text(
+            ' 1',
+            style: TextStyle(
+                fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold)
+          ),
+        ],
       ),
-      actions: [
-        Stack(
-
-          alignment: Alignment.topCenter,
-          children: [
-            IconButton(onPressed: (){
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Cart()),
-              );
-            },
-                icon: const Icon( Icons.shopping_cart,size: 30,)),
-            Text(' 1',style: TextStyle(fontSize: 20,color: Colors.red,fontWeight: FontWeight.bold),),
-
-          ],
-        ),
-        const SizedBox(width: 50,),
-
-      ],
-    );
-  }
+      const SizedBox(
+        width: 50,
+      ),
+    ],
+  );
 }
