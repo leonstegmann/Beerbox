@@ -22,4 +22,9 @@ class Item extends DbObject<Item> {
     'costs': "'$name'",
     'itemType_id': "'${itemType.index}'",
   };
+
+  @override
+  String toString() {
+    return ' $name      ${itemType.name}       $costs NOK';
+  }
 }
