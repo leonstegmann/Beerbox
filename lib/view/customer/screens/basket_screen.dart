@@ -43,7 +43,9 @@ class CartWidget extends StatelessWidget {
             ],
           ),
         ),
-        Basket.instance.itemsInCart.isEmpty ? const Center(child:  Text('No Items!')) : const BasketItemList(),
+        Basket.instance.itemsInCart.isEmpty
+            ? const Center(child: Text('No Items!'))
+            : const BasketItemList(),
       ]),
     );
   }
@@ -92,7 +94,21 @@ class BasketItem extends StatelessWidget {
             Text('${_item.key.name}'),
             Text('${_item.key.itemType.name}'),
             Text('${_item.key.costs} NOK'),
-            Text('${_item.value}x')
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Basket.instance.removeItem(_item.key);
+                    },
+                    icon: const Icon(Icons.remove_circle)),
+                Text('${_item.value}x'),
+                IconButton(
+                    onPressed: () {
+                      Basket.instance.addItem(_item.key);
+                    },
+                    icon: const Icon(Icons.add_circle))
+              ],
+            )
           ],
         ),
       ),
