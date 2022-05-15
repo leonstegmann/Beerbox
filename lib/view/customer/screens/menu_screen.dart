@@ -20,7 +20,6 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   ItemType? loadedItemType;
-
   late Future<List<Item>> itemsFuture;
 
   @override
@@ -63,54 +62,58 @@ class _MenuState extends State<Menu> {
               ),
             ),
             const SizedBox(height: 10),
-            Expanded(
-              child: FutureBuilder(
-                future: itemsFuture,
-                builder: (context, AsyncSnapshot<List<Item>> snapshotItems) {
-                  if (snapshotItems.hasError) {
-                    final error = snapshotItems.error;
-                    return Text('$error');
-                  } else if (snapshotItems.connectionState ==
-                          ConnectionState.done &&
-                      snapshotItems.data != null) {
-                    List<List<Item>> loadedItemList = [
-                      snapshotItems.data!
-                          .where((i) => i.itemType == ItemType.beer)
-                          .toList(),
-                      snapshotItems.data!
-                          .where((i) => i.itemType == ItemType.cocktail)
-                          .toList(),
-                      snapshotItems.data!
-                          .where((i) => i.itemType == ItemType.shot)
-                          .toList(),
-                      snapshotItems.data!
-                          .where((i) => i.itemType == ItemType.snack)
-                          .toList(),
-                    ];
-
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        if (loadedItemType == ItemType.values[0])
-                          ItemDisplay(loadedItemList[0], loadedItemType),
-                        if (loadedItemType == ItemType.values[1])
-                          ItemDisplay(loadedItemList[1], loadedItemType),
-                        if (loadedItemType == ItemType.values[2])
-                          ItemDisplay(loadedItemList[2], loadedItemType),
-                        if (loadedItemType == ItemType.values[3])
-                          ItemDisplay(loadedItemList[3], loadedItemType),
-                      ],
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-            ),
+            buildItemList(),
           ],
         ),
       ),
     );
+  }
+
+  Expanded buildItemList() {
+    return Expanded(
+            child: FutureBuilder(
+              future: itemsFuture,
+              builder: (context, AsyncSnapshot<List<Item>> snapshotItems) {
+                if (snapshotItems.hasError) {
+                  final error = snapshotItems.error;
+                  return Text('$error');
+                } else if (snapshotItems.connectionState ==
+                        ConnectionState.done &&
+                    snapshotItems.data != null) {
+                  List<List<Item>> loadedItemList = [
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.beer)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.cocktail)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.shot)
+                        .toList(),
+                    snapshotItems.data!
+                        .where((i) => i.itemType == ItemType.snack)
+                        .toList(),
+                  ];
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (loadedItemType == ItemType.values[0])
+                        ItemDisplay(loadedItemList[0], loadedItemType),
+                      if (loadedItemType == ItemType.values[1])
+                        ItemDisplay(loadedItemList[1], loadedItemType),
+                      if (loadedItemType == ItemType.values[2])
+                        ItemDisplay(loadedItemList[2], loadedItemType),
+                      if (loadedItemType == ItemType.values[3])
+                        ItemDisplay(loadedItemList[3], loadedItemType),
+                    ],
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+          );
   }
 }
 
@@ -127,7 +130,7 @@ AppBar buildAppBar(context) {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Cart()),
+                  MaterialPageRoute(builder: (context) => CartWidget()),
                 );
               },
               icon: const Icon(

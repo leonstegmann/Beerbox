@@ -1,3 +1,4 @@
+import 'package:beerbox/model/cart.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ class ItemDisplay extends StatelessWidget {
   final List<Item> _itemList;
   final ItemType? itemType;
 
-  const ItemDisplay(this._itemList, [this.itemType, Key? key])
+  const ItemDisplay(this._itemList , [this.itemType, Key? key])
       : super(key: key);
 
   @override
@@ -53,7 +54,7 @@ Widget itemCard(Item _item) {
               Text(_item.costs.toString()),
               const Text(' NOK'),
               const SizedBox(width: 30),
-              const AddItemButton(),
+              AddItemButton(_item),
             ],
           ),
         ],
@@ -63,7 +64,8 @@ Widget itemCard(Item _item) {
 }
 
 class AddItemButton extends StatefulWidget {
-  const AddItemButton({Key? key}) : super(key: key);
+  final Item _item;
+  const AddItemButton(this._item, {Key? key}) : super(key: key);
 
   @override
   State<AddItemButton> createState() => _AddItemButtonState();
@@ -74,7 +76,7 @@ class _AddItemButtonState extends State<AddItemButton> {
   Widget build(BuildContext context) {
     return IconButton(
         tooltip: 'ADD to basket',
-        onPressed: () {},
-        icon: Icon(Icons.add));
+        onPressed: () {Basket.instance.addItem(widget._item);},
+        icon: const Icon(Icons.add));
   }
 }
