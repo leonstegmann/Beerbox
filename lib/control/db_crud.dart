@@ -64,13 +64,14 @@ class DbCrud {
   }
 
   /// Searches for a specified entry in a database [table] by [id].
-  Future<List<Map<String, Map<String, dynamic>>>> read(String table, int id) async {
-    return (await connection).mappedResultsQuery('SELECT * FROM "$table" WHERE _id = $id');
+  Future<List<Map<String, Map<String, dynamic>>>> read(String table, int id, {String? view}) async {
+    view ??= table;
+    return (await connection).mappedResultsQuery('SELECT * FROM "$view" WHERE ${table}_id = $id');
   }
 
-  /// Returns all entries in the defined [table].
-  Future<List<Map<String, Map<String, dynamic>>>> readAll(String table) async {
-    return (await connection).mappedResultsQuery('SELECT * FROM "$table"');
+  /// Returns all entries in the defined [tableOrView].
+  Future<List<Map<String, Map<String, dynamic>>>> readAll(String tableOrView) async {
+    return (await connection).mappedResultsQuery('SELECT * FROM "$tableOrView"');
   }
 
   /// Adjusts a [table] entry found for the [DbObject.id].
@@ -84,6 +85,6 @@ class DbCrud {
 
   /// Removes the [table] entry with the specified [id].
   Future<List<Map<String, Map<String, dynamic>>>> delete(String table, int id) async {
-    return (await connection).mappedResultsQuery('DELETE from "$table" WHERE _id = $id RETURNING *');
+    return (await connection).mappedResultsQuery('DELETE from "$table" WHERE ${table}_id = $id RETURNING *');
   }
 }
