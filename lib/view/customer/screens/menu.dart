@@ -1,5 +1,6 @@
 import 'package:beerbox/view/customer/screens/fragments/menu_items.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_navigation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/item.dart';
@@ -41,7 +42,7 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Menu')),
+      appBar: buildAppBar(),
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
         child: Column(
@@ -110,6 +111,32 @@ class _MenuState extends State<Menu> {
           ],
         ),
       ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      title: const Text(
+        'Menu',
+      ),
+      actions: [
+        Stack(
+
+          alignment: Alignment.topCenter,
+          children: [
+            IconButton(onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SizedBox()),
+              );
+            },
+                icon: const Icon( Icons.shopping_cart,size: 30,)),
+            Text(' 1',style: TextStyle(fontSize: 20,color: Colors.red,fontWeight: FontWeight.bold),),
+
+          ],
+        ),
+        const SizedBox(width: 50,),
+
+      ],
     );
   }
 }
