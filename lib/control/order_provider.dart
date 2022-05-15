@@ -1,4 +1,5 @@
 import 'package:beerbox/control/data_provider.dart';
+import 'package:beerbox/control/table_provider.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
@@ -7,8 +8,14 @@ import 'package:beerbox/model/table.dart';
 class OrderProvider extends DataProvider<Order> {
 
   final String view = "joined_order";
+  TableProvider? _tableProvider;
 
   OrderProvider () : super('order');
+
+  TableProvider get tableProvider {
+    _tableProvider ??= TableProvider();
+    return _tableProvider!;
+  }
 
   @override
   Future<Order> create(Order dbObject) async {
@@ -62,10 +69,16 @@ class OrderProvider extends DataProvider<Order> {
     return Order.fromJson(response.first[tableName]!);
   }
 
-  Future<Map<CustomerTable, List<Order>>> getOrdersPerTableMap() async {
+  Future<Map<CustomerTable, List<Order>>> getOrdersPerTableMap({bool useAllTables = false}) async {
     List<Order> orders = await readAll();
 
     Map<CustomerTable, List<Order>> ordersPerTable = {};
+    if (useAllTables) {
+      for (CustomerTable table in await tableProvider.readAll()) {
+        ordersPerTable[table] = [];
+      }
+    }
+
     for (Order order in orders) {
       ordersPerTable.putIfAbsent(order.table, () => []);
       ordersPerTable[order.table]!.add(order);

@@ -17,8 +17,7 @@ class TableOverview extends StatefulWidget {
 class _TableOverviewState extends State<TableOverview> {
 
   Future<Map<CustomerTable, List<Order>>> getNewData() async {
-    final response = await widget._orderProvider.getOrdersPerTableMap();
-    return response;
+    return await widget._orderProvider.getOrdersPerTableMap(useAllTables: true);
   }
 
   @override
@@ -47,7 +46,7 @@ class _TableOverviewState extends State<TableOverview> {
         ],
       ),
       body: FutureBuilder(
-        future: widget._orderProvider.getOrdersPerTableMap(),
+        future: getNewData(),
         builder:
             (context, AsyncSnapshot<Map<CustomerTable, List<Order>>> snapshot) {
           if (snapshot.hasError) {
