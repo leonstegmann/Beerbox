@@ -18,11 +18,14 @@ class OrderProvider extends DataProvider<Order> {
 
   @override
   Future<Order> read(int id) async {
-    List<Map<String, Map<String, dynamic>>> response = await dbCrud.read(view, id);
+    List<Map<String, Map<String, dynamic>>> response = await dbCrud.read(tableName, id, view: view);
+    if (response.isEmpty) {
+      throw DbEntryNotFoundException(tableName, id);
+    }
 
-    Order order = Order.fromJson(response.first[tableName]!);
+    Order order = Order.fromJson(response.first[""]!);
     for (Map<String, Map<String, dynamic>> entry in response) {
-      order.items.add(Item.fromJson(entry));
+      order.items.add(Item.fromJson(entry[""]!));
     }
 
     return order;

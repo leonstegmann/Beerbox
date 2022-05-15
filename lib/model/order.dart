@@ -1,7 +1,10 @@
 import 'package:beerbox/model/customer.dart';
 import 'package:beerbox/model/db_object.dart';
 import 'package:beerbox/model/item.dart';
+import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/table.dart';
+import 'package:beerbox/utils/format_time_to_string.dart';
+import 'package:beerbox/utils/string_utils.dart';
 
 class Order extends DbObject<Order> {
 
@@ -43,11 +46,12 @@ class Order extends DbObject<Order> {
   String formattedRepresentation() {
 
     StringBuffer stringBuffer = StringBuffer();
-    stringBuffer.writeln("--- Order $id ---");
-    stringBuffer.writeln("time: $_timestamp");
-    stringBuffer.writeln("from: ${_customer.name}");
+    stringBuffer.writeln("--- Order $id ------------------");
+    stringBuffer.writeln("time: ${dateTime2TimeString(timestamp)}");
+    stringBuffer.writeln("from: ${customer.firstName} ${customer.familyName}");
     writeItemsToStringBuffer(stringBuffer);
-    stringBuffer.writeln("costs: ${getOrderCosts()}NOK");
+    stringBuffer.writeln("costs: ${getOrderCosts()} NOK");
+    stringBuffer.writeln();
 
     return stringBuffer.toString();
   }
@@ -55,7 +59,7 @@ class Order extends DbObject<Order> {
   double getOrderCosts() {
 
     double costs = 0;
-    for (Item item in _items) {
+    for (Item item in items) {
       costs += item.costs;
     }
 
@@ -65,7 +69,9 @@ class Order extends DbObject<Order> {
   void writeItemsToStringBuffer(StringBuffer stringBuffer) {
 
     stringBuffer.writeln("item:");
-    for (MapEntry<int, Map<Item, int>> itemEntry in mapItemsByTypeAndCount().entries) {
+    for (MapEntry<ItemType, Map<Item, int>> itemEntry in mapItemsByTypeAndCount().entries) {
+      if (itemEntry.value.isEmpty) continue;
+
       for (MapEntry<Item, int> itemWithCount in itemEntry.value.entries) {
 
         if (itemWithCount.value > 1) {
@@ -76,24 +82,27 @@ class Order extends DbObject<Order> {
         }
 
         String itemName = itemWithCount.key.name;
+        String costs = itemWithCount.key.costs.toString() + " NOK";
+        int spaces = outputLength - outputIndentation - itemName.length - costs.length;
+
         stringBuffer.write(itemName);
-        writeSpacesToStringBuffer(stringBuffer, (outputLength - outputIndentation) - itemName.length);
-        stringBuffer.writeln(itemWithCount.key.costs);
+        writeSpacesToStringBuffer(stringBuffer, spaces);
+        stringBuffer.writeln(costs);
       }
 
       stringBuffer.writeln();
     }
   }
 
-  Map<int, Map<Item, int>> mapItemsByTypeAndCount() {
+  Map<ItemType, Map<Item, int>> mapItemsByTypeAndCount() {
 
-    Map<int, Map<Item, int>> itemMap = {};
+    Map<ItemType, Map<Item, int>> itemMap = {};
     for (ItemType itemType in ItemType.values) {
-      itemMap[itemType.index] = <Item, int>{};
+      itemMap[itemType] = <Item, int>{};
     }
 
-    for (Item item in _items) {
-      Map<Item, int> itemWithCount = itemMap[item.itemTypeId]!;
+    for (Item item in items) {
+      Map<Item, int> itemWithCount = itemMap[item.itemType]!;
       itemWithCount.putIfAbsent(item, () => 0);
       itemWithCount[item] = itemWithCount[item]!.toInt() + 1;
     }

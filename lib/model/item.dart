@@ -9,7 +9,7 @@ class Item extends DbObject<Item> {
 
   Item(int? id, this.name, this.costs, this.itemType) : super(id);
 
-  factory Item.fromJson(Map<String, Object?> json) => Item(
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
       json["item_id"] as int,
       json["name"] as String,
       json["costs"] as double,
