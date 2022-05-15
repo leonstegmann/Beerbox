@@ -52,10 +52,29 @@ Widget itemCard(Item _item) {
             children: [
               Text(_item.costs.toString()),
               const Text(' NOK'),
+              const SizedBox(width: 30),
+              const AddItemButton(),
             ],
           ),
         ],
       ),
     ),
   );
+}
+
+class AddItemButton extends StatefulWidget {
+  const AddItemButton({Key? key}) : super(key: key);
+
+  @override
+  State<AddItemButton> createState() => _AddItemButtonState();
+}
+
+class _AddItemButtonState extends State<AddItemButton> {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        tooltip: 'ADD to basket',
+        onPressed: () {},
+        icon: Icon(Icons.add));
+  }
 }
