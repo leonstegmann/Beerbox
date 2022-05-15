@@ -43,7 +43,7 @@ class CartWidget extends StatelessWidget {
             ],
           ),
         ),
-        Basket.instance.itemsInCart.isEmpty ? Container() : BasketItemList(),
+        Basket.instance.itemsInCart.isEmpty ? const Center(child:  Text('No Items!')) : const BasketItemList(),
       ]),
     );
   }
@@ -84,14 +84,15 @@ class BasketItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text('${_item.key.name}'),
             Text('${_item.key.itemType.name}'),
             Text('${_item.key.costs} NOK'),
-            Text('${_item.value}x'),
+            Text('${_item.value}x')
           ],
         ),
       ),
