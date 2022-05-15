@@ -58,29 +58,33 @@ class BasketItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListView.builder(
-        itemCount: Basket.instance.itemsInCart.keys.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 5.0, right: 30),
-            child: BasketItem(
-                item: Basket.instance.itemsInCart.entries.elementAt(index)),
-          );
-        },
+    return StatefulBuilder(
+      builder: (context,StateSetter setState) => Flexible(
+        child: ListView.builder(
+          itemCount: Basket.instance.itemsInCart.keys.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 5.0, right: 30),
+              child: BasketItem(setState,
+                  item: Basket.instance.itemsInCart.entries.elementAt(index)),
+            );
+          },
+        ),
       ),
     );
   }
 }
 
 class BasketItem extends StatelessWidget {
-  const BasketItem({
+  final MapEntry<Item, int> _item;
+  final StateSetter setState;
+
+  const BasketItem(this.setState,{
     Key? key,
     required MapEntry<Item, int> item,
   })  : _item = item,
         super(key: key);
 
-  final MapEntry<Item, int> _item;
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +103,14 @@ class BasketItem extends StatelessWidget {
                 IconButton(
                     onPressed: () {
                       Basket.instance.removeItem(_item.key);
+                      setState(() {});
                     },
                     icon: const Icon(Icons.remove_circle)),
                 Text('${_item.value}x'),
                 IconButton(
                     onPressed: () {
                       Basket.instance.addItem(_item.key);
+                      setState(() {});
                     },
                     icon: const Icon(Icons.add_circle))
               ],
