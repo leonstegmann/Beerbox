@@ -1,12 +1,16 @@
+import 'package:beerbox/model/cart.dart';
+import 'package:beerbox/model/item.dart';
 import 'package:flutter/material.dart';
 
-class Cart extends StatelessWidget {
-  const Cart({Key? key}) : super(key: key);
+class CartWidget extends StatelessWidget {
+  const CartWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cart'),),
+      appBar: AppBar(
+        title: const Text('Cart'),
+      ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,31 +28,73 @@ class Cart extends StatelessWidget {
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Padding(
-          padding:  EdgeInsets.symmetric(vertical: 10.0),
-          child:  Text('1. Chosen Items:', style: TextStyle(fontSize: 25)),
+          padding: EdgeInsets.all(20),
+          child: Text('1. Chosen Items:', style: TextStyle(fontSize: 25)),
         ),
-        myItems(),
+        Padding(
+          padding: const EdgeInsets.only(left: 30.0, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text('name'),
+              Text('Type'),
+              Text('Cost'),
+              Text('Amount'),
+            ],
+          ),
+        ),
+        Basket.instance.itemsInCart.isEmpty ? Container() : BasketItemList(),
       ]),
     );
   }
 }
 
-  Widget myItems() {
+class BasketItemList extends StatelessWidget {
+  const BasketItemList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Flexible(
-      flex: 1,
       child: ListView.builder(
-          itemCount: 4,
-          itemBuilder: (context, index) => Padding(
+        itemCount: Basket.instance.itemsInCart.keys.length,
+        itemBuilder: (context, index) {
+          return Padding(
             padding: const EdgeInsets.only(left: 5.0, right: 30),
-            child: Card(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Align(alignment: Alignment.centerLeft,child: Text('ItemName')),
-                  const Align(alignment: Alignment.centerRight, child: Text('Amount'),)
-                ],
-              ),
-            ),
-          )),
+            child: BasketItem(
+                item: Basket.instance.itemsInCart.entries.elementAt(index)),
+          );
+        },
+      ),
     );
+  }
+}
+
+class BasketItem extends StatelessWidget {
+  const BasketItem({
+    Key? key,
+    required MapEntry<Item, int> item,
+  })  : _item = item,
+        super(key: key);
+
+  final MapEntry<Item, int> _item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('${_item.key.name}'),
+            Text('${_item.key.itemType.name}'),
+            Text('${_item.key.costs} NOK'),
+            Text('${_item.value}x'),
+          ],
+        ),
+      ),
+    );
+  }
 }
