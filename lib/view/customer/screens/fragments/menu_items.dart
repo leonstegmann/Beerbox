@@ -1,4 +1,4 @@
-import 'package:beerbox/model/cart.dart';
+import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:flutter/material.dart';
