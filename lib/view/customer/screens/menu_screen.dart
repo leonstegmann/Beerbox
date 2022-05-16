@@ -121,31 +121,36 @@ AppBar buildAppBar(context) {
   return AppBar(
     title: const Text('Menu'),
     actions: [
-      Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartWidget()),
-                );
-              },
-              icon: const Icon(
-                Icons.shopping_cart,
-                size: 35,
-              )),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text('  ${_itemAmount}',
-                style: TextStyle(
-                    fontSize: 15,
-                    color: _itemAmount == 0
-                        ? Theme.of(context).primaryColor
-                        : Colors.red,
-                    fontWeight: FontWeight.bold)),
+      InkWell(
+        child: ElevatedButton(
+          style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0)))),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CartWidget()),
           ),
-        ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                const Icon(
+                  Icons.shopping_cart,
+                  size: 40,
+                ),
+                Text(' ${_itemAmount}',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: _itemAmount == 0
+                            ? Theme.of(context).primaryColor
+                            : Colors.red,
+                        fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+        ),
       ),
       const SizedBox(width: 50),
     ],
