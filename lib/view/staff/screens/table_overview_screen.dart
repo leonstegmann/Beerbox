@@ -3,26 +3,34 @@ import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/staff/screens/fragments/table_button.dart';
 import 'package:beerbox/view/staff/screens/orders_screen.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-class TableOverview extends StatefulWidget {
-  final OrderProvider _orderProvider = OrderProvider();
-
+class TableOverview extends StatelessWidget {
   TableOverview({Key? key}) : super(key: key);
 
-  @override
-  State<TableOverview> createState() => _TableOverviewState();
-}
+  final Stream<Map<CustomerTable, List<Order>>> ordersPerTableStream =
+      (() async* {
+    final OrderProvider orderProvider = OrderProvider();
+    const MapEquality mapEquality = MapEquality();
 
-class _TableOverviewState extends State<TableOverview> {
+    Map<CustomerTable, List<Order>> oldState = {};
+    while (true) {
+      Map<CustomerTable, List<Order>> ordersPerTable = await orderProvider
+          .getOrdersPerTableMap(useAllTables: true)
+          .timeout(const Duration(seconds: 5));
 
-  Future<Map<CustomerTable, List<Order>>> getNewData() async {
-    return await widget._orderProvider.getOrdersPerTableMap(useAllTables: true);
-  }
+      if (!mapEquality.equals(oldState, ordersPerTable)) {
+        oldState = ordersPerTable;
+        yield ordersPerTable;
+      }
+
+      await Future<void>.delayed(const Duration(seconds: 5));
+    }
+  })();
 
   @override
   Widget build(BuildContext context) {
-
     bool fill = false;
     return Scaffold(
       appBar: AppBar(
@@ -45,8 +53,8 @@ class _TableOverviewState extends State<TableOverview> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: getNewData(),
+      body: StreamBuilder<Map<CustomerTable, List<Order>>>(
+        stream: ordersPerTableStream,
         builder:
             (context, AsyncSnapshot<Map<CustomerTable, List<Order>>> snapshot) {
           if (snapshot.hasError) {
