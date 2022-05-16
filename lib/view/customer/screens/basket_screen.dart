@@ -63,14 +63,20 @@ class _CartWidgetState extends State<CartWidget> {
                   height: 2,
                   color: Theme.of(context).highlightColor,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(child: Container()),
-                    const Flexible(child:  Text('Total:')),
-                    Flexible(
-                        child: Text('${Basket.instance.totalCosts().toString()}  NOK')),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Flexible(child: Container()),
+                     const  Flexible(child: Text('Items:')),
+                      Flexible(child: Text('${Basket.instance.itemCounter().toString()}x')),
+                      Flexible(child: Container()),
+                      const Flexible(child:  Text('Total:')),
+                      Flexible(
+                          child: Text('${Basket.instance.totalCosts().toString()}  NOK')),
+                    ],
+                  ),
                 ),
               ]
             ]),

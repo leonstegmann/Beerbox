@@ -31,4 +31,11 @@ class Basket {
     return totalCost;
   }
 
+  int itemCounter() {
+    int _itemcounter = 0;
+    for (Item _item in itemsInCart.keys ){
+      _itemcounter = _itemcounter +  itemsInCart[_item]!;
+    }
+    return _itemcounter;
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/view/customer/screens/basket_screen.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_items.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_navigation.dart';
@@ -99,13 +100,13 @@ class _MenuState extends State<Menu> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       if (loadedItemType == ItemType.values[0])
-                        ItemDisplay(loadedItemList[0], loadedItemType),
+                        ItemDisplay(setState,loadedItemList[0], loadedItemType),
                       if (loadedItemType == ItemType.values[1])
-                        ItemDisplay(loadedItemList[1], loadedItemType),
+                        ItemDisplay(setState,loadedItemList[1], loadedItemType),
                       if (loadedItemType == ItemType.values[2])
-                        ItemDisplay(loadedItemList[2], loadedItemType),
+                        ItemDisplay(setState,loadedItemList[2], loadedItemType),
                       if (loadedItemType == ItemType.values[3])
-                        ItemDisplay(loadedItemList[3], loadedItemType),
+                        ItemDisplay(setState,loadedItemList[3], loadedItemType),
                     ],
                   );
                 } else {
@@ -130,17 +131,20 @@ AppBar buildAppBar(context) {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartWidget()),
+                  MaterialPageRoute(builder: (context) => const CartWidget()),
                 );
               },
               icon: const Icon(
                 Icons.shopping_cart,
-                size: 30,
+                size: 35,
               )),
-          const Text(
-            ' 1',
-            style: TextStyle(
-                fontSize: 20, color: Colors.red, fontWeight: FontWeight.bold)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              '  ${Basket.instance.itemCounter()}',
+              style: const TextStyle(
+                  fontSize: 15, color: Colors.red, fontWeight: FontWeight.bold)
+            ),
           ),
         ],
       ),
