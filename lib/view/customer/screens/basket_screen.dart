@@ -26,26 +26,44 @@ class CartWidget extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Padding(
-          padding: EdgeInsets.all(20),
-          child: Text('1. Chosen Items:', style: TextStyle(fontSize: 25)),
-        ),
-          if (Basket.instance.itemsInCart.isEmpty) Center(child: Text('No Items!')) else
-        Padding(
-          padding: const EdgeInsets.only(left: 30.0, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('name'),
-              Text('Type'),
-              Text('Cost'),
-              Text('Amount'),
-            ],
-          ),
-        ),
-        const BasketItemList(),
-      ]),
+              Text('1. Chosen Items:', style: TextStyle(fontSize: 25)),
+              if (Basket.instance.itemsInCart.isEmpty)
+                Center(child: Text('No Items!'))
+              else
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [
+                      Text('name'),
+                      Text('Type'),
+                      Text('Cost'),
+                      Text('Amount'),
+                    ],
+                  ),
+                ),
+              const BasketItemList(),
+              SizedBox(height: 10),
+              Container(
+                height: 2,
+                color: Theme.of(context).highlightColor,
+              ),
+              Row(
+                children: [
+                  Flexible(child: Container()),
+                  Flexible(child: Text('Total:')),
+                  Flexible(child: Text(Basket.instance.totalCosts().toString())),
+                ],
+              )
+            ]),
+      ),
     );
   }
 }
@@ -58,8 +76,9 @@ class BasketItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(
-      builder: (context,StateSetter setState) => Flexible(
+      builder: (context, StateSetter setState) => Flexible(
         child: ListView.builder(
+          shrinkWrap: true,
           itemCount: Basket.instance.itemsInCart.keys.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -78,12 +97,12 @@ class BasketItem extends StatelessWidget {
   final MapEntry<Item, int> _item;
   final StateSetter setState;
 
-  const BasketItem(this.setState,{
+  const BasketItem(
+    this.setState, {
     Key? key,
     required MapEntry<Item, int> item,
   })  : _item = item,
         super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
