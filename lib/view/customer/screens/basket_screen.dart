@@ -46,7 +46,7 @@ class _CartWidgetState extends State<CartWidget> {
               ] else ...[
                 const Text('Chosen Items:', style: TextStyle(fontSize: 25)),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30.0, right: 10,top: 20),
+                  padding: const EdgeInsets.only(left: 5.0, right: 10,top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
@@ -69,7 +69,7 @@ class _CartWidgetState extends State<CartWidget> {
                     Flexible(child: Container()),
                     const Flexible(child:  Text('Total:')),
                     Flexible(
-                        child: Text(Basket.instance.totalCosts().toString())),
+                        child: Text('${Basket.instance.totalCosts().toString()}  NOK')),
                   ],
                 ),
               ]
@@ -120,14 +120,14 @@ class BasketItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        padding: const EdgeInsets.only(left: 50.0, right: 30.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(_item.key.name),
             Text(_item.key.itemType.name),
-            Text('${_item.key.costs} NOK'),
+            Text('${_item.key.costs}  NOK'),
             Row(
               children: [
                 IconButton(
