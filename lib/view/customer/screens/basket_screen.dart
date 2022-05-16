@@ -2,14 +2,19 @@ import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:flutter/material.dart';
 
-class CartWidget extends StatelessWidget {
+class CartWidget extends StatefulWidget {
   const CartWidget({Key? key}) : super(key: key);
 
+  @override
+  State<CartWidget> createState() => _CartWidgetState();
+}
+
+class _CartWidgetState extends State<CartWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
+        title: const Text('Basket'),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -33,12 +38,15 @@ class CartWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('1. Chosen Items:', style: TextStyle(fontSize: 25)),
-              if (Basket.instance.itemsInCart.isEmpty)
-                Center(child: Text('No Items!'))
-              else
+              if (Basket.instance.itemsInCart.isEmpty) ...[
+                const Padding(
+                  padding: EdgeInsets.only(top: 30.0),
+                  child: Center(child: Text('No Items!',style: TextStyle(fontSize: 25),)),
+                )
+              ] else ...[
+                const Text('Chosen Items:', style: TextStyle(fontSize: 25)),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30.0, right: 10),
+                  padding: const EdgeInsets.only(left: 30.0, right: 10,top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
@@ -49,19 +57,22 @@ class CartWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-              const BasketItemList(),
-              SizedBox(height: 10),
-              Container(
-                height: 2,
-                color: Theme.of(context).highlightColor,
-              ),
-              Row(
-                children: [
-                  Flexible(child: Container()),
-                  Flexible(child: Text('Total:')),
-                  Flexible(child: Text(Basket.instance.totalCosts().toString())),
-                ],
-              )
+                BasketItemList(setState),
+                const SizedBox(height: 10),
+                Container(
+                  height: 2,
+                  color: Theme.of(context).highlightColor,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Flexible(child: Container()),
+                    const Flexible(child:  Text('Total:')),
+                    Flexible(
+                        child: Text(Basket.instance.totalCosts().toString())),
+                  ],
+                ),
+              ]
             ]),
       ),
     );
@@ -69,25 +80,26 @@ class CartWidget extends StatelessWidget {
 }
 
 class BasketItemList extends StatelessWidget {
-  const BasketItemList({
+  final StateSetter setState;
+
+  const BasketItemList(
+    this.setState, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StatefulBuilder(
-      builder: (context, StateSetter setState) => Flexible(
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: Basket.instance.itemsInCart.keys.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 5.0, right: 30),
-              child: BasketItem(setState,
-                  item: Basket.instance.itemsInCart.entries.elementAt(index)),
-            );
-          },
-        ),
+    return Flexible(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: Basket.instance.itemsInCart.keys.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 5.0, right: 30),
+            child: BasketItem(setState,
+                item: Basket.instance.itemsInCart.entries.elementAt(index)),
+          );
+        },
       ),
     );
   }
@@ -113,8 +125,8 @@ class BasketItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('${_item.key.name}'),
-            Text('${_item.key.itemType.name}'),
+            Text(_item.key.name),
+            Text(_item.key.itemType.name),
             Text('${_item.key.costs} NOK'),
             Row(
               children: [
