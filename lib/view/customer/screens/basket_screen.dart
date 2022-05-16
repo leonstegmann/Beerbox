@@ -16,21 +16,6 @@ class _CartWidgetState extends State<CartWidget> {
       appBar: AppBar(
         title: const Text('Basket'),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              child: const Text('proceed to payment'),
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 100),
-                shape: const RoundedRectangleBorder(),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -88,6 +73,15 @@ class _CartWidgetState extends State<CartWidget> {
               ]
             ]),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 20.0),
+        child: FloatingActionButton.extended(
+          label: const Text('proceed to payment'),
+          onPressed: () {},
+          backgroundColor: Theme.of(context).hintColor,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
