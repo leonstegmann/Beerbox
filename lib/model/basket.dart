@@ -7,25 +7,24 @@ class Basket {
 
   Basket._init();
 
+  Map<Item, int> get items => itemsInCart;
+
   void addItem(Item item) {
     itemsInCart.putIfAbsent(item, () => 0);
     itemsInCart[item] = itemsInCart[item]! + 1;
   }
 
   void removeItem(Item item) {
-    if(itemsInCart[item] == 1){
+    if (itemsInCart[item] == 1) {
       itemsInCart.remove(item);
-    } else{
+    } else {
       itemsInCart[item] = itemsInCart[item]! - 1;
     }
   }
 
-  /// Getter
-  Map<Item, int> get items => itemsInCart;
-
   double totalCosts() {
-    double totalCost = 0;
-    for (Item _item in itemsInCart.keys ){
+    double totalCost = 0.0;
+    for (Item _item in itemsInCart.keys) {
       totalCost = totalCost + _item.costs * itemsInCart[_item]!;
     }
     return totalCost;
@@ -33,8 +32,8 @@ class Basket {
 
   int itemCounter() {
     int _itemCounter = 0;
-    for (Item _item in itemsInCart.keys ){
-      _itemCounter = _itemCounter +  itemsInCart[_item]!;
+    for (var i in itemsInCart.values) {
+      _itemCounter = _itemCounter + i;
     }
     return _itemCounter;
   }

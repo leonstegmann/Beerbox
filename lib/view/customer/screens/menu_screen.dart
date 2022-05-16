@@ -71,57 +71,54 @@ class _MenuState extends State<Menu> {
 
   Expanded buildItemList() {
     return Expanded(
-            child: FutureBuilder(
-              future: itemsFuture,
-              builder: (context, AsyncSnapshot<List<Item>> snapshotItems) {
-                if (snapshotItems.hasError) {
-                  final error = snapshotItems.error;
-                  return Text('$error');
-                } else if (snapshotItems.connectionState ==
-                        ConnectionState.done &&
-                    snapshotItems.data != null) {
-                  List<List<Item>> loadedItemList = [
-                    snapshotItems.data!
-                        .where((i) => i.itemType == ItemType.beer)
-                        .toList(),
-                    snapshotItems.data!
-                        .where((i) => i.itemType == ItemType.cocktail)
-                        .toList(),
-                    snapshotItems.data!
-                        .where((i) => i.itemType == ItemType.shot)
-                        .toList(),
-                    snapshotItems.data!
-                        .where((i) => i.itemType == ItemType.snack)
-                        .toList(),
-                  ];
+      child: FutureBuilder(
+        future: itemsFuture,
+        builder: (context, AsyncSnapshot<List<Item>> snapshotItems) {
+          if (snapshotItems.hasError) {
+            final error = snapshotItems.error;
+            return Text('$error');
+          } else if (snapshotItems.connectionState == ConnectionState.done &&
+              snapshotItems.data != null) {
+            List<List<Item>> loadedItemList = [
+              snapshotItems.data!
+                  .where((i) => i.itemType == ItemType.beer)
+                  .toList(),
+              snapshotItems.data!
+                  .where((i) => i.itemType == ItemType.cocktail)
+                  .toList(),
+              snapshotItems.data!
+                  .where((i) => i.itemType == ItemType.shot)
+                  .toList(),
+              snapshotItems.data!
+                  .where((i) => i.itemType == ItemType.snack)
+                  .toList(),
+            ];
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      if (loadedItemType == ItemType.values[0])
-                        ItemDisplay(setState,loadedItemList[0], loadedItemType),
-                      if (loadedItemType == ItemType.values[1])
-                        ItemDisplay(setState,loadedItemList[1], loadedItemType),
-                      if (loadedItemType == ItemType.values[2])
-                        ItemDisplay(setState,loadedItemList[2], loadedItemType),
-                      if (loadedItemType == ItemType.values[3])
-                        ItemDisplay(setState,loadedItemList[3], loadedItemType),
-                    ],
-                  );
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
-          );
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (loadedItemType == ItemType.values[0])
+                  ItemDisplay(setState, loadedItemList[0], loadedItemType),
+                if (loadedItemType == ItemType.values[1])
+                  ItemDisplay(setState, loadedItemList[1], loadedItemType),
+                if (loadedItemType == ItemType.values[2])
+                  ItemDisplay(setState, loadedItemList[2], loadedItemType),
+                if (loadedItemType == ItemType.values[3])
+                  ItemDisplay(setState, loadedItemList[3], loadedItemType),
+              ],
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+    );
   }
 }
 
 AppBar buildAppBar(context) {
   return AppBar(
-    title: const Text(
-      'Menu',
-    ),
+    title: const Text('Menu'),
     actions: [
       Stack(
         alignment: Alignment.topCenter,
@@ -139,11 +136,11 @@ AppBar buildAppBar(context) {
               )),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              '  ${Basket.instance.itemCounter()}',
-              style: const TextStyle(
-                  fontSize: 15, color: Colors.red, fontWeight: FontWeight.bold)
-            ),
+            child: Text('  ${Basket.instance.itemCounter()}',
+                style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold)),
           ),
         ],
       ),
