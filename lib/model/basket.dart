@@ -23,6 +23,12 @@ class Basket {
   /// Getter
   Map<Item, int> get items => itemsInCart;
 
-
+  double totalCosts() {
+    double totalCost = 0;
+    for (Item _item in itemsInCart.keys ){
+      totalCost = totalCost + _item.costs * itemsInCart[_item]!;
+    }
+    return totalCost;
+  }
 
 }
