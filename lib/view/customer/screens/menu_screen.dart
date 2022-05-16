@@ -117,6 +117,7 @@ class _MenuState extends State<Menu> {
 }
 
 AppBar buildAppBar(context) {
+  int _itemAmount = Basket.instance.itemCounter();
   return AppBar(
     title: const Text('Menu'),
     actions: [
@@ -136,17 +137,17 @@ AppBar buildAppBar(context) {
               )),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: Text('  ${Basket.instance.itemCounter()}',
-                style: const TextStyle(
+            child: Text('  ${_itemAmount}',
+                style: TextStyle(
                     fontSize: 15,
-                    color: Colors.red,
+                    color: _itemAmount == 0
+                        ? Theme.of(context).primaryColor
+                        : Colors.red,
                     fontWeight: FontWeight.bold)),
           ),
         ],
       ),
-      const SizedBox(
-        width: 50,
-      ),
+      const SizedBox(width: 50),
     ],
   );
 }

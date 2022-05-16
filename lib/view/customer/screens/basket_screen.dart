@@ -15,6 +15,12 @@ class _CartWidgetState extends State<CartWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Basket'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          }
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
