@@ -32,3 +32,16 @@ abstract class DataProvider<T> {
   /// Removes the database entry with the given [id] from the specialized [table].
   Future<T> delete(int id);
 }
+
+class DbEntryNotFoundException implements Exception {
+
+  final String _table;
+  final int _id;
+
+  DbEntryNotFoundException(this._table, this._id);
+
+  @override
+  String toString() {
+    return 'DbEntryNotFoundException: $_table with id: $_id not found.';
+  }
+}

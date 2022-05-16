@@ -67,7 +67,8 @@ class _OrderFragmentState extends State<OrderFragment> {
                 ),
                 Flexible(
                   child: IconButton(
-                    onPressed: () => debugPrint('printed'),
+                    onPressed: () =>
+                        debugPrint(widget._order.formattedRepresentation()),
                     icon: Icon(
                       Icons.print,
                       color: Theme.of(context).iconTheme.color,
