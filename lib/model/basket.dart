@@ -32,10 +32,10 @@ class Basket {
   }
 
   int itemCounter() {
-    int _itemcounter = 0;
+    int _itemCounter = 0;
     for (Item _item in itemsInCart.keys ){
-      _itemcounter = _itemcounter +  itemsInCart[_item]!;
+      _itemCounter = _itemCounter +  itemsInCart[_item]!;
     }
-    return _itemcounter;
+    return _itemCounter;
   }
 }

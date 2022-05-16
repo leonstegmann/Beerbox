@@ -2,7 +2,6 @@ import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/view/customer/screens/basket_screen.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_items.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_navigation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/item.dart';

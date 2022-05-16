@@ -41,12 +41,16 @@ class _CartWidgetState extends State<CartWidget> {
               if (Basket.instance.itemsInCart.isEmpty) ...[
                 const Padding(
                   padding: EdgeInsets.only(top: 30.0),
-                  child: Center(child: Text('No Items!',style: TextStyle(fontSize: 25),)),
+                  child: Center(
+                      child: Text(
+                    'No Items!',
+                    style: TextStyle(fontSize: 25),
+                  )),
                 )
               ] else ...[
                 const Text('Chosen Items:', style: TextStyle(fontSize: 25)),
                 Padding(
-                  padding: const EdgeInsets.only(left: 5.0, right: 10,top: 20),
+                  padding: const EdgeInsets.only(left: 5.0, right: 10, top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
@@ -69,12 +73,15 @@ class _CartWidgetState extends State<CartWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Flexible(child: Container()),
-                     const  Flexible(child: Text('Items:')),
-                      Flexible(child: Text('${Basket.instance.itemCounter().toString()}x')),
-                      Flexible(child: Container()),
-                      const Flexible(child:  Text('Total:')),
+                      const Flexible(child: Text('Items:')),
                       Flexible(
-                          child: Text('${Basket.instance.totalCosts().toString()}  NOK')),
+                          child: Text(
+                              '${Basket.instance.itemCounter().toString()}x')),
+                      Flexible(child: Container()),
+                      const Flexible(child: Text('Total:')),
+                      Flexible(
+                          child: Text(
+                              '${Basket.instance.totalCosts().toString()}  NOK')),
                     ],
                   ),
                 ),
@@ -137,18 +144,20 @@ class BasketItem extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                    onPressed: () {
-                      Basket.instance.removeItem(_item.key);
-                      setState(() {});
-                    },
-                    icon: const Icon(Icons.remove_circle)),
+                  onPressed: () {
+                    Basket.instance.removeItem(_item.key);
+                    setState(() {});
+                  },
+                  icon: const Icon(Icons.remove_circle),
+                ),
                 Text('${_item.value}x'),
                 IconButton(
-                    onPressed: () {
-                      Basket.instance.addItem(_item.key);
-                      setState(() {});
-                    },
-                    icon: const Icon(Icons.add_circle))
+                  onPressed: () {
+                    Basket.instance.addItem(_item.key);
+                    setState(() {});
+                  },
+                  icon: const Icon(Icons.add_circle),
+                )
               ],
             )
           ],

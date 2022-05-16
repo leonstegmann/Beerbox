@@ -8,7 +8,7 @@ class ItemDisplay extends StatelessWidget {
   final ItemType? itemType;
   final StateSetter setState;
 
-  const ItemDisplay(this.setState, this._itemList , [this.itemType, Key? key])
+  const ItemDisplay(this.setState, this._itemList, [this.itemType, Key? key])
       : super(key: key);
 
   @override
@@ -31,7 +31,8 @@ class ItemDisplay extends StatelessWidget {
               physics: const ScrollPhysics(parent: null),
               scrollDirection: Axis.vertical,
               itemCount: _itemList.length,
-              itemBuilder: (context, index) => itemCard(_itemList[index], setState),
+              itemBuilder: (context, index) =>
+                  itemCard(_itemList[index], setState),
             ),
           ),
         ],
@@ -55,7 +56,7 @@ Widget itemCard(Item _item, StateSetter setState) {
               Text(_item.costs.toString()),
               const Text(' NOK'),
               const SizedBox(width: 30),
-              AddItemButton(_item,setState),
+              AddItemButton(_item, setState),
             ],
           ),
         ],
@@ -67,14 +68,18 @@ Widget itemCard(Item _item, StateSetter setState) {
 class AddItemButton extends StatelessWidget {
   final Item _item;
   final StateSetter setState;
+
   const AddItemButton(this._item, this.setState, {Key? key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return IconButton(
-        tooltip: 'ADD to basket',
-        onPressed: () {Basket.instance.addItem(_item);
-          setState(() {});
-        },
-        icon: const Icon(Icons.add));
+      tooltip: 'ADD to basket',
+      onPressed: () {
+        Basket.instance.addItem(_item);
+        setState(() {});
+      },
+      icon: const Icon(Icons.add),
+    );
   }
 }
