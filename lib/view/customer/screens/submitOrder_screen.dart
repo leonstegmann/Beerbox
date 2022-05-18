@@ -2,29 +2,16 @@ import 'package:beerbox/control/table_provider.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:flutter/material.dart';
 
-class SubmitOrder extends StatefulWidget {
+class SubmitOrder extends StatelessWidget {
   final int _itemCount;
   final double _totalCost;
   final TableProvider tableProvider = TableProvider();
+  CustomerTable? selectedTable;
 
   SubmitOrder(this._totalCost, this._itemCount, {Key? key}) : super(key: key);
 
-  @override
-  State<SubmitOrder> createState() => _SubmitOrderState();
-}
-
-class _SubmitOrderState extends State<SubmitOrder> {
-  late Future<List<CustomerTable>> _tables;
-  CustomerTable? selectedTable;
-
-  @override
-  void initState() {
-    super.initState();
-    _tables = getTables();
-  }
-
   Future<List<CustomerTable>> getTables() async {
-    List<CustomerTable> result = await widget.tableProvider.readAll();
+    List<CustomerTable> result = await tableProvider.readAll();
     return result;
   }
 
@@ -49,17 +36,19 @@ class _SubmitOrderState extends State<SubmitOrder> {
                 children: [
                   TextField(
                     controller: _firstnameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      hintStyle: TextStyle(color: Theme.of(context).hintColor),
                       labelText: 'First name',
-                      border: UnderlineInputBorder(),
+                      border: const UnderlineInputBorder(),
                     ),
                     keyboardType: TextInputType.name,
                   ),
                   TextField(
                     controller: _lastnameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      hintStyle: TextStyle(color: Theme.of(context).hintColor),
                       labelText: 'Last name',
-                      border: UnderlineInputBorder(),
+                      border: const UnderlineInputBorder(),
                     ),
                     keyboardType: TextInputType.name,
                   ),
@@ -70,7 +59,7 @@ class _SubmitOrderState extends State<SubmitOrder> {
                         style: TextStyle(color: Theme.of(context).hintColor),
                       ),
                       FutureBuilder(
-                        future: _tables,
+                        future: getTables(),
                         builder: (context,
                             AsyncSnapshot<List<CustomerTable>> snapshotTables) {
                           if (snapshotTables.hasError) {
@@ -97,7 +86,7 @@ class _SubmitOrderState extends State<SubmitOrder> {
                         style: TextStyle(color: Theme.of(context).hintColor),
                       ),
                       const SizedBox(width: 10),
-                      Text('${widget._itemCount} x'),
+                      Text('${_itemCount} x'),
                     ],
                   ),
                   const SizedBox(height: 25),
@@ -108,7 +97,7 @@ class _SubmitOrderState extends State<SubmitOrder> {
                         style: TextStyle(color: Theme.of(context).hintColor),
                       ),
                       const SizedBox(width: 10),
-                      Text('${widget._totalCost}'),
+                      Text('${_totalCost}'),
                       const Text(
                         '  NOK',
                         style: TextStyle(fontSize: 10),
