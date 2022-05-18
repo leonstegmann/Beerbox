@@ -86,5 +86,5 @@ class CategoryButtonContent extends StatelessWidget {
   }
 
   Color getColorToUse(ThemeData themeData) =>
-      _highlighted ? themeData.disabledColor : themeData.disabledColor;
+      _highlighted ? themeData.highlightColor : themeData.disabledColor;
 }
