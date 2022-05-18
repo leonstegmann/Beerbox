@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Categories extends StatefulWidget {
   final ValueSetter<ItemType> activateItemTypeField;
@@ -56,7 +57,10 @@ class _CategoriesState extends State<Categories> {
           padding: const EdgeInsets.only(left: 15.0),
           child: CategoryButtonContent(
               selectedIndex == index,
-              Icons.cake,
+              SvgPicture.asset(
+                'assets/ItemType_icons/icon_${_type.name}.svg',
+                height: 45,
+              ),
               _type.toString().split('.').last),
         ),
       ),
@@ -66,7 +70,7 @@ class _CategoriesState extends State<Categories> {
 
 class CategoryButtonContent extends StatelessWidget {
   final bool _highlighted;
-  final IconData _iconData;
+  final Widget _iconData;
   final String _text;
 
   const CategoryButtonContent(this._highlighted, this._iconData, this._text,
@@ -79,7 +83,11 @@ class CategoryButtonContent extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(_iconData, size: 40, color: _color),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2.0),
+          child: _iconData,
+        ),
+        const SizedBox(width: 8),
         Text(_text, style: TextStyle(fontSize: 20, color: _color)),
       ],
     );
