@@ -34,13 +34,13 @@ class DbCrud {
   /// Dont miss-use it and go for already defined operations if possible.
   Future<PostgreSQLConnection> get connection async {
     if (_connection.isClosed) {
-      debugPrint("INFO: try to open connection");
+      debugPrint("DbCrud: try to open connection");
       await _connection.open()
-          .then((value) => debugPrint('INFO: connection opened'))
+          .then((value) => debugPrint('DbCrud: connection opened'))
           .onError((error, stackTrace) => debugPrint('$error: $stackTrace'));
     }
 
-    debugPrint("INFO: connection returned");
+    // debugPrint("DbCrud: connection returned");
     return _connection;
   }
 

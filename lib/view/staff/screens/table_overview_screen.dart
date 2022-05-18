@@ -1,37 +1,46 @@
+import 'dart:async';
 import 'package:beerbox/control/order_provider.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/staff/screens/fragments/table_button.dart';
 import 'package:beerbox/view/staff/screens/orders_screen.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-class TableOverview extends StatelessWidget {
-  TableOverview({Key? key}) : super(key: key);
+class TableOverview extends StatefulWidget {
+  static final OrderProvider _orderProvider = OrderProvider();
 
-  final Stream<Map<CustomerTable, List<Order>>> ordersPerTableStream =
-      (() async* {
-    final OrderProvider orderProvider = OrderProvider();
-    const MapEquality mapEquality = MapEquality();
+  const TableOverview({Key? key}) : super(key: key);
 
-    Map<CustomerTable, List<Order>> oldState = {};
-    while (true) {
-      Map<CustomerTable, List<Order>> ordersPerTable = await orderProvider
-          .getOrdersPerTableMap(useAllTables: true)
-          .timeout(const Duration(seconds: 5));
+  @override
+  State<TableOverview> createState() => _TableOverviewState();
+}
 
-      if (!mapEquality.equals(oldState, ordersPerTable)) {
-        oldState = ordersPerTable;
-        yield ordersPerTable;
-      }
+class _TableOverviewState extends State<TableOverview> {
+  final Stream<Future<Map<CustomerTable, List<Order>>>> _ordersPerTableStream =
+      Stream.periodic(const Duration(seconds: 3), (int count) async {
+    return await TableOverview._orderProvider
+        .getOrdersPerTableMap(useAllTables: true);
+  });
 
-      await Future<void>.delayed(const Duration(seconds: 5));
-    }
-  })();
+  late StreamSubscription _sub;
+
+  Map<CustomerTable, List<Order>> _currentOrdersPerTable = {};
+
+  @override
+  void initState() {
+    _sub = _ordersPerTableStream.listen((ordersPerTable) {
+      ordersPerTable.then((value) {
+        setState(() {
+          _currentOrdersPerTable = value;
+        });
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool fill = false;
     return Scaffold(
       appBar: AppBar(
         title: const Text('TableOverview'),
@@ -53,44 +62,60 @@ class TableOverview extends StatelessWidget {
           ),
         ],
       ),
-      body: StreamBuilder<Map<CustomerTable, List<Order>>>(
-        stream: ordersPerTableStream,
-        builder:
-            (context, AsyncSnapshot<Map<CustomerTable, List<Order>>> snapshot) {
-          if (snapshot.hasError) {
-            final error = snapshot.error;
-            return Text('$error');
-          } else if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.data != null) {
-            int _tablesListLength = snapshot.data!.keys.length;
-            return Container(
-              color: Colors.grey[850],
-              padding: const EdgeInsets.all(20),
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: _tablesListLength * 2,
-                // double the length of the list in order to fit a spacing between each
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
-                  mainAxisExtent: 150,
-                ),
-                itemBuilder: (context, index) {
-                  int tableIndex = index ~/ 2; // integer division
-                  if (fill == false) {
-                    fill = !fill;
-                    return TableButton(
-                        snapshot.data!.keys.elementAt(tableIndex),
-                        snapshot.data!.values.elementAt(tableIndex));
-                  } else {
-                    fill = !fill;
-                    --index;
-                    return const SizedBox(width: 50);
-                  }
-                },
-              ),
+      body: Builder(
+        builder: (context) {
+          if (_currentOrdersPerTable.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return TableGridView(ordersPerTable: _currentOrdersPerTable);
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
+  }
+}
+
+class TableGridView extends StatelessWidget {
+  const TableGridView({
+    Key? key,
+    required Map<CustomerTable, List<Order>> ordersPerTable,
+  })  : _ordersPerTable = ordersPerTable,
+        super(key: key);
+
+  final Map<CustomerTable, List<Order>> _ordersPerTable;
+
+  @override
+  Widget build(BuildContext context) {
+    bool fill = false;
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        // double the length of the list in order to fit a spacing between each
+        itemCount: _ordersPerTable.keys.length * 2,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 5,
+          mainAxisExtent: 150,
+        ),
+        itemBuilder: (context, index) {
+          int tableIndex = index ~/ 2; // integer division
+          if (fill == false) {
+
+            fill = true;
+            return TableButton(
+              _ordersPerTable.keys.elementAt(tableIndex),
+              _ordersPerTable.values.elementAt(tableIndex),
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+
+            fill = false;
+            --index;
+            return const SizedBox(width: 50);
           }
         },
       ),
