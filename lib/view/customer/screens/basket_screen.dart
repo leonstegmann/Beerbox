@@ -3,14 +3,14 @@ import 'package:beerbox/model/item.dart';
 import 'package:beerbox/view/customer/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 
-class CartWidget extends StatefulWidget {
-  const CartWidget({Key? key}) : super(key: key);
+class BasketScreen extends StatefulWidget {
+  const BasketScreen({Key? key}) : super(key: key);
 
   @override
-  State<CartWidget> createState() => _CartWidgetState();
+  State<BasketScreen> createState() => _BasketScreenState();
 }
 
-class _CartWidgetState extends State<CartWidget> {
+class _BasketScreenState extends State<BasketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
