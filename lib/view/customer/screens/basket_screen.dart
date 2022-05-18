@@ -1,5 +1,6 @@
 import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/model/item.dart';
+import 'package:beerbox/view/customer/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class CartWidget extends StatefulWidget {
@@ -17,9 +18,10 @@ class _CartWidgetState extends State<CartWidget> {
         title: const Text('Basket'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop(true);
-          }
+          onPressed: () =>Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Menu()),
+          )
         ),
       ),
       body: Padding(

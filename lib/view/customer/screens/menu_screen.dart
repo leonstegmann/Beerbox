@@ -2,6 +2,7 @@ import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/view/customer/screens/basket_screen.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_items.dart';
 import 'package:beerbox/view/customer/screens/fragments/menu_navigation.dart';
+import 'package:beerbox/view/customer/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/item.dart';
@@ -38,6 +39,10 @@ class _MenuState extends State<Menu> {
       loadedItemType = newType;
     });
   }
+
+  // void refresh(){
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +125,13 @@ AppBar buildAppBar(context) {
   int _itemAmount = Basket.instance.itemCounter();
   return AppBar(
     title: const Text('Menu'),
+    leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () =>Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        )
+    ),
     actions: [
       InkWell(
         child: ElevatedButton(
@@ -129,7 +141,7 @@ AppBar buildAppBar(context) {
                       borderRadius: BorderRadius.circular(18.0)))),
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CartWidget()),
+            MaterialPageRoute(builder: (context) => CartWidget()),
           ),
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),
