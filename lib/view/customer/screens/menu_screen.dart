@@ -40,10 +40,6 @@ class _MenuState extends State<Menu> {
     });
   }
 
-  // void refresh(){
-  //   setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,7 +136,7 @@ AppBar buildAppBar(context) {
                       borderRadius: BorderRadius.circular(18.0)))),
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CartWidget()),
+            MaterialPageRoute(builder: (context) => const CartWidget()),
           ),
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),

@@ -21,5 +21,4 @@ class Item extends DbObject<Item> {
         'costs': "'$name'",
         'itemType_id': "'${itemType.index}'",
       };
-
 }
