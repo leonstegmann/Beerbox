@@ -1,11 +1,33 @@
+import 'package:beerbox/control/table_provider.dart';
+import 'package:beerbox/model/table.dart';
 import 'package:flutter/material.dart';
 
-class SubmitOrder extends StatelessWidget {
+class SubmitOrder extends StatefulWidget {
   final int _itemCount;
   final double _totalCost;
+  final TableProvider tableProvider = TableProvider();
 
-  const SubmitOrder(this._totalCost, this._itemCount, {Key? key})
-      : super(key: key);
+  SubmitOrder(this._totalCost, this._itemCount, {Key? key}) : super(key: key);
+
+  @override
+  State<SubmitOrder> createState() => _SubmitOrderState();
+}
+
+class _SubmitOrderState extends State<SubmitOrder> {
+  late Future<List<CustomerTable>> _tables;
+  CustomerTable? selectedTable;
+
+  @override
+  void initState() {
+    super.initState();
+    _tables = getTables();
+  }
+
+  Future<List<CustomerTable>> getTables() async {
+    List<CustomerTable> result = await widget.tableProvider.readAll();
+  //  setState(() {});
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +51,7 @@ class SubmitOrder extends StatelessWidget {
                   TextField(
                     controller: _firstnameController,
                     decoration: const InputDecoration(
-                         labelText: 'First name',
+                      labelText: 'First name',
                       border: UnderlineInputBorder(),
                     ),
                     keyboardType: TextInputType.name,
@@ -42,10 +64,26 @@ class SubmitOrder extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.name,
                   ),
-
                   const Text('choose Table'),
-                  Text('Items:  ${_itemCount}x'),
-                  Text('Total Cost:  $_totalCost  NOK'),
+                  FutureBuilder(
+                      future: _tables,
+                      builder: (context,
+                          AsyncSnapshot<List<CustomerTable>> snapshotTables) {
+                        if (snapshotTables.hasError) {
+                          final error = snapshotTables.error;
+                          return Text('$error');
+                        } else if (snapshotTables.connectionState ==
+                                ConnectionState.done &&
+                            snapshotTables.data != null) {
+                          return TablesDropdownButton(
+                              snapshotTables.data!, selectedTable, setState);
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      },),
+                  Text('Items:  ${widget._itemCount}x'),
+                  Text('Total Cost:  ${widget._totalCost}  NOK'),
                 ],
               ),
             )
@@ -56,11 +94,52 @@ class SubmitOrder extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20.0),
         child: FloatingActionButton.extended(
           label: const Text('submit'),
-          onPressed: () {print(_firstnameController.text);},
+          onPressed: () {
+            print(_firstnameController.text);
+          },
           backgroundColor: Theme.of(context).hintColor,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+class TablesDropdownButton extends StatelessWidget {
+  final List<CustomerTable> _tables;
+  CustomerTable? _selectedTable;
+  final StateSetter setState;
+
+  TablesDropdownButton(this._tables, this._selectedTable, this.setState,
+      {Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      items: _tables.map((table) => DropdownMenuItem(
+        value: table,
+        child: Text(table.id.toString()),
+      ),
+      ).toList(),
+      // <DropdownMenuItem<CustomerTable>>[
+      //   DropdownMenuItem(
+      //     value: _tables[0],
+      //     child: Text(_tables[0].id.toString()),
+      //   ),
+      //   DropdownMenuItem(
+      //     value: _tables[1],
+      //     child: Text(_tables[1].id.toString()),
+      //   ),
+      // ],
+      onChanged: (CustomerTable? table) {
+        setState(() {
+          _selectedTable = table;
+          print(_selectedTable!.id.toString());
+        });
+      },
+      value: _selectedTable,
+      underline: const SizedBox(),
     );
   }
 }
