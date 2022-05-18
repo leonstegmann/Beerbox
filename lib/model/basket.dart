@@ -3,7 +3,7 @@ import 'package:beerbox/model/item.dart';
 class Basket {
   static final Basket instance = Basket._init();
 
-  final Map<Item, int> itemsInCart = {};
+  Map<Item, int> itemsInCart = {};
 
   Basket._init();
 
@@ -36,5 +36,19 @@ class Basket {
       _itemCounter = _itemCounter + i;
     }
     return _itemCounter;
+  }
+
+  List<Item> map2List(){
+    List<Item> _items = [];
+    for (Item _item in itemsInCart.keys){
+      for (var i = 1 ; i <= itemsInCart[_item]!; i++ ){
+        _items.add(_item);
+      }
+    }
+  return _items;
+  }
+
+  void cleanBasket(){
+    itemsInCart = {};
   }
 }

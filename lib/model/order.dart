@@ -16,7 +16,7 @@ class Order extends DbObject<Order> {
   final CustomerTable table;
   final List<Item> items;
 
-  Order(int id, this.timestamp, this.customer, this.table, this.items) : super(id);
+  Order(int? id, this.timestamp, this.customer, this.table, this.items) : super(id);
 
   @override
   factory Order.fromJson(Map<String, dynamic> json) => Order(

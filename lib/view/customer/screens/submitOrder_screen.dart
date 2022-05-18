@@ -1,5 +1,11 @@
+import 'package:beerbox/control/order_provider.dart';
 import 'package:beerbox/control/table_provider.dart';
+import 'package:beerbox/model/basket.dart';
+import 'package:beerbox/model/customer.dart';
+import 'package:beerbox/model/item.dart';
+import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
+import 'package:beerbox/view/customer/screens/basket_screen.dart';
 import 'package:flutter/material.dart';
 
 class SubmitOrder extends StatelessWidget {
@@ -15,12 +21,24 @@ class SubmitOrder extends StatelessWidget {
     return result;
   }
 
+  void refreshSelectedTable(CustomerTable newTable) {
+    selectedTable = newTable;
+  }
+
   @override
   Widget build(BuildContext context) {
     TextEditingController _firstnameController = TextEditingController();
     TextEditingController _lastnameController = TextEditingController();
     return Scaffold(
-      appBar: AppBar(title: const Text('Submit Order')),
+      appBar: AppBar(
+        title: const Text('Submit Order'),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartWidget()),
+                )),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -68,8 +86,8 @@ class SubmitOrder extends StatelessWidget {
                           } else if (snapshotTables.connectionState ==
                                   ConnectionState.done &&
                               snapshotTables.data != null) {
-                            return TablesDropdownButton(
-                                snapshotTables.data!, selectedTable);
+                            return TablesDropdownButton(snapshotTables.data!,
+                                selectedTable, refreshSelectedTable);
                           } else {
                             return const Center(
                                 child: CircularProgressIndicator());
@@ -97,7 +115,7 @@ class SubmitOrder extends StatelessWidget {
                         style: TextStyle(color: Theme.of(context).hintColor),
                       ),
                       const SizedBox(width: 10),
-                      Text('${_totalCost}'),
+                      Text(_totalCost.toString()),
                       const Text(
                         '  NOK',
                         style: TextStyle(fontSize: 10),
@@ -114,7 +132,14 @@ class SubmitOrder extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20.0),
         child: FloatingActionButton.extended(
           label: const Text('submit'),
-          onPressed: () {},
+          onPressed: () {
+            processOrder(_firstnameController.text, _lastnameController.text,
+                selectedTable!);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const GoodbyeCustomer()));
+          },
           backgroundColor: Theme.of(context).hintColor,
         ),
       ),
@@ -126,8 +151,11 @@ class SubmitOrder extends StatelessWidget {
 class TablesDropdownButton extends StatefulWidget {
   final List<CustomerTable> _tables;
   CustomerTable? _selectedTable;
+  final ValueSetter<CustomerTable> refreshSelectedTable;
 
-  TablesDropdownButton(this._tables, this._selectedTable, {Key? key})
+  TablesDropdownButton(
+      this._tables, this._selectedTable, this.refreshSelectedTable,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -144,10 +172,35 @@ class _TablesDropdownButtonState extends State<TablesDropdownButton> {
                 child: Text(table.id.toString()),
               ))
           .toList(),
-      onChanged: (CustomerTable? chosenTable) =>
-          setState(() => widget._selectedTable = chosenTable),
+      onChanged: (CustomerTable? chosenTable) => setState(() {
+        widget._selectedTable = chosenTable;
+        widget.refreshSelectedTable(chosenTable!);
+      }),
       value: widget._selectedTable,
       underline: const SizedBox(),
+    );
+  }
+}
+
+void processOrder(String firstName, String familyName, CustomerTable table) {
+  Customer _customer = Customer(1, firstName, familyName);
+  List<Item> _items = Basket.instance.map2List();
+  Order _sendingOrder = Order(null, DateTime.now(), _customer, table, _items);
+  final OrderProvider _orderProvider = OrderProvider();
+  _orderProvider.create(_sendingOrder);
+  debugPrint(_sendingOrder.formattedRepresentation());
+  Basket.instance.cleanBasket();
+}
+
+class GoodbyeCustomer extends StatelessWidget {
+  const GoodbyeCustomer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Text('Your Order will be processed!!'),
+      ],
     );
   }
 }
