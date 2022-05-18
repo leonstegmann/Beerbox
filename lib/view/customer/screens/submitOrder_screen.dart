@@ -9,6 +9,8 @@ class SubmitOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _firstnameController = TextEditingController();
+    TextEditingController _lastnameController = TextEditingController();
     return Scaffold(
       appBar: AppBar(title: const Text('Submit Order')),
       body: Padding(
@@ -24,7 +26,23 @@ class SubmitOrder extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Enter Name'),
+                  TextField(
+                    controller: _firstnameController,
+                    decoration: const InputDecoration(
+                         labelText: 'First name',
+                      border: UnderlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.name,
+                  ),
+                  TextField(
+                    controller: _lastnameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Last name',
+                      border: UnderlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.name,
+                  ),
+
                   const Text('choose Table'),
                   Text('Items:  ${_itemCount}x'),
                   Text('Total Cost:  $_totalCost  NOK'),
@@ -38,7 +56,7 @@ class SubmitOrder extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20.0),
         child: FloatingActionButton.extended(
           label: const Text('submit'),
-          onPressed: () {},
+          onPressed: () {print(_firstnameController.text);},
           backgroundColor: Theme.of(context).hintColor,
         ),
       ),
