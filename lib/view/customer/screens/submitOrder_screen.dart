@@ -25,7 +25,6 @@ class _SubmitOrderState extends State<SubmitOrder> {
 
   Future<List<CustomerTable>> getTables() async {
     List<CustomerTable> result = await widget.tableProvider.readAll();
-  //  setState(() {});
     return result;
   }
 
@@ -64,26 +63,58 @@ class _SubmitOrderState extends State<SubmitOrder> {
                     ),
                     keyboardType: TextInputType.name,
                   ),
-                  const Text('choose Table'),
-                  FutureBuilder(
-                      future: _tables,
-                      builder: (context,
-                          AsyncSnapshot<List<CustomerTable>> snapshotTables) {
-                        if (snapshotTables.hasError) {
-                          final error = snapshotTables.error;
-                          return Text('$error');
-                        } else if (snapshotTables.connectionState ==
-                                ConnectionState.done &&
-                            snapshotTables.data != null) {
-                          return TablesDropdownButton(
-                              snapshotTables.data!, selectedTable, setState);
-                        } else {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
-                      },),
-                  Text('Items:  ${widget._itemCount}x'),
-                  Text('Total Cost:  ${widget._totalCost}  NOK'),
+                  Row(
+                    children: [
+                      Text(
+                        'Table:  ',
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                      ),
+                      FutureBuilder(
+                        future: _tables,
+                        builder: (context,
+                            AsyncSnapshot<List<CustomerTable>> snapshotTables) {
+                          if (snapshotTables.hasError) {
+                            final error = snapshotTables.error;
+                            return Text('$error');
+                          } else if (snapshotTables.connectionState ==
+                                  ConnectionState.done &&
+                              snapshotTables.data != null) {
+                            return TablesDropdownButton(
+                                snapshotTables.data!, selectedTable);
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Text(
+                        'Items:  ',
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                      ),
+                      const SizedBox(width: 10),
+                      Text('${widget._itemCount} x'),
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  Row(
+                    children: [
+                      Text(
+                        'Total Cost: ',
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                      ),
+                      const SizedBox(width: 10),
+                      Text('${widget._totalCost}'),
+                      const Text(
+                        '  NOK',
+                        style: TextStyle(fontSize: 10),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             )
@@ -94,9 +125,7 @@ class _SubmitOrderState extends State<SubmitOrder> {
         padding: const EdgeInsets.only(bottom: 20.0),
         child: FloatingActionButton.extended(
           label: const Text('submit'),
-          onPressed: () {
-            print(_firstnameController.text);
-          },
+          onPressed: () {},
           backgroundColor: Theme.of(context).hintColor,
         ),
       ),
@@ -105,30 +134,30 @@ class _SubmitOrderState extends State<SubmitOrder> {
   }
 }
 
-class TablesDropdownButton extends StatelessWidget {
+class TablesDropdownButton extends StatefulWidget {
   final List<CustomerTable> _tables;
   CustomerTable? _selectedTable;
-  final StateSetter setState;
 
-  TablesDropdownButton(this._tables, this._selectedTable, this.setState,
-      {Key? key})
+  TablesDropdownButton(this._tables, this._selectedTable, {Key? key})
       : super(key: key);
 
   @override
+  State<TablesDropdownButton> createState() => _TablesDropdownButtonState();
+}
+
+class _TablesDropdownButtonState extends State<TablesDropdownButton> {
+  @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      items: _tables.map((table) => DropdownMenuItem(
-        value: table,
-        child: Text(table.id.toString()),
-      ),
-      ).toList(),
-      onChanged: (CustomerTable? value) {
-        setState(() {
-          _selectedTable = value;
-          print(_selectedTable!.id.toString());
-        });
-      },
-      value: _selectedTable,
+      items: widget._tables
+          .map((table) => DropdownMenuItem(
+                value: table,
+                child: Text(table.id.toString()),
+              ))
+          .toList(),
+      onChanged: (CustomerTable? chosenTable) =>
+          setState(() => widget._selectedTable = chosenTable),
+      value: widget._selectedTable,
       underline: const SizedBox(),
     );
   }
