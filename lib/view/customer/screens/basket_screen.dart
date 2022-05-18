@@ -17,12 +17,11 @@ class _CartWidgetState extends State<CartWidget> {
       appBar: AppBar(
         title: const Text('Basket'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () =>Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Menu()),
-          )
-        ),
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Menu()),
+                )),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

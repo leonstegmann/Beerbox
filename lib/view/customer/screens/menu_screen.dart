@@ -127,11 +127,10 @@ AppBar buildAppBar(context) {
     title: const Text('Menu'),
     leading: IconButton(
         icon: const Icon(Icons.arrow_back),
-        onPressed: () =>Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        )
-    ),
+        onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            )),
     actions: [
       InkWell(
         child: ElevatedButton(
