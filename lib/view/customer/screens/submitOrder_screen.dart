@@ -122,19 +122,9 @@ class TablesDropdownButton extends StatelessWidget {
         child: Text(table.id.toString()),
       ),
       ).toList(),
-      // <DropdownMenuItem<CustomerTable>>[
-      //   DropdownMenuItem(
-      //     value: _tables[0],
-      //     child: Text(_tables[0].id.toString()),
-      //   ),
-      //   DropdownMenuItem(
-      //     value: _tables[1],
-      //     child: Text(_tables[1].id.toString()),
-      //   ),
-      // ],
-      onChanged: (CustomerTable? table) {
+      onChanged: (CustomerTable? value) {
         setState(() {
-          _selectedTable = table;
+          _selectedTable = value;
           print(_selectedTable!.id.toString());
         });
       },
