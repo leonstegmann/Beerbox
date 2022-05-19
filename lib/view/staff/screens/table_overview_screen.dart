@@ -81,13 +81,13 @@ class _TableOverviewState extends State<TableOverview> {
 }
 
 class TableGridView extends StatelessWidget {
+  final Map<CustomerTable, List<Order>> _ordersPerTable;
+
   const TableGridView({
     Key? key,
     required Map<CustomerTable, List<Order>> ordersPerTable,
   })  : _ordersPerTable = ordersPerTable,
         super(key: key);
-
-  final Map<CustomerTable, List<Order>> _ordersPerTable;
 
   @override
   Widget build(BuildContext context) {
