@@ -52,15 +52,15 @@ class DbCrud {
   /// and using all other values to create a new entry in the [table].
   /// The [id] gets auto-generated.
   /// The new [DbObject] gets returned in the response.
-  Future<List<Map<String, Map<String, dynamic>>>> create(String table, DbObject dbObject) async {
+  Future<List<Map<String, Map<String, dynamic>>>> create(String table, DbObject dbObject, {String? view}) async {
     Map<String, dynamic> jsonMap = dbObject.toJsonMap();
-    jsonMap.remove("_id");
+    jsonMap.remove("${table}_id");
 
     String variables = jsonMap.keys.toString();
     String values = jsonMap.values.toString();
 
     return (await connection).mappedResultsQuery(
-        'INSERT INTO "$table"$variables VALUES $values RETURNING *');
+        'INSERT INTO "$table"$variables VALUES $values RETURNING * ');
   }
 
   /// Searches for a specified entry in a database [table] by [id].
@@ -78,7 +78,7 @@ class DbCrud {
   Future<List<Map<String, Map<String, dynamic>>>> update(String table, DbObject dbObject) async {
     return (await connection).mappedResultsQuery(
         'UPDATE "$table"'
-            'SET ${dbObject.toJsonMap().toString().replaceAll(':', ' =')}'
+            'SET ${dbObject.toJson()}'
             'WHERE ${table}_id = ${dbObject.id}'
             'RETURNING *');
   }

@@ -19,4 +19,12 @@ abstract class DbObject<T extends DbObject<T>> {
 
   @override
   int get hashCode => id.hashCode;
+
+  String toJson() {
+    return toJsonMap()
+        .toString()
+        .replaceAll(':', ' =')
+        .replaceAll('{', '')
+        .replaceAll('}', '');
+  }
 }
