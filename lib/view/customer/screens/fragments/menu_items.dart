@@ -1,3 +1,4 @@
+import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,9 @@ import 'package:flutter/material.dart';
 class ItemDisplay extends StatelessWidget {
   final List<Item> _itemList;
   final ItemType? itemType;
+  final StateSetter stateSetterMenuScreen;
 
-  const ItemDisplay(this._itemList, [this.itemType, Key? key])
+  const ItemDisplay(this.stateSetterMenuScreen, this._itemList, [this.itemType, Key? key])
       : super(key: key);
 
   @override
@@ -29,7 +31,8 @@ class ItemDisplay extends StatelessWidget {
               physics: const ScrollPhysics(parent: null),
               scrollDirection: Axis.vertical,
               itemCount: _itemList.length,
-              itemBuilder: (context, index) => itemCard(_itemList[index]),
+              itemBuilder: (context, index) =>
+                  itemCard(_itemList[index], stateSetterMenuScreen),
             ),
           ),
         ],
@@ -38,7 +41,7 @@ class ItemDisplay extends StatelessWidget {
   }
 }
 
-Widget itemCard(Item _item) {
+Widget itemCard(Item _item, StateSetter setState) {
   return Card(
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -52,10 +55,31 @@ Widget itemCard(Item _item) {
             children: [
               Text(_item.costs.toString()),
               const Text(' NOK'),
+              const SizedBox(width: 30),
+              AddItemButton(_item, setState),
             ],
           ),
         ],
       ),
     ),
   );
+}
+
+class AddItemButton extends StatelessWidget {
+  final Item _item;
+  final StateSetter setState;
+
+  const AddItemButton(this._item, this.setState, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      tooltip: 'ADD to basket',
+      onPressed: () {
+        Basket.instance.addItem(_item);
+        setState(() {});
+      },
+      icon: const Icon(Icons.add),
+    );
+  }
 }
