@@ -21,8 +21,8 @@ String dateTime2TimeString(DateTime time) {
       time.minute.toString().padLeft(2, '0');
 }
 
-DateTime getTimePastSince(DateTime timeSince) {
+DateTime getTimePast(DateTime dateTime) {
   return DateTime.fromMillisecondsSinceEpoch(
-      DateTime.now().difference(timeSince).inMilliseconds
+      DateTime.now().difference(dateTime).inMilliseconds
   );
 }

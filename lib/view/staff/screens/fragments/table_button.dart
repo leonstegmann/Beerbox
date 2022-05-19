@@ -114,7 +114,7 @@ class TimeSinceOldestOrder extends StatelessWidget {
     }
 
     return TimeDisplay(
-      time: getTimePastSince(Order.getOldestOrder(orders)),
+      time: getTimePast(Order.getOldestOrder(orders)),
       minuteStyle: minuteStyle,
       secondStyle: secondStyle,
     );
