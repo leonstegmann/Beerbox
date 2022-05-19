@@ -26,59 +26,61 @@ class _BasketScreenState extends State<BasketScreen> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (Basket.instance.itemsInCart.isEmpty) ...[
-                const Padding(
-                  padding: EdgeInsets.only(top: 30.0),
-                  child: Center(
-                      child: Text(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (Basket.instance.itemsInCart.isEmpty) ...[
+              const Padding(
+                padding: EdgeInsets.only(top: 30.0),
+                child: Center(
+                  child: Text(
                     'No Items!',
                     style: TextStyle(fontSize: 25),
-                  )),
-                )
-              ] else ...[
-                const Text('Chosen Items:', style: TextStyle(fontSize: 25)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0, right: 10, top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text('name'),
-                      Text('Type'),
-                      Text('Cost'),
-                      Text('Amount'),
-                    ],
                   ),
                 ),
-                BasketItemList(setState),
-                const SizedBox(height: 10),
-                Container(
-                  height: 2,
-                  color: Theme.of(context).highlightColor,
+              )
+            ] else ...[
+              const Text('Chosen Items:', style: TextStyle(fontSize: 25)),
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0, right: 10, top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    Text('name'),
+                    Text('Type'),
+                    Text('Cost'),
+                    Text('Amount'),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Flexible(child: Container()),
-                      const Flexible(child: Text('Items:')),
-                      Flexible(
-                          child: Text(
-                              '${Basket.instance.itemCounter().toString()}x')),
-                      Flexible(child: Container()),
-                      const Flexible(child: Text('Total:')),
-                      Flexible(
-                          child: Text(
-                              '${Basket.instance.totalCosts().toString()}  NOK')),
-                    ],
-                  ),
+              ),
+              BasketItemList(setState),
+              const SizedBox(height: 10),
+              Container(
+                height: 2,
+                color: Theme.of(context).highlightColor,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Flexible(child: Container()),
+                    const Flexible(child: Text('Items:')),
+                    Flexible(
+                        child: Text(
+                            '${Basket.instance.itemCounter().toString()}x')),
+                    Flexible(child: Container()),
+                    const Flexible(child: Text('Total:')),
+                    Flexible(
+                        child: Text(
+                            '${Basket.instance.totalCosts().toString()}  NOK')),
+                  ],
                 ),
-              ]
-            ]),
+              ),
+            ]
+          ],
+        ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
