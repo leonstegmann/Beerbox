@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:beerbox/control/order_provider.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/staff/screens/fragments/order_fragment.dart';
@@ -16,32 +17,57 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+
+  Stream<Future<List<Order>>>? _orderStream;
+  late StreamSubscription _sub;
+  List<Order> _orders = [];
+
+  List<Order> get orders => _orders;
+
+  Stream<Future<List<Order>>> get orderStream {
+    _orderStream ??= Stream.periodic(const Duration(seconds: 2), (int count) async {
+      if (widget.table == null) {
+        return widget._orderProvider.readAll();
+      }
+      return widget._orderProvider.getOrdersPerTable(widget.table!);
+    });
+
+    return _orderStream!;
+  }
+
+  @override
+  void initState() {
+    _sub = orderStream.listen((orders) {
+      orders.then((value) {
+        setState(() {
+          _orders = value;
+        });
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Orders')),
-      body: FutureBuilder(
-        future: getFuture(),
-        builder: (context, AsyncSnapshot<List<Order>> snapshot) {
-          if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          } else if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.data != null) {
-            return OrderDisplay(snapshot.data!);
-          } else {
+      body: Builder(
+        builder: (context) {
+          if (_orders.isEmpty) {
             return const Center(child: CircularProgressIndicator());
+          } else {
+            return OrderDisplay(_orders);
           }
         },
       ),
     );
   }
 
-  Future<List<Order>> getFuture() {
-    if (widget.table == null) {
-      return widget._orderProvider.readAll();
-    } else {
-      return widget._orderProvider.getOrdersPerTable(widget.table!);
-    }
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 }
 
