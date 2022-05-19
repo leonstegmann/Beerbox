@@ -18,7 +18,11 @@ class Order extends DbObject<Order> {
 
   Order(int id, this.timestamp, this.customer, this.table, this.items) : super(id);
 
-  Order.creat(int customerId, int tableId, List<int> itemIds)
+  Order.create(this.customer, this.table, this.items)
+      : timestamp = DateTime(0),
+        super(null);
+
+  Order.forReferencing(int customerId, int tableId, List<int> itemIds)
       : timestamp = DateTime(0),
         customer = Customer.reference(customerId),
         table = CustomerTable.reference(tableId),

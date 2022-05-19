@@ -34,7 +34,7 @@ void main() {
     final OrderProvider orderProvider = OrderProvider();
 
     test('create', () async {
-      Order orders = await orderProvider.create(Order.creat(1, 1, [1, 1, 5]));
+      Order orders = await orderProvider.create(Order.forReferencing(1, 1, [1, 1, 5]));
       print(orders.toJsonMap());
     });
 
