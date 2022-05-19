@@ -36,7 +36,7 @@ class SubmitOrder extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CartWidget()),
+                  MaterialPageRoute(builder: (context) => const BasketScreen()),
                 )),
       ),
       body: Padding(
@@ -138,7 +138,7 @@ class SubmitOrder extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const GoodbyeCustomer()));
+                    builder: (context) => const GoodbyeScreen()));
           },
           backgroundColor: Theme.of(context).hintColor,
         ),
@@ -192,15 +192,17 @@ void processOrder(String firstName, String familyName, CustomerTable table) {
   Basket.instance.cleanBasket();
 }
 
-class GoodbyeCustomer extends StatelessWidget {
-  const GoodbyeCustomer({Key? key}) : super(key: key);
+class GoodbyeScreen extends StatelessWidget {
+  const GoodbyeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text('Your Order will be processed!!'),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          const Text('Your Order will be processed!!'),
+        ],
+      ),
     );
   }
 }

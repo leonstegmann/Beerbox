@@ -73,7 +73,7 @@ class _MenuState extends State<Menu> {
           label: const Text('show basket'),
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CartWidget()),
+            MaterialPageRoute(builder: (context) => const BasketScreen()),
           ),
           backgroundColor: Theme.of(context).hintColor,
         ),
