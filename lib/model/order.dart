@@ -16,12 +16,15 @@ class Order extends DbObject<Order> {
   CustomerTable table;
   List<Item> items;
 
-  Order(int? id, this.timestamp, this.customer, this.table, this.items) : super(id);
-
-  Order.create(this.customer, this.table, this.items)
-      : timestamp = DateTime(0),
+  /// Normal Constructor with null as id as the id gets managed by the DB.
+  Order(this.customer, this.table, this.items) : timestamp = DateTime(0),
         super(null);
 
+  /// Constructor used by the database in order to provide a replica of a database entity.
+  Order._db(int id, this.timestamp, this.customer, this.table, this.items)
+      : super(id);
+
+  /// Constructor holding a reference of each connected object
   Order.forReferencing(int customerId, int tableId, List<int> itemIds)
       : timestamp = DateTime(0),
         customer = Customer.reference(customerId),
@@ -30,7 +33,7 @@ class Order extends DbObject<Order> {
         super(null);
 
   @override
-  factory Order.fromJson(Map<String, dynamic> json) => Order(
+  factory Order.fromJson(Map<String, dynamic> json) => Order._db(
       json["order_id"] as int,
       json["timestamp"] as DateTime,
       Customer.fromJson(json),

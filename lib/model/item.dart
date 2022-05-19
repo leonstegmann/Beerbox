@@ -7,15 +7,21 @@ class Item extends DbObject<Item> {
   double costs;
   ItemType itemType;
 
-  Item(int? id, this.name, this.costs, this.itemType) : super(id);
+  /// Normal Constructor with null as id as the id gets managed by the DB.
+  Item(this.name, this.costs, this.itemType) : super(null);
 
+  /// Constructor used by the database in order to provide a replica of a database entity.
+  Item._db(int? id, this.name, this.costs, this.itemType) : super(id);
+
+  /// A constructor to hold the id as reference to a database entity.
   Item.reference(int id)
       : name = "",
         costs = 0.0,
         itemType = ItemType.beer,
         super(id);
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  @override
+  factory Item.fromJson(Map<String, dynamic> json) => Item._db(
       json["item_id"] as int,
       json["name"] as String,
       json["costs"] as double,

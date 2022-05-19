@@ -7,7 +7,7 @@ void main() {
   group('customer provider', () {
 
     final CustomerProvider dp = CustomerProvider();
-    final Customer customer = Customer(null, "Dummy", "");
+    final Customer customer = Customer("Dummy", "");
 
     setUpAll(() async {
 
