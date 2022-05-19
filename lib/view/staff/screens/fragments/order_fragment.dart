@@ -35,7 +35,7 @@ class _OrderFragmentState extends State<OrderFragment> {
                 Flexible(
                   flex: 1,
                   child: Center(
-                    child: Text(widget._order.table.toString().padLeft(2, '0')),
+                    child: Text(widget._order.table.id.toString().padLeft(2, '0')),
                   ),
                 ),
                 Flexible(
