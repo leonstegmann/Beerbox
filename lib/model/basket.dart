@@ -31,10 +31,10 @@ class Basket {
   }
 
   int itemCounter() {
-    int _itemCounter = 0;
-    for (var i in itemsInCart.values) {
-      _itemCounter = _itemCounter + i;
+    int itemsCounter = 0;
+    for (var amountOfItem in itemsInCart.values) {
+      itemsCounter = itemsCounter + amountOfItem;
     }
-    return _itemCounter;
+    return itemsCounter;
   }
 }
