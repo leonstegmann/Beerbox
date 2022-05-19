@@ -11,12 +11,23 @@ class Order extends DbObject<Order> {
   final int outputLength = 30;
   final int outputIndentation = 7;
 
-  final DateTime timestamp;
-  final Customer customer;
-  final CustomerTable table;
-  final List<Item> items;
+  DateTime timestamp;
+  Customer customer;
+  CustomerTable table;
+  List<Item> items;
 
   Order(int id, this.timestamp, this.customer, this.table, this.items) : super(id);
+
+  Order.create(this.customer, this.table, this.items)
+      : timestamp = DateTime(0),
+        super(null);
+
+  Order.forReferencing(int customerId, int tableId, List<int> itemIds)
+      : timestamp = DateTime(0),
+        customer = Customer.reference(customerId),
+        table = CustomerTable.reference(tableId),
+        items = createItemReferenceList(itemIds),
+        super(null);
 
   @override
   factory Order.fromJson(Map<String, dynamic> json) => Order(
@@ -29,8 +40,8 @@ class Order extends DbObject<Order> {
   @override
   Map<String, dynamic> toJsonMap() => {
     'order_id': id,
-    'timestamp': "'${timestamp.microsecondsSinceEpoch}'",
     'customer_id': "'${customer.id}'",
+    'table_id': "'${table.id}'",
   };
 
   double getFullCosts() {
@@ -108,5 +119,14 @@ class Order extends DbObject<Order> {
     }
 
     return itemMap;
+  }
+
+  static List<Item> createItemReferenceList(List<int> ids) {
+    List<Item> items = [];
+    for (int id in ids) {
+      items.add(Item.reference(id));
+    }
+
+    return items;
   }
 }
