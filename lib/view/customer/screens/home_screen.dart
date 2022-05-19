@@ -1,4 +1,4 @@
-import 'package:beerbox/view/customer/screens/menu.dart';
+import 'package:beerbox/view/customer/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,7 +7,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(
+        title: const Text('Home'),
+        automaticallyImplyLeading: false,
+      ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
         alignment: Alignment.center,
