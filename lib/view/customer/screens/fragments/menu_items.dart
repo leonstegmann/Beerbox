@@ -2,6 +2,7 @@ import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ItemDisplay extends StatelessWidget {
   final List<Item> _itemList;
@@ -48,7 +49,13 @@ Widget itemCard(Item _item, StateSetter setState) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Icons.cake),
+           Padding(
+             padding: const EdgeInsets.symmetric(vertical: 8.0),
+             child: SvgPicture.asset(
+              'assets/categoryicons/icon_${_item.itemType.name}.svg',
+               height: 35,
+             ),
+           ),
           Text(_item.name.toString()),
           Row(
             mainAxisSize: MainAxisSize.min,

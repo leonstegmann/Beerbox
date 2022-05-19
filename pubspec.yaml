@@ -31,6 +31,7 @@ dependencies:
     sdk: flutter
   postgres: ^2.4.3
   dotenv: ^4.0.1
+  flutter_svg: ^1.0.3
   #tuple: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
@@ -63,7 +64,7 @@ flutter:
   assets:
     - assets/table.png
     - .env_postgresql
-  #   - images/a_dot_ham.jpeg
+    - assets/categoryicons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
