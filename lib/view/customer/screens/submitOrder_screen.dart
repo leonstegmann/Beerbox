@@ -1,3 +1,4 @@
+import 'package:beerbox/control/customer_provider.dart';
 import 'package:beerbox/control/order_provider.dart';
 import 'package:beerbox/control/table_provider.dart';
 import 'package:beerbox/model/basket.dart';
@@ -6,6 +7,7 @@ import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
 import 'package:beerbox/view/customer/screens/basket_screen.dart';
+import 'package:beerbox/view/customer/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SubmitOrder extends StatelessWidget {
@@ -13,6 +15,8 @@ class SubmitOrder extends StatelessWidget {
   final double _totalCost;
   final TableProvider tableProvider = TableProvider();
   CustomerTable? selectedTable;
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _lastnameController = TextEditingController();
 
   SubmitOrder(this._totalCost, this._itemCount, {Key? key}) : super(key: key);
 
@@ -27,8 +31,6 @@ class SubmitOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _firstnameController = TextEditingController();
-    TextEditingController _lastnameController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Submit Order'),
@@ -182,12 +184,12 @@ class _TablesDropdownButtonState extends State<TablesDropdownButton> {
   }
 }
 
-void processOrder(String firstName, String familyName, CustomerTable table) {
-  Customer _customer = Customer(1, firstName, familyName);
+void processOrder(String firstName, String familyName, CustomerTable table) async {
+
+  Customer _newCustomer = await CustomerProvider().create(Customer(firstName, familyName));
   List<Item> _items = Basket.instance.map2List();
-  Order _sendingOrder = Order(null, DateTime.now(), _customer, table, _items);
-  final OrderProvider _orderProvider = OrderProvider();
-  _orderProvider.create(_sendingOrder);
+  Order _sendingOrder = await OrderProvider().create(Order(_newCustomer, table, _items));
+
   debugPrint(_sendingOrder.formattedRepresentation());
   Basket.instance.cleanBasket();
 }
@@ -197,12 +199,32 @@ class GoodbyeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          const Text('Your Order will be processed!!'),
-        ],
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(100.0),
+        child: Center(
+          child: Column(
+            children: [
+              const Text('Your Order will be processed!!'),
+
+            ],
+          ),
+        ),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 20.0),
+        child: FloatingActionButton.extended(
+          label: const Text('back to Menu'),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen()));
+          },
+          backgroundColor: Theme.of(context).hintColor,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

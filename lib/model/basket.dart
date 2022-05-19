@@ -38,17 +38,17 @@ class Basket {
     return itemsCounter;
   }
 
-  List<Item> map2List(){
+  List<Item> map2List() {
     List<Item> _items = [];
-    for (Item _item in itemsInCart.keys){
-      for (var i = 1 ; i <= itemsInCart[_item]!; i++ ){
+    for (Item _item in itemsInCart.keys) {
+      for (var i = 1; i <= itemsInCart[_item]!; i++) {
         _items.add(_item);
       }
     }
-  return _items;
+    return _items;
   }
 
-  void cleanBasket(){
+  void cleanBasket() {
     itemsInCart = {};
   }
 }
