@@ -2,10 +2,12 @@ import 'package:beerbox/model/db_object.dart';
 
 class Customer extends DbObject<Customer> {
 
-  final String firstName;
-  final String familyName;
+  String firstName;
+  String familyName;
 
   Customer(int? id, this.firstName, this.familyName) : super(id);
+
+  Customer.reference(int id) : firstName = "", familyName = "", super(id);
 
   @override
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
