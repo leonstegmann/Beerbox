@@ -58,7 +58,7 @@ class _CategoriesState extends State<Categories> {
           child: CategoryButtonContent(
               selectedIndex == index,
               SvgPicture.asset(
-                'assets/ItemType_icons/icon_${_type.name}.svg',
+                'assets/categoryicons/icon_${_type.name}.svg',
                 height: 45,
               ),
               _type.toString().split('.').last),
@@ -70,10 +70,10 @@ class _CategoriesState extends State<Categories> {
 
 class CategoryButtonContent extends StatelessWidget {
   final bool _highlighted;
-  final Widget _iconData;
+  final SvgPicture _categoryIcon;
   final String _text;
 
-  const CategoryButtonContent(this._highlighted, this._iconData, this._text,
+  const CategoryButtonContent(this._highlighted, this._categoryIcon, this._text,
       {Key? key})
       : super(key: key);
 
@@ -85,7 +85,7 @@ class CategoryButtonContent extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 2.0),
-          child: _iconData,
+          child: _categoryIcon,
         ),
         const SizedBox(width: 8),
         Text(_text, style: TextStyle(fontSize: 20, color: _color)),

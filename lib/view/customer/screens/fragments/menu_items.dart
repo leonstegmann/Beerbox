@@ -49,7 +49,7 @@ Widget itemCard(Item _item) {
            Padding(
              padding: const EdgeInsets.symmetric(vertical: 8.0),
              child: SvgPicture.asset(
-              'assets/ItemType_icons/icon_${_item.itemType.name}.svg',
+              'assets/categoryicons/icon_${_item.itemType.name}.svg',
                height: 35,
              ),
            ),
