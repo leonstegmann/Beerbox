@@ -15,4 +15,13 @@ abstract class CustomTheme {
       hintColor: Colors.orange,
     );
   }
+
+  static List<Color> trafficLight = [
+    Colors.lightGreen,
+    Colors.lightGreenAccent,
+    Colors.yellow,
+    Colors.orangeAccent,
+    Colors.deepOrangeAccent,
+    Colors.redAccent
+  ];
 }

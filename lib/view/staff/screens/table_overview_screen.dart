@@ -17,7 +17,7 @@ class TableOverview extends StatefulWidget {
 
 class _TableOverviewState extends State<TableOverview> {
   final Stream<Future<Map<CustomerTable, List<Order>>>> _ordersPerTableStream =
-      Stream.periodic(const Duration(seconds: 3), (int count) async {
+      Stream.periodic(const Duration(seconds: 1), (int count) async {
     return await TableOverview._orderProvider
         .getOrdersPerTableMap(useAllTables: true);
   });
