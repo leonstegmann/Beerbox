@@ -32,15 +32,7 @@ class SubmitOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Submit Order'),
-        leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const BasketScreen()),
-                )),
-      ),
+      appBar: buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -48,105 +40,115 @@ class SubmitOrder extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Submit Order', style: TextStyle(fontSize: 25)),
-            Padding(
-              padding: const EdgeInsets.only(left: 5.0, right: 10, top: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextField(
-                    controller: _firstnameController,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(color: Theme.of(context).hintColor),
-                      labelText: 'First name',
-                      border: const UnderlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.name,
-                  ),
-                  TextField(
-                    controller: _lastnameController,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(color: Theme.of(context).hintColor),
-                      labelText: 'Last name',
-                      border: const UnderlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.name,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Table:  ',
-                        style: TextStyle(color: Theme.of(context).hintColor),
-                      ),
-                      FutureBuilder(
-                        future: getTables(),
-                        builder: (context,
-                            AsyncSnapshot<List<CustomerTable>> snapshotTables) {
-                          if (snapshotTables.hasError) {
-                            final error = snapshotTables.error;
-                            return Text('$error');
-                          } else if (snapshotTables.connectionState ==
-                                  ConnectionState.done &&
-                              snapshotTables.data != null) {
-                            return TablesDropdownButton(snapshotTables.data!,
-                                selectedTable, refreshSelectedTable);
-                          } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      Text(
-                        'Items:  ',
-                        style: TextStyle(color: Theme.of(context).hintColor),
-                      ),
-                      const SizedBox(width: 10),
-                      Text('${_itemCount} x'),
-                    ],
-                  ),
-                  const SizedBox(height: 25),
-                  Row(
-                    children: [
-                      Text(
-                        'Total Cost: ',
-                        style: TextStyle(color: Theme.of(context).hintColor),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(_totalCost.toString()),
-                      const Text(
-                        '  NOK',
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ],
-                  ),
-                ],
+            const Text('Submit Order', style: TextStyle(fontSize: 35)),
+            SizedBox(height: 10),
+            TextField(
+              controller: _firstnameController,
+              decoration: InputDecoration(
+                hintStyle: TextStyle(color: Theme.of(context).hintColor),
+                labelText: 'First name',
+                border: const UnderlineInputBorder(),
               ),
-            )
+              keyboardType: TextInputType.name,
+            ),
+            TextField(
+              controller: _lastnameController,
+              decoration: InputDecoration(
+                hintStyle: TextStyle(color: Theme.of(context).hintColor),
+                labelText: 'Last name',
+                border: const UnderlineInputBorder(),
+              ),
+              keyboardType: TextInputType.name,
+            ),
+            Row(
+              children: [
+                Text(
+                  'Table:  ',
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
+                buildFutureBuilder(),
+              ],
+            ),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                Text(
+                  'Items:  ',
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
+                const SizedBox(width: 10),
+                Text('${_itemCount} x'),
+              ],
+            ),
+            const SizedBox(height: 25),
+            Row(
+              children: [
+                Text(
+                  'Total Cost: ',
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
+                const SizedBox(width: 10),
+                Text(_totalCost.toString()),
+                const Text(
+                  '  NOK',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
           ],
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
-        child: FloatingActionButton.extended(
-          label: const Text('submit'),
-          onPressed: () {
-            processOrder(_firstnameController.text, _lastnameController.text,
-                selectedTable!);
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  (route) => false,
-            );
-          },
-          backgroundColor: Theme.of(context).hintColor,
-        ),
-      ),
+      floatingActionButton: buildFloatingActionButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  FutureBuilder<List<CustomerTable>> buildFutureBuilder() {
+    return FutureBuilder(
+      future: getTables(),
+      builder: (context, AsyncSnapshot<List<CustomerTable>> snapshotTables) {
+        if (snapshotTables.hasError) {
+          final error = snapshotTables.error;
+          return Text('$error');
+        } else if (snapshotTables.connectionState == ConnectionState.done &&
+            snapshotTables.data != null) {
+          return TablesDropdownButton(
+              snapshotTables.data!, selectedTable, refreshSelectedTable);
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  Padding buildFloatingActionButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: FloatingActionButton.extended(
+        label: const Text('submit'),
+        onPressed: () {
+          processOrder(_firstnameController.text, _lastnameController.text,
+              selectedTable!);
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            (route) => false,
+          );
+        },
+        backgroundColor: Theme.of(context).hintColor,
+      ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      title: const Text('Submit Order'),
+      leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BasketScreen()),
+              )),
     );
   }
 }
