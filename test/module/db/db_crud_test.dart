@@ -7,7 +7,7 @@ void main() {
   group('customer crud', () {
 
     final DbCrud db = DbCrud.instance;
-    final Customer customer = Customer(null, "Dummy", "");
+    final Customer customer = Customer("Dummy", "");
     const String table = "customer_test_crud";
 
     setUpAll(() async {

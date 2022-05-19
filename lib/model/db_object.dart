@@ -8,6 +8,7 @@ abstract class DbObject<T extends DbObject<T>> {
     throw UnimplementedError(); // Override!
   }
 
+  /// Uses the variables to provide a map with each variable.
   Map<String, dynamic> toJsonMap();
 
   @override
