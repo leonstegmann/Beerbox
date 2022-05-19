@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class ItemDisplay extends StatelessWidget {
   final List<Item> _itemList;
   final ItemType? itemType;
-  final StateSetter setState;
+  final StateSetter stateSetterMenuScreen;
 
-  const ItemDisplay(this.setState, this._itemList, [this.itemType, Key? key])
+  const ItemDisplay(this.stateSetterMenuScreen, this._itemList, [this.itemType, Key? key])
       : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class ItemDisplay extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemCount: _itemList.length,
               itemBuilder: (context, index) =>
-                  itemCard(_itemList[index], setState),
+                  itemCard(_itemList[index], stateSetterMenuScreen),
             ),
           ),
         ],
