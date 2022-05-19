@@ -3,11 +3,17 @@ import 'package:beerbox/model/item_type.dart';
 
 class Item extends DbObject<Item> {
 
-  final String name;
-  final double costs;
-  final ItemType itemType;
+  String name;
+  double costs;
+  ItemType itemType;
 
   Item(int? id, this.name, this.costs, this.itemType) : super(id);
+
+  Item.reference(int id)
+      : name = "",
+        costs = 0.0,
+        itemType = ItemType.beer,
+        super(id);
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
       json["item_id"] as int,
@@ -22,4 +28,8 @@ class Item extends DbObject<Item> {
     'costs': "'$name'",
     'itemType_id': "'${itemType.index}'",
   };
+
+  static bool jsonContainsItem(Map<String, dynamic> json) {
+    return json["item_id"] != null;
+  }
 }
