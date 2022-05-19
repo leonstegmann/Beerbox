@@ -20,7 +20,11 @@ class OrderProvider extends DataProvider<Order> {
   @override
   Future<Order> create(Order dbObject) async {
     List<Map<String, Map<String, dynamic>>> response = await dbCrud.create(tableName, dbObject);
-    return read(response.first[tableName]!["order_id"]);
+
+    int orderId = response.first[tableName]!["order_id"];
+    await createOrderedItems(orderId, dbObject.items);
+
+    return read(orderId);
   }
 
   @override
@@ -93,5 +97,23 @@ class OrderProvider extends DataProvider<Order> {
   Future<List<Order>> getOrdersPerTable(CustomerTable table) async {
     Map<CustomerTable, List<Order>> ordersPerTable = await getOrdersPerTableMap();
     return ordersPerTable.containsKey(table) ? ordersPerTable[table]! : [];
+  }
+
+  Future createOrderedItems(int id, List<Item> items) async {
+
+    if (items.isEmpty) return;
+
+    StringBuffer sb = StringBuffer('INSERT INTO "ordered_item"(order_id, item_id) VALUES ');
+    for (int i = 0; items.length > i; i++) {
+
+      sb.write('($id, ${items[i].id})');
+      if ((items.length - 1) == i) {
+        sb.writeln(';');
+      } else {
+        sb.writeln(',');
+      }
+    }
+
+    return (await dbCrud.connection).mappedResultsQuery(sb.toString());
   }
 }
