@@ -137,10 +137,11 @@ class SubmitOrder extends StatelessWidget {
           onPressed: () {
             processOrder(_firstnameController.text, _lastnameController.text,
                 selectedTable!);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const GoodbyeScreen()));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  (route) => false,
+            );
           },
           backgroundColor: Theme.of(context).hintColor,
         ),
@@ -184,47 +185,14 @@ class _TablesDropdownButtonState extends State<TablesDropdownButton> {
   }
 }
 
-void processOrder(String firstName, String familyName, CustomerTable table) async {
-
-  Customer _newCustomer = await CustomerProvider().create(Customer(firstName, familyName));
+void processOrder(
+    String firstName, String familyName, CustomerTable table) async {
+  Customer _newCustomer =
+      await CustomerProvider().create(Customer(firstName, familyName));
   List<Item> _items = Basket.instance.map2List();
-  Order _sendingOrder = await OrderProvider().create(Order(_newCustomer, table, _items));
+  Order _sendingOrder =
+      await OrderProvider().create(Order(_newCustomer, table, _items));
 
   debugPrint(_sendingOrder.formattedRepresentation());
   Basket.instance.cleanBasket();
-}
-
-class GoodbyeScreen extends StatelessWidget {
-  const GoodbyeScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(100.0),
-        child: Center(
-          child: Column(
-            children: [
-              const Text('Your Order will be processed!!'),
-
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
-        child: FloatingActionButton.extended(
-          label: const Text('back to Menu'),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const HomeScreen()));
-          },
-          backgroundColor: Theme.of(context).hintColor,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
 }
