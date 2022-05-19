@@ -27,10 +27,10 @@ abstract class DataProvider<T> {
   Future<List<T>> readAll();
 
   /// Adjusts the database entry with the same id as the [DbObject.id].
-  Future<T> update(T dbObject);
+  update(T dbObject);
 
   /// Removes the database entry with the given [id] from the specialized [table].
-  Future<T> delete(int id);
+  delete(int id);
 }
 
 class DbEntryNotFoundException implements Exception {

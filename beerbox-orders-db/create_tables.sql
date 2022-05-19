@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS "table" CASCADE;
 DROP TABLE IF EXISTS "item" CASCADE;
 DROP TABLE IF EXISTS "customer" CASCADE;
 
+DROP VIEW IF EXISTS "joined_order";
+
 
 CREATE TABLE "customer"(
     customer_id SERIAL UNIQUE PRIMARY KEY NOT NULL,
@@ -35,7 +37,7 @@ CREATE TABLE "ordered_item"(
 
 CREATE VIEW "joined_order" AS
 SELECT *
-FROM "ordered_item" as oi
-         JOIN "item" USING(item_id)
-         JOIN "order" o USING(order_id)
-         JOIN "customer" c USING(customer_id);
+FROM "order" as o
+    LEFT JOIN "ordered_item" oi USING(order_id)
+    LEFT JOIN "item" USING(item_id)
+    LEFT JOIN "customer" c USING(customer_id);

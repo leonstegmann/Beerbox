@@ -62,7 +62,7 @@ class _OrderFragmentState extends State<OrderFragment> {
                 Flexible(
                   flex: 2,
                   child: Center(
-                    child: Text(dateTime2TimeString(widget._order.timestamp)),
+                    child: Text(dateTime2TimeString(widget._order.timestamp!)),
                   ),
                 ),
                 Flexible(
