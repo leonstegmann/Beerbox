@@ -4,14 +4,14 @@ import 'package:beerbox/view/customer/screens/menu_screen.dart';
 import 'package:beerbox/view/customer/screens/submitOrder_screen.dart';
 import 'package:flutter/material.dart';
 
-class CartWidget extends StatefulWidget {
-  const CartWidget({Key? key}) : super(key: key);
+class BasketScreen extends StatefulWidget {
+  const BasketScreen({Key? key}) : super(key: key);
 
   @override
-  State<CartWidget> createState() => _CartWidgetState();
+  State<BasketScreen> createState() => _BasketScreenState();
 }
 
-class _CartWidgetState extends State<CartWidget> {
+class _BasketScreenState extends State<BasketScreen> {
   @override
   Widget build(BuildContext context) {
     int _itemCount = Basket.instance.itemCounter();
@@ -29,45 +29,47 @@ class _CartWidgetState extends State<CartWidget> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (Basket.instance.itemsInCart.isEmpty) ...[
-                const Padding(
-                  padding: EdgeInsets.only(top: 30.0),
-                  child: Center(
-                      child: Text(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (Basket.instance.itemsInCart.isEmpty) ...[
+              const Padding(
+                padding: EdgeInsets.only(top: 30.0),
+                child: Center(
+                  child: Text(
                     'No Items!',
                     style: TextStyle(fontSize: 25),
-                  )),
-                )
-              ] else ...[
-                const Text('Chosen Items:', style: TextStyle(fontSize: 25)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0, right: 10, top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text('name'),
-                      Text('Type'),
-                      Text('Cost'),
-                      Text('Amount'),
-                    ],
                   ),
                 ),
-                BasketItemList(setState),
-                const SizedBox(height: 10),
-                Container(
-                  height: 2,
-                  color: Theme.of(context).highlightColor,
+              )
+            ] else ...[
+              const Text('Chosen Items:', style: TextStyle(fontSize: 25)),
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0, right: 10, top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    Text('name'),
+                    Text('Type'),
+                    Text('Cost'),
+                    Text('Amount'),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: DisplayItemsAndTotalCost(_totalCost,_itemCount),
+              ),
+              BasketItemList(setState),
+              const SizedBox(height: 10),
+              Container(
+                height: 2,
+                color: Theme.of(context).highlightColor,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: DisplayItemsAndTotalCost(_totalCost,_itemCount),
                 ),
               ]
-            ]),
+            ],
+        ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),

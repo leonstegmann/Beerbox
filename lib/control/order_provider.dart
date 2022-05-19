@@ -1,4 +1,5 @@
 import 'package:beerbox/control/data_provider.dart';
+import 'package:beerbox/control/table_provider.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
@@ -7,13 +8,19 @@ import 'package:beerbox/model/table.dart';
 class OrderProvider extends DataProvider<Order> {
 
   final String view = "joined_order";
+  TableProvider? _tableProvider;
 
   OrderProvider () : super('order');
+
+  TableProvider get tableProvider {
+    _tableProvider ??= TableProvider();
+    return _tableProvider!;
+  }
 
   @override
   Future<Order> create(Order dbObject) async {
     List<Map<String, Map<String, dynamic>>> response = await dbCrud.create(tableName, dbObject);
-    return Order.fromJson(response.first[tableName]!);
+    return read(response.first[tableName]!["order_id"]);
   }
 
   @override
@@ -25,7 +32,10 @@ class OrderProvider extends DataProvider<Order> {
 
     Order order = Order.fromJson(response.first[""]!);
     for (Map<String, Map<String, dynamic>> entry in response) {
-      order.items.add(Item.fromJson(entry[""]!));
+      Map<String, dynamic> itemJson = entry[""]!;
+      if (Item.jsonContainsItem(itemJson)) {
+        order.items.add(Item.fromJson(itemJson));
+      }
     }
 
     return order;
@@ -44,28 +54,34 @@ class OrderProvider extends DataProvider<Order> {
         orders[order.id!] = order;
       }
 
-      orders[order.id]!.items.add(Item.fromJson(entryJson));
+      if (Item.jsonContainsItem(entryJson)) {
+        orders[order.id]!.items.add(Item.fromJson(entryJson));
+      }
     }
 
     return orders.values.toList();
   }
 
   @override
-  Future<Order> update(Order dbObject) async {
-    List<Map<String, Map<String, dynamic>>> response = await dbCrud.update(tableName, dbObject);
-    return Order.fromJson(response.first[tableName]!);
+  void update(Order dbObject) async {
+    dbCrud.update(tableName, dbObject);
   }
 
   @override
-  Future<Order> delete(int id) async {
-    List<Map<String, Map<String, dynamic>>> response = await dbCrud.delete(tableName, id);
-    return Order.fromJson(response.first[tableName]!);
+  void delete(int id) async {
+    dbCrud.delete(tableName, id);
   }
 
-  Future<Map<CustomerTable, List<Order>>> getOrdersPerTableMap() async {
+  Future<Map<CustomerTable, List<Order>>> getOrdersPerTableMap({bool useAllTables = false}) async {
     List<Order> orders = await readAll();
 
     Map<CustomerTable, List<Order>> ordersPerTable = {};
+    if (useAllTables) {
+      for (CustomerTable table in await tableProvider.readAll()) {
+        ordersPerTable[table] = [];
+      }
+    }
+
     for (Order order in orders) {
       ordersPerTable.putIfAbsent(order.table, () => []);
       ordersPerTable[order.table]!.add(order);

@@ -148,7 +148,7 @@ AppBar buildAppBar(context) {
                       borderRadius: BorderRadius.circular(18.0)))),
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CartWidget()),
+            MaterialPageRoute(builder: (context) => const BasketScreen()),
           ),
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),
