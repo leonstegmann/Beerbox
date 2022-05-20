@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: FloatingActionButton.extended(
-          label: const Text('Order'),
+          label: const Text('Menu'),
           onPressed: () =>
               Navigator.push(
                 context,
