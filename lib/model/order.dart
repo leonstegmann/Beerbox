@@ -8,7 +8,7 @@ import 'package:beerbox/utils/string_utils.dart';
 
 class Order extends DbObject<Order> {
 
-  final int outputLength = 30;
+  final int outputLength = 40;
   final int outputIndentation = 7;
 
   DateTime timestamp;
@@ -64,12 +64,11 @@ class Order extends DbObject<Order> {
   String formattedRepresentation() {
 
     StringBuffer stringBuffer = StringBuffer();
-    stringBuffer.writeln("--- Order $id ------------------");
+    stringBuffer.writeln("--- Order $id ---------------------------");
     stringBuffer.writeln("time: ${dateTime2TimeString(timestamp)}");
     stringBuffer.writeln("from: ${customer.firstName} ${customer.familyName}");
     writeItemsToStringBuffer(stringBuffer);
     stringBuffer.writeln("costs: ${getOrderCosts()} NOK");
-    stringBuffer.writeln();
 
     return stringBuffer.toString();
   }

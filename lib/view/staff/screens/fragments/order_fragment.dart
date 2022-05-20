@@ -70,7 +70,7 @@ class _OrderFragmentState extends State<OrderFragment> {
                 Flexible(
                   child: IconButton(
                     onPressed: () {
-                      debugPrint(widget._order.toString());
+                      debugPrint(widget._order.formattedRepresentation());
                       widget._orderProvider.update((widget._order));
                     },
                     icon: Icon(
