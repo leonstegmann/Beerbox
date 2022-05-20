@@ -52,7 +52,7 @@ class _TableOverviewState extends State<TableOverview> {
                 context,
                 MaterialPageRoute(builder: (context) => OrdersScreen()),
               ),
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_forward,
                 size: 26.0,
               ),
