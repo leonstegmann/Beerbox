@@ -67,12 +67,12 @@ class OrderProvider extends DataProvider<Order> {
   }
 
   @override
-  void update(Order dbObject) async {
+  Future update(Order dbObject) async {
     dbCrud.update(tableName, dbObject);
   }
 
   @override
-  void delete(int id) async {
+  Future delete(int id) async {
     dbCrud.delete(tableName, id);
   }
 

@@ -26,6 +26,7 @@ CREATE TABLE "order"(
     customer_id INT NOT NULL,
     table_id INT NOT NULL,
     timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    printed BOOLEAN DEFAULT FALSE NOT NULL ,
     FOREIGN KEY(customer_id) REFERENCES "customer"(customer_id) ON DELETE SET NULL,
     FOREIGN KEY(table_id) REFERENCES "table"(table_id) ON DELETE SET NULL);
 

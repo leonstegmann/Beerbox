@@ -15,13 +15,14 @@ class Order extends DbObject<Order> {
   Customer customer;
   CustomerTable table;
   List<Item> items;
+  bool printed;
 
   /// Normal Constructor with null as id as the id gets managed by the DB.
-  Order(this.customer, this.table, this.items) : timestamp = DateTime(0),
+  Order(this.customer, this.table, this.items, [this.printed = false]) : timestamp = DateTime(0),
         super(null);
 
   /// Constructor used by the database in order to provide a replica of a database entity.
-  Order._db(int id, this.timestamp, this.customer, this.table, this.items)
+  Order._db(int id, this.timestamp, this.customer, this.table, this.items, this.printed)
       : super(id);
 
   /// Constructor holding a reference of each connected object
@@ -30,6 +31,7 @@ class Order extends DbObject<Order> {
         customer = Customer.reference(customerId),
         table = CustomerTable.reference(tableId),
         items = createItemReferenceList(itemIds),
+        printed = false,
         super(null);
 
   @override
@@ -38,13 +40,15 @@ class Order extends DbObject<Order> {
       json["timestamp"] as DateTime,
       Customer.fromJson(json),
       CustomerTable.fromJson(json),
-      []);
+      [],
+      json["printed"] as bool);
 
   @override
   Map<String, dynamic> toJsonMap() => {
     'order_id': id,
     'customer_id': "'${customer.id}'",
     'table_id': "'${table.id}'",
+    'printed': "'$printed'",
   };
 
   double getFullCosts() {

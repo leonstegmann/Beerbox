@@ -39,7 +39,7 @@ void main() {
     });
 
     test('read', () async {
-      Order order = await orderProvider.read(26);
+      Order order = await orderProvider.read(12);
       print(order.toJsonMap());
     });
 
@@ -59,7 +59,7 @@ void main() {
     });
     
     test('update', () async {
-      Order order = await orderProvider.read(28);
+      Order order = await orderProvider.read(13);
       order.customer = Customer.reference(3);
       orderProvider.update(order);
       Order updatedOrder = await orderProvider.read(order.id!);
@@ -68,6 +68,20 @@ void main() {
 
     test('delete', () async {
       orderProvider.delete(36);
+    });
+  });
+
+  group('print', () {
+    final OrderProvider orderProvider = OrderProvider();
+
+    test('printed order', () async {
+      Order order = await orderProvider.read(3);
+      expect(order.printed, false);
+      order.printed = true;
+      await orderProvider.update(order);
+
+      Order updatedOrder = await orderProvider.read(order.id!);
+      expect(updatedOrder.printed, true);
     });
   });
 

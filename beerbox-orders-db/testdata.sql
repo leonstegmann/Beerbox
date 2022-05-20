@@ -1,19 +1,3 @@
--- CUSTOMER
-INSERT INTO "customer"(firstname, familyname) VALUES ('Elias', 'Dancemaster');
-INSERT INTO "customer"(firstname, familyname) VALUES ('Ole', 'der Hüne');
-INSERT INTO "customer"(firstname, familyname) VALUES ('Sindre', 'Discusdude');
-INSERT INTO "customer"(firstname, familyname) VALUES ('Leon', 'Stegosaurus');
-INSERT INTO "customer"(firstname, familyname) VALUES ('Thomas', 'Snoozedaddy');
-INSERT INTO "customer"(firstname, familyname) VALUES ('Hannes', 'Hotzenplotz');
-INSERT INTO "customer"(firstname, familyname) VALUES ('A', 'a');
-INSERT INTO "customer"(firstname, familyname) VALUES ('B', 'b');
-INSERT INTO "customer"(firstname, familyname) VALUES ('C', 'c');
-INSERT INTO "customer"(firstname, familyname) VALUES ('D', 'd');
-INSERT INTO "customer"(firstname, familyname) VALUES ('E', 'e');
-INSERT INTO "customer"(firstname, familyname) VALUES ('F', 'f');
-INSERT INTO "customer"(firstname, familyname) VALUES ('G', 'g');
-INSERT INTO "customer"(firstname, familyname) VALUES ('H', 'h');
-
 -- TABLE
 DO $$
     DECLARE i INT :=0;
@@ -40,6 +24,22 @@ INSERT INTO "item"(itemtype_id, name, costs) VALUES (2, 'Tequilla', 50.0);      
 INSERT INTO "item"(itemtype_id, name, costs) VALUES (3, 'Salzstange', 120.0);           -- 10
 INSERT INTO "item"(itemtype_id, name, costs) VALUES (3, 'Eichelkäse', 90.0);            -- 11
 INSERT INTO "item"(itemtype_id, name, costs) VALUES (3, 'me ;3', 65.0);                 -- 12
+
+-- CUSTOMER
+INSERT INTO "customer"(firstname, familyname) VALUES ('Elias', 'Dancemaster');
+INSERT INTO "customer"(firstname, familyname) VALUES ('Ole', 'der Hüne');
+INSERT INTO "customer"(firstname, familyname) VALUES ('Sindre', 'Discusdude');
+INSERT INTO "customer"(firstname, familyname) VALUES ('Leon', 'Stegosaurus');
+INSERT INTO "customer"(firstname, familyname) VALUES ('Thomas', 'Snoozedaddy');
+INSERT INTO "customer"(firstname, familyname) VALUES ('Hannes', 'Hotzenplotz');
+INSERT INTO "customer"(firstname, familyname) VALUES ('A', 'a');
+INSERT INTO "customer"(firstname, familyname) VALUES ('B', 'b');
+INSERT INTO "customer"(firstname, familyname) VALUES ('C', 'c');
+INSERT INTO "customer"(firstname, familyname) VALUES ('D', 'd');
+INSERT INTO "customer"(firstname, familyname) VALUES ('E', 'e');
+INSERT INTO "customer"(firstname, familyname) VALUES ('F', 'f');
+INSERT INTO "customer"(firstname, familyname) VALUES ('G', 'g');
+INSERT INTO "customer"(firstname, familyname) VALUES ('H', 'h');
 
 -- ORDER
 -- Table 4
