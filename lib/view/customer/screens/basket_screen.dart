@@ -1,6 +1,7 @@
 import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/view/customer/screens/menu_screen.dart';
+import 'package:beerbox/view/customer/screens/submit_order_screen.dart';
 import 'package:flutter/material.dart';
 
 class BasketScreen extends StatefulWidget {
@@ -13,6 +14,8 @@ class BasketScreen extends StatefulWidget {
 class _BasketScreenState extends State<BasketScreen> {
   @override
   Widget build(BuildContext context) {
+    int _itemCount = Basket.instance.itemCounter();
+    double _totalCost = Basket.instance.totalCosts();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Basket'),
@@ -62,21 +65,7 @@ class _BasketScreenState extends State<BasketScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(child: Container()),
-                    const Flexible(child: Text('Items:')),
-                    Flexible(
-                        child: Text(
-                            '${Basket.instance.itemCounter().toString()}x')),
-                    Flexible(child: Container()),
-                    const Flexible(child: Text('Total:')),
-                    Flexible(
-                        child: Text(
-                            '${Basket.instance.totalCosts().toString()}  NOK')),
-                  ],
-                ),
+                child: DisplayItemsAndTotalCost(_totalCost, _itemCount),
               ),
             ]
           ],
@@ -85,8 +74,12 @@ class _BasketScreenState extends State<BasketScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: FloatingActionButton.extended(
-          label: const Text('proceed to payment'),
-          onPressed: () {},
+          label: const Text('proceed'),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SubmitOrder(_totalCost, _itemCount)),
+          ),
           backgroundColor: Theme.of(context).hintColor,
         ),
       ),
@@ -166,6 +159,29 @@ class BasketItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class DisplayItemsAndTotalCost extends StatelessWidget {
+  final int _itemCount;
+  final double _totalCost;
+
+  const DisplayItemsAndTotalCost(this._totalCost, this._itemCount, {Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Flexible(child: Container()),
+        const Flexible(child: Text('Items:')),
+        Flexible(child: Text('${_itemCount.toString()}x')),
+        Flexible(child: Container()),
+        const Flexible(child: Text('Total:')),
+        Flexible(child: Text('${_totalCost.toString()}  NOK')),
+      ],
     );
   }
 }
