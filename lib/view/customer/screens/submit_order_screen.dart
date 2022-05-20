@@ -144,11 +144,12 @@ class SubmitOrder extends StatelessWidget {
     return AppBar(
       title: const Text('Submit Order'),
       leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BasketScreen()),
-              )),
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BasketScreen()),
+        ),
+      ),
     );
   }
 }

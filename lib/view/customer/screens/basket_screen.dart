@@ -1,7 +1,7 @@
 import 'package:beerbox/model/basket.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/view/customer/screens/menu_screen.dart';
-import 'package:beerbox/view/customer/screens/submitOrder_screen.dart';
+import 'package:beerbox/view/customer/screens/submit_order_screen.dart';
 import 'package:flutter/material.dart';
 
 class BasketScreen extends StatefulWidget {
