@@ -41,7 +41,7 @@ class SubmitOrder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Submit Order', style: TextStyle(fontSize: 35)),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: _firstnameController,
               decoration: InputDecoration(
@@ -121,7 +121,7 @@ class SubmitOrder extends StatelessWidget {
     );
   }
 
-  Padding buildFloatingActionButton(BuildContext context) {
+  Widget buildFloatingActionButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: FloatingActionButton.extended(
@@ -130,14 +130,8 @@ class SubmitOrder extends StatelessWidget {
           if (checkOrderCompleteness(_firstnameController.text, _lastnameController.text,
               selectedTable,context)){
             processOrder(_firstnameController.text, _lastnameController.text,
-                selectedTable!);
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  (route) => false,
-            );
+                selectedTable!,context);
           }
-
         },
         backgroundColor: Theme.of(context).hintColor,
       ),
@@ -192,14 +186,22 @@ class _TablesDropdownButtonState extends State<TablesDropdownButton> {
 }
 
 void processOrder(
-    String firstName, String familyName, CustomerTable table) async {
+    String firstName, String familyName, CustomerTable table, context) async {
   Customer _newCustomer =
       await CustomerProvider().create(Customer(firstName, familyName));
   List<Item> _items = Basket.instance.map2List();
   Order _sendingOrder =
       await OrderProvider().create(Order(_newCustomer, table, _items));
-
   Basket.instance.cleanBasket();
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => const HomeScreen()),
+        (route) => false,
+  );
+  ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+    content:  Text("Your order has been submitted! Ordernumber ${_sendingOrder.id}"),
+    duration: const Duration(seconds: 5),
+  ));
 }
 
 bool checkOrderCompleteness( String firstName, String familyName, CustomerTable? table,context){
