@@ -57,7 +57,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           if (_orders.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            return OrderDisplay(_orders);
+            return OrderDisplay(sortOrders(_orders));
           }
         },
       ),
@@ -132,4 +132,15 @@ class OrderProperty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(flex: flex, child: Center(child: Text(text)));
   }
+}
+
+List<Order> sortOrders(List<Order> sortedOrderList){
+  sortedOrderList.sort((a, b) {
+    if(b.printed) {
+      return 1;
+    }
+    return -1;
+  });
+
+  return sortedOrderList;
 }
