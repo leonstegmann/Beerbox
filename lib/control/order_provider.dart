@@ -76,7 +76,10 @@ class OrderProvider extends DataProvider<Order> {
     dbCrud.delete(tableName, id);
   }
 
-  Future<Map<CustomerTable, List<Order>>> getOrdersPerTableMap({bool useAllTables = false}) async {
+  Future<Map<CustomerTable, List<Order>>> getOrdersPerTableMap({
+    bool useAllTables = false,
+    bool ignorePrinted = false}) async {
+
     List<Order> orders = await readAll();
 
     Map<CustomerTable, List<Order>> ordersPerTable = {};
@@ -88,7 +91,9 @@ class OrderProvider extends DataProvider<Order> {
 
     for (Order order in orders) {
       ordersPerTable.putIfAbsent(order.table, () => []);
-      ordersPerTable[order.table]!.add(order);
+      if (!(ignorePrinted && order.printed)) {
+        ordersPerTable[order.table]!.add(order);
+      }
     }
 
     return ordersPerTable;

@@ -19,7 +19,7 @@ class _TableOverviewState extends State<TableOverview> {
   final Stream<Future<Map<CustomerTable, List<Order>>>> _ordersPerTableStream =
       Stream.periodic(const Duration(seconds: 1), (int count) async {
     return await TableOverview._orderProvider
-        .getOrdersPerTableMap(useAllTables: true);
+        .getOrdersPerTableMap(useAllTables: true, ignorePrinted: true);
   });
 
   late StreamSubscription _sub;
