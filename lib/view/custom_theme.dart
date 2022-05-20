@@ -13,6 +13,7 @@ abstract class CustomTheme {
       highlightColor: Colors.grey[200],
       disabledColor: Colors.grey[500],
       hintColor: Colors.orange,
+      shadowColor: Colors.grey[800],
     );
   }
 
