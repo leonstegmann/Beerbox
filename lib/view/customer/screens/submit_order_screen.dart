@@ -127,7 +127,10 @@ class SubmitOrder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: FloatingActionButton.extended(
-        label: const Text('submit'),
+        label: Text(
+          'submit',
+          style: Theme.of(context).textTheme.headline6,
+        ),
         onPressed: () {
           if (checkOrderCompleteness(_firstnameController.text,
               _lastnameController.text, selectedTable, context)) {

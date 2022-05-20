@@ -74,7 +74,10 @@ class _BasketScreenState extends State<BasketScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: FloatingActionButton.extended(
-          label: const Text('proceed'),
+          label: Text(
+            'proceed',
+            style: Theme.of(context).textTheme.headline6,
+          ),
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
