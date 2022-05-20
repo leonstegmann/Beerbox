@@ -44,6 +44,7 @@ class SubmitOrder extends StatelessWidget {
             const SizedBox(height: 10),
             TextField(
               controller: _firstnameController,
+              maxLength: 32,
               decoration: InputDecoration(
                 hintStyle: TextStyle(color: Theme.of(context).hintColor),
                 labelText: 'First name',
@@ -53,6 +54,7 @@ class SubmitOrder extends StatelessWidget {
             ),
             TextField(
               controller: _lastnameController,
+              maxLength: 32,
               decoration: InputDecoration(
                 hintStyle: TextStyle(color: Theme.of(context).hintColor),
                 labelText: 'Last name',
