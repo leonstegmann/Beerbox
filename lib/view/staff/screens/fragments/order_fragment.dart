@@ -1,3 +1,4 @@
+import 'package:beerbox/control/order_provider.dart';
 import 'package:beerbox/view/staff/screens/fragments/extended_order_fragment.dart';
 import 'package:beerbox/utils/time_utils.dart';
 import 'package:beerbox/model/order.dart';
@@ -6,8 +7,9 @@ import 'package:flutter/material.dart';
 /// Visualisation of order objects.
 class OrderFragment extends StatefulWidget {
   final Order _order; //Tuple of <Order, TableNumber>
+  final OrderProvider _orderProvider = OrderProvider();
 
-  const OrderFragment(this._order, {Key? key}) : super(key: key);
+  OrderFragment(this._order, {Key? key}) : super(key: key);
 
   @override
   State<OrderFragment> createState() => _OrderFragmentState();
@@ -67,8 +69,10 @@ class _OrderFragmentState extends State<OrderFragment> {
                 ),
                 Flexible(
                   child: IconButton(
-                    onPressed: () =>
-                        debugPrint(widget._order.formattedRepresentation()),
+                    onPressed: () {
+                      debugPrint(widget._order.toString());
+                      widget._orderProvider.update((widget._order));
+                    },
                     icon: Icon(
                       Icons.print,
                       color: Theme.of(context).iconTheme.color,
