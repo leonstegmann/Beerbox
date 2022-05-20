@@ -55,7 +55,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
       body: Builder(
         builder: (context) {
           if (_orders.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
+            return Container(
+              alignment: Alignment.center,
+              child: Text(
+                "No orders to display for the moment.",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            );
           } else {
             return OrderDisplay(sortOrders(_orders));
           }
