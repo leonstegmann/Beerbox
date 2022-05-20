@@ -2,7 +2,7 @@
 DO $$
     DECLARE i INT :=0;
     BEGIN
-        WHILE (SELECT (count(*) < 14) FROM "table") LOOP
+        WHILE (SELECT (count(*) < 10) FROM "table") LOOP
                 INSERT INTO "table" DEFAULT VALUES;
                 i := i + 1;
             END LOOP;
@@ -95,7 +95,7 @@ INSERT INTO "ordered_item"(order_id, item_id) VALUES (13, 1);
 
 
 -- Table 14
-INSERT INTO "order"(customer_id, table_id) VALUES (14, 13);
+INSERT INTO "order"(customer_id, table_id) VALUES (14, 9);
 INSERT INTO "ordered_item"(order_id, item_id) VALUES (14, 8);
 INSERT INTO "ordered_item"(order_id, item_id) VALUES (14, 4);
 INSERT INTO "ordered_item"(order_id, item_id) VALUES (14, 3);
