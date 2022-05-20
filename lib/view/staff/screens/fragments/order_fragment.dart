@@ -1,5 +1,5 @@
 import 'package:beerbox/view/staff/screens/fragments/extended_order_fragment.dart';
-import 'package:beerbox/utils/format_time_to_string.dart';
+import 'package:beerbox/utils/time_utils.dart';
 import 'package:beerbox/model/order.dart';
 import 'package:flutter/material.dart';
 
