@@ -22,6 +22,7 @@ class _TableButtonState extends State<TableButton> {
   //Constructor
   @override
   Widget build(BuildContext context) {
+    int orderLength = widget._currentOrdersPerTable.length;
     return SizedBox(
       height: 200,
       width: 200,
@@ -62,13 +63,16 @@ class _TableButtonState extends State<TableButton> {
                         ),
                         Material(
                           borderRadius: BorderRadius.circular(400),
-                          color: Theme.of(context).hintColor,
+                          color: orderLength == 0 ? Theme.of(context).disabledColor : Theme.of(context).hintColor,
                           child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Text(
-                              ' ${widget._currentOrdersPerTable.length}',
-                              style: const TextStyle(fontSize: 18),
+                            width: 25,
+                            height: 25,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                orderLength.toString(),
+                                style: const TextStyle(fontSize: 18),
+                              ),
                             ),
                           ),
                         ),
