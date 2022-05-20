@@ -47,14 +47,12 @@ class _TableOverviewState extends State<TableOverview> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 30.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => OrdersScreen()),
-                );
-              },
-              child: const Icon(
+            child: IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OrdersScreen()),
+              ),
+              icon: const Icon(
                 Icons.arrow_forward,
                 size: 26.0,
               ),
@@ -105,14 +103,12 @@ class TableGridView extends StatelessWidget {
         itemBuilder: (context, index) {
           int tableIndex = index ~/ 2; // integer division
           if (fill == false) {
-
             fill = true;
             return TableButton(
               _ordersPerTable.keys.elementAt(tableIndex),
               _ordersPerTable.values.elementAt(tableIndex),
             );
           } else {
-
             fill = false;
             --index;
             return const SizedBox(width: 50);
