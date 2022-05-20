@@ -1,5 +1,7 @@
 import 'package:beerbox/model/order.dart';
 import 'package:beerbox/model/table.dart';
+import 'package:beerbox/utils/time_utils.dart';
+import 'package:beerbox/view/staff/screens/fragments/time_display.dart';
 import 'package:beerbox/view/staff/screens/orders_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +9,9 @@ import 'package:flutter/material.dart';
 class TableButton extends StatefulWidget {
   // final is necesarry as it is a Stateless Widget which cant change
   final CustomerTable table;
-  final List<Order> _actualOrdersPerTable;
+  final List<Order> _currentOrdersPerTable;
 
-  const TableButton(this.table, this._actualOrdersPerTable, {Key? key})
+  const TableButton(this.table, this._currentOrdersPerTable, {Key? key})
       : super(key: key);
 
   @override
@@ -50,6 +52,7 @@ class _TableButtonState extends State<TableButton> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    TimeSinceOldestOrder(orders: widget._currentOrdersPerTable),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -64,7 +67,7 @@ class _TableButtonState extends State<TableButton> {
                             width: 20,
                             height: 20,
                             child: Text(
-                              ' ${widget._actualOrdersPerTable.length}',
+                              ' ${widget._currentOrdersPerTable.length}',
                               style: const TextStyle(fontSize: 18),
                             ),
                           ),
@@ -79,6 +82,10 @@ class _TableButtonState extends State<TableButton> {
                       'TableNr: ${widget.table.id}',
                       style: const TextStyle(fontSize: 10),
                     ),
+                    const SizedBox(
+                      width: 0,
+                      height: 15,
+                    ),
                   ],
                 ),
               ],
@@ -86,6 +93,30 @@ class _TableButtonState extends State<TableButton> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TimeSinceOldestOrder extends StatelessWidget {
+
+  final List<Order> orders;
+
+  final TextStyle minuteStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+  final TextStyle secondStyle = const TextStyle(fontSize: 12);
+
+  const TimeSinceOldestOrder({Key? key, required this.orders}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    if (orders.isEmpty) {
+      return const Text("", style: TextStyle());
+    }
+
+    return TimeDisplay(
+      time: getTimePast(Order.getOldestOrder(orders)),
+      minuteStyle: minuteStyle,
+      secondStyle: secondStyle,
     );
   }
 }

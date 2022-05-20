@@ -3,7 +3,7 @@ import 'package:beerbox/model/db_object.dart';
 import 'package:beerbox/model/item.dart';
 import 'package:beerbox/model/item_type.dart';
 import 'package:beerbox/model/table.dart';
-import 'package:beerbox/utils/format_time_to_string.dart';
+import 'package:beerbox/utils/time_utils.dart';
 import 'package:beerbox/utils/string_utils.dart';
 
 class Order extends DbObject<Order> {
@@ -131,5 +131,15 @@ class Order extends DbObject<Order> {
     }
 
     return items;
+  }
+
+  static DateTime getOldestOrder(List<Order> orders) {
+
+    DateTime oldestTime = DateTime.now();
+    for (Order order in orders) {
+      if (oldestTime.isAfter(order.timestamp)) oldestTime = order.timestamp;
+    }
+
+    return oldestTime;
   }
 }
