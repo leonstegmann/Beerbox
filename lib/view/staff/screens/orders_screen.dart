@@ -25,7 +25,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   List<Order> get orders => _orders;
 
   Stream<Future<List<Order>>> get orderStream {
-    _orderStream ??= Stream.periodic(const Duration(seconds: 2), (int count) async {
+    _orderStream ??= Stream.periodic(const Duration(seconds: 1), (int count) async {
       if (widget.table == null) {
         return widget._orderProvider.readAll();
       }
@@ -55,9 +55,15 @@ class _OrdersScreenState extends State<OrdersScreen> {
       body: Builder(
         builder: (context) {
           if (_orders.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
+            return Container(
+              alignment: Alignment.center,
+              child: Text(
+                "No orders to display for the moment.",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            );
           } else {
-            return OrderDisplay(_orders);
+            return OrderDisplay(sortOrders(_orders));
           }
         },
       ),
@@ -132,4 +138,21 @@ class OrderProperty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(flex: flex, child: Center(child: Text(text)));
   }
+}
+
+List<Order> sortOrders(List<Order> sortedOrderList){
+  sortedOrderList.sort((order1, order2) => order1.timestamp.isBefore(order2.timestamp) ? 1 : -1);
+  sortedOrderList.sort((order1, order2) {
+    if(order1.printed == order2.printed) {
+      return 0;
+    }
+
+    if(order1.printed) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+
+  return sortedOrderList;
 }
