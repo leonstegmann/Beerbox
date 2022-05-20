@@ -65,10 +65,10 @@ class _BasketScreenState extends State<BasketScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: DisplayItemsAndTotalCost(_totalCost,_itemCount),
-                ),
-              ]
-            ],
+                child: DisplayItemsAndTotalCost(_totalCost, _itemCount),
+              ),
+            ]
+          ],
         ),
       ),
       floatingActionButton: Padding(
@@ -77,7 +77,8 @@ class _BasketScreenState extends State<BasketScreen> {
           label: const Text('proceed'),
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SubmitOrder(_totalCost,_itemCount)),
+            MaterialPageRoute(
+                builder: (context) => SubmitOrder(_totalCost, _itemCount)),
           ),
           backgroundColor: Theme.of(context).hintColor,
         ),
@@ -163,14 +164,14 @@ class BasketItem extends StatelessWidget {
 }
 
 class DisplayItemsAndTotalCost extends StatelessWidget {
-  final  int _itemCount;
+  final int _itemCount;
   final double _totalCost;
 
-  const DisplayItemsAndTotalCost(this._totalCost,this._itemCount,{Key? key}) : super(key: key);
+  const DisplayItemsAndTotalCost(this._totalCost, this._itemCount, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -179,8 +180,7 @@ class DisplayItemsAndTotalCost extends StatelessWidget {
         Flexible(child: Text('${_itemCount.toString()}x')),
         Flexible(child: Container()),
         const Flexible(child: Text('Total:')),
-        Flexible(
-            child: Text('${_totalCost.toString()}  NOK')),
+        Flexible(child: Text('${_totalCost.toString()}  NOK')),
       ],
     );
   }
