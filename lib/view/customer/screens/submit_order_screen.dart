@@ -198,6 +198,7 @@ void processOrder(
   List<Item> _items = Basket.instance.map2List();
   Order _sendingOrder =
       await OrderProvider().create(Order(_newCustomer, table, _items));
+
   Basket.instance.cleanBasket();
   Navigator.pushAndRemoveUntil(
     context,
@@ -208,7 +209,10 @@ void processOrder(
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(
-          "Your order has been submitted! Ordernumber ${_sendingOrder.id}"),
+        "Your order has been submitted! Ordernumber ${_sendingOrder.id}",
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
       duration: const Duration(seconds: 5),
     ),
   );
@@ -222,9 +226,15 @@ bool checkOrderCompleteness(
       Basket.instance.itemsInCart.isNotEmpty) {
     return true;
   } else {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text("Entries not complete or basket empty, please check again"),
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          "Entries not complete or basket empty, please check again",
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+      ),
+    );
     return false;
   }
 }
