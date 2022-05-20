@@ -43,7 +43,7 @@ class _TableOverviewState extends State<TableOverview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TableOverview'),
+        title: const Text('Table Overview'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 30.0),
