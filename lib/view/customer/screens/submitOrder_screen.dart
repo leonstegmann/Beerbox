@@ -129,10 +129,10 @@ class SubmitOrder extends StatelessWidget {
       child: FloatingActionButton.extended(
         label: const Text('submit'),
         onPressed: () {
-          if (checkOrderCompleteness(_firstnameController.text, _lastnameController.text,
-              selectedTable,context)){
+          if (checkOrderCompleteness(_firstnameController.text,
+              _lastnameController.text, selectedTable, context)) {
             processOrder(_firstnameController.text, _lastnameController.text,
-                selectedTable!,context);
+                selectedTable!, context);
           }
         },
         backgroundColor: Theme.of(context).hintColor,
@@ -198,20 +198,28 @@ void processOrder(
   Navigator.pushAndRemoveUntil(
     context,
     MaterialPageRoute(builder: (context) => const HomeScreen()),
-        (route) => false,
+    (route) => false,
   );
-  ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-    content:  Text("Your order has been submitted! Ordernumber ${_sendingOrder.id}"),
-    duration: const Duration(seconds: 5),
-  ));
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+          "Your order has been submitted! Ordernumber ${_sendingOrder.id}"),
+      duration: const Duration(seconds: 5),
+    ),
+  );
 }
 
-bool checkOrderCompleteness( String firstName, String familyName, CustomerTable? table,context){
-  if (firstName.isNotEmpty && familyName.isNotEmpty && table != null && Basket.instance.itemsInCart.isNotEmpty){
+bool checkOrderCompleteness(
+    String firstName, String familyName, CustomerTable? table, context) {
+  if (firstName.isNotEmpty &&
+      familyName.isNotEmpty &&
+      table != null &&
+      Basket.instance.itemsInCart.isNotEmpty) {
     return true;
-  } else{
+  } else {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content:  Text("Entries not complete or basket empty, please check again"),
+      content: Text("Entries not complete or basket empty, please check again"),
     ));
     return false;
   }
