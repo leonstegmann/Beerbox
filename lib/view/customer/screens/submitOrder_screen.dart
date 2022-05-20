@@ -127,13 +127,17 @@ class SubmitOrder extends StatelessWidget {
       child: FloatingActionButton.extended(
         label: const Text('submit'),
         onPressed: () {
-          processOrder(_firstnameController.text, _lastnameController.text,
-              selectedTable!);
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-            (route) => false,
-          );
+          if (checkOrderCompleteness(_firstnameController.text, _lastnameController.text,
+              selectedTable,context)){
+            processOrder(_firstnameController.text, _lastnameController.text,
+                selectedTable!);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  (route) => false,
+            );
+          }
+
         },
         backgroundColor: Theme.of(context).hintColor,
       ),
@@ -195,6 +199,16 @@ void processOrder(
   Order _sendingOrder =
       await OrderProvider().create(Order(_newCustomer, table, _items));
 
-  debugPrint(_sendingOrder.formattedRepresentation());
   Basket.instance.cleanBasket();
+}
+
+bool checkOrderCompleteness( String firstName, String familyName, CustomerTable? table,context){
+  if (firstName.isNotEmpty && familyName.isNotEmpty && table != null && Basket.instance.itemsInCart.isNotEmpty){
+    return true;
+  } else{
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content:  Text("Entries not complete or basket empty, please check again"),
+    ));
+    return false;
+  }
 }
