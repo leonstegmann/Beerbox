@@ -20,4 +20,14 @@ Until further information, regarding the current system, is gathered, the focus 
 
 For further specifications see the wiki in the origin repository.
 
+## How to Start
+The application has two entry points:
+- Customerside: lib/view/customer/main.dart
+- Staffside: lib/view/staff/main.dart
 
+In order to execute the main's an emulator has to get defined for execution.
+Currently, the execution is only secured in windows and android environments.
+
+It is recommended to use the IntelliJ Flutter extension for further execution and development.
+
+For further description check out the project wiki.
