@@ -3,7 +3,7 @@ import 'package:beerbox/model/item.dart';
 class Basket {
   static final Basket instance = Basket._init();
 
-  Map<Item, int> itemsInCart = {};
+  final Map<Item, int> itemsInCart = {};
 
   Basket._init();
 
@@ -49,6 +49,6 @@ class Basket {
   }
 
   void cleanBasket() {
-    itemsInCart = {};
+    itemsInCart.clear();
   }
 }
